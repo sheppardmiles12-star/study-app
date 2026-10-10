@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study Gym</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="app/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span><a class="back" href="index.html" aria-label="All classes" title="All classes">&larr;</a><b id="brand">Study Gym</b></span><span class="label" id="countdown"></span></div>
+    <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  </div>
+</header>
+<main id="main"></main>
+
+<script src="classes/index.js"></script>
+<script>
+// Loads one class: app.html?c=<id>. Order matters: content, then the engine, then optional extras.
+(function () {
+  var id = new URLSearchParams(location.search).get('c');
+  var cls = window.CLASSES.filter(function (c) { return c.id === id; })[0];
+  if (!cls) { location.replace('index.html'); return; }
+  var files = ['classes/' + id + '/content.js', 'app/engine.js'];
+  if (cls.extras) files.push('classes/' + id + '/extras.js');
+  (function next(i) {
+    if (i === files.length) { window.StudyApp.start(); return; }
+    var s = document.createElement('script');
+    s.src = files[i];
+    s.onload = function () { next(i + 1); };
+    s.onerror = function () { document.getElementById('main').innerHTML = '<div class="panel"><p>Could not load <code>' + files[i] + '</code>.</p></div>'; };
+    document.body.appendChild(s);
+  })(0);
+})();
+</script>
+</body>
+</html>

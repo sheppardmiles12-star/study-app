@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study Gym</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="app/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><b>Study Gym</b></div>
+  </div>
+</header>
+<main id="main">
+  <div class="stack"><h2>Pick a class</h2></div>
+  <div class="grid2" id="classes"></div>
+</main>
+<script src="classes/index.js"></script>
+<script>
+document.getElementById('classes').innerHTML = window.CLASSES.map(function (c) {
+  return '<a class="panel stack class-card" href="app.html?c=' + encodeURIComponent(c.id) + '"><h3>' + c.title + '</h3>' +
+    (c.subtitle ? '<p class="muted small">' + c.subtitle + '</p>' : '') + '</a>';
+}).join('');
+</script>
+</body>
+</html>
