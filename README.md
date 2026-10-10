@@ -5,8 +5,10 @@ Plain HTML and JavaScript, no build step. Progress is saved in your browser, sep
 
 ## Using it
 
-Open `index.html` in a browser and pick a class. To use it from your phone, turn on
-GitHub Pages for this repo (Settings → Pages → deploy from the `main` branch) and open the link it gives you.
+Live at **https://sheppardmiles12-star.github.io/study-app/** (GitHub Pages, deployed from this branch).
+Works on phone and laptop; add it to your home screen to use it like an app.
+
+Offline: download the repo as a ZIP and open `index.html`.
 
 ## Adding a class
 
