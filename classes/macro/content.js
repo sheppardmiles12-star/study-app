@@ -1,7 +1,7 @@
-/* Macro Exam Gym: study content for ECON macro, written from the five lecture decks.
+/* Macro Economics Study: study content for ECON macro, written from the lecture decks (Units 1-5, plus deck 9 GDP as Unit 6).
    See classes/_template/content.js for what every field means. */
 (function () {
-const UNITS = { 1: 'Introduction', 2: 'Demand', 3: 'Supply', 4: 'Equilibrium', 5: 'Inequality' };
+const UNITS = { 1: 'Introduction', 2: 'Demand', 3: 'Supply', 4: 'Equilibrium', 5: 'Inequality', 6: 'GDP' };
 
 const RAW_CARDS = [
   [1, 'Economics', 'The study of the allocation of scarce resources.'],
@@ -109,6 +109,43 @@ const RAW_CARDS = [
   [5, 'Costs of redistribution', 'Tax avoidance and weaker incentives to build and innovate.'],
   [5, 'Efficiency case for safety nets', 'They spread risk (more freedom), investing in children pays off for a lifetime, and a healthy population creates more.'],
   [5, 'John Stuart Mill (1861)', 'His 1861 book Utilitarianism laid the foundation for modern cost-benefit analysis, but he said it needs a general cultivation of nobleness of character.'],
+  // Unit 6: Gross Domestic Product (deck 9)
+  [6, 'Oikonomia', 'The Greek root of "economy": oikos (household) + nemein (management). Economics started as household management.'],
+  [6, 'Stock', 'A quantity measured at a point in time. How many tractors exist in Pullman right now. Total wealth.'],
+  [6, 'Flow', 'A quantity measured over an interval of time. How many new tractors were built last year. GDP is a flow.'],
+  [6, 'Circular flow', 'Households sell inputs (labor, capital) to firms for wages and rents. Firms sell goods and services to households, who pay for them with that income.'],
+  [6, 'Goods and services market', 'The "output market." Firms supply and households demand. Where you get all final goods.'],
+  [6, 'Input market', 'The mirror of the output market. Firms demand labor and capital, households supply them.'],
+  [6, 'Gross Domestic Product (GDP)', 'The market value of all final goods and services produced within a country in a given period.'],
+  [6, 'Who calculates U.S. GDP?', 'The Bureau of Economic Analysis (BEA). Data is released every quarter.'],
+  [6, 'Why use market prices in GDP?', 'You cannot add gallons of honey to pounds of butter. Prices turn everything into dollars, so GDP is the sum of price x quantity.'],
+  [6, 'Nonmarket goods in GDP?', 'Not included. GDP counts only things sold in a market (cooking at home or volunteering does not count).'],
+  [6, 'Why only final goods?', 'To avoid double counting. Intermediate goods are already counted inside the price of the final product.'],
+  [6, 'Intermediate good', 'A good used up in making another good, like flour in a cake or tires on a new car. Not counted separately.'],
+  [6, 'Used goods in GDP?', 'Not counted. A used car was counted when it was first produced.'],
+  [6, '"Domestic" in GDP', 'Produced within the country\'s borders, no matter who owns the factory.'],
+  [6, 'GDP time period', 'GDP is a flow, so it measures one period. The convention is the past 12 months, released every quarter.'],
+  [6, 'Expenditure approach', 'Add up every dollar spent on final goods and services: Y = C + I + G + NX.'],
+  [6, 'Y = C + I + G + NX', 'GDP = Consumption + Investment + Government purchases + Net exports (exports minus imports).'],
+  [6, 'Investment (in GDP)', 'Spending on capital goods built to help make other things, like a baker\'s oven. It is a final good because the oven never goes into the cake.'],
+  [6, 'Net exports', 'Exports minus imports. Negative for the U.S. (about -2.7% of GDP).'],
+  [6, 'Biggest component of U.S. GDP', 'Consumption, about 68% ($22.1T of $32.49T in 2026:Q2).'],
+  [6, 'Income approach', 'Add up every dollar earned: labor income (wages, salaries, compensation) + capital income (profits, interest, rents). Gross Domestic Income (GDI).'],
+  [6, 'Why does income equal spending?', 'Every dollar spent on a final good is a dollar of income for someone. So GDI should match GDP.'],
+  [6, 'Labor share of income', 'Fraction of income paid to workers. Fell from about 63.0% to 57.6% in the deck\'s chart, though economists debate the measurement.'],
+  [6, 'Four hypotheses for a falling labor share', 'Robots replacing labor, the China trade shock, declining worker bargaining power, and highly unequal capital ownership.'],
+  [6, 'Value added approach', 'Add the market value each step of production adds. Bicycle: $100 + $250 + $50 = $400, the final price.'],
+  [6, 'Value added', 'Sale price at a step minus the cost of what was bought from the step before.'],
+  [6, 'Services share of U.S. GDP', 'About 82.5%. Goods are only about 17.5%. We are a service economy.'],
+  [6, 'Limits of GDP', 'It misses nonmarket value, moral value, the shadow economy, environmental damage, and leisure.'],
+  [6, 'Market price vs value', 'Tap water has a huge consumer surplus but a low price. A classic novel is free online but very valuable. GDP counts price, not value.'],
+  [6, 'Shadow economy', 'Illegal and informal markets. Not counted in GDP, mostly because it is hard to measure.'],
+  [6, 'Why leisure matters for GDP', 'GDP counts the benefit of work (income) but not its cost (less leisure). Working more raises GDP even if life gets worse.'],
+  [6, 'Nominal GDP', 'GDP measured in today\'s prices. Rises with both more output and inflation.'],
+  [6, 'Real GDP', 'GDP measured in constant prices. Rises only when quantity rises, so it measures growth.'],
+  [6, 'Nominal growth formula', 'Growth in nominal GDP = growth in real GDP + inflation.'],
+  [6, 'Average real U.S. GDP growth', 'About 3.1% a year (1948 to 2023): 3.8% for 1948 to 1975, 2.8% for 1976 to 2023.'],
+  [6, 'Rule of 70', 'Doubling period = 70 / growth rate (in percent). At 2% growth, output doubles in 35 years.'],
 ];
 
 // Each question: correct answer first, then three wrong ones. Options are shuffled at runtime.
@@ -168,6 +205,24 @@ const RAW_QS = [
   [5, 'Which group has the highest poverty rate in the deck?', ['Not working (30.7%)', 'Full time workers (1.9%)', 'Bachelor\'s degree holders (4.3%)', 'Married couples (5.4%)'], 'Work and education are the strongest protections.'],
   [5, 'Relative poverty means...', ['being poor compared with others in your society', 'lacking food and shelter', 'having no wealth', 'earning below the median worldwide'], 'Adam Smith\'s linen shirt shows necessities depend on social custom.'],
   [5, 'What does the deck say about work ethic and inequality?', ['Hours differ only about 10% across income groups', 'The rich work twice as many hours', 'Hours explain most of the gap', 'The poor work more hours than the rich by a wide margin'], '4.4 hours out of 42.2 is about 10%, far too small to explain the income gap.'],
+  [6, 'GDP is a flow because it measures...', ['production over a period of time', 'the total wealth of a country', 'how many factories exist today', 'the money in savings accounts'], 'A flow is measured over an interval (the past 12 months). Wealth and the number of factories are stocks.'],
+  [6, 'Which of these is a stock?', ['The total value of homes in the U.S. today', 'New tractors built last year', 'This year\'s GDP', 'Your wages last month'], 'A stock is measured at a point in time. The others are measured over a period, so they are flows.'],
+  [6, 'In the circular flow, households...', ['supply labor and capital and buy goods and services', 'supply goods and services and buy labor', 'only save money', 'set the prices of inputs'], 'Households sell inputs to firms in the input market and buy final goods in the output market.'],
+  [6, 'Which is counted in this year\'s U.S. GDP?', ['A new car built in Ohio this year', 'A used car sold this year', 'Flour a bakery buys to make bread', 'Cooking dinner at home'], 'GDP counts new final goods produced in a market. Used cars were counted already, flour is intermediate, and home cooking is nonmarket.'],
+  [6, 'Why are intermediate goods left out of GDP?', ['They would be double counted', 'They are too hard to measure', 'They are made abroad', 'They are not sold in markets'], 'Their value is already inside the price of the final good. When you buy a car you also buy its tires and steel.'],
+  [6, 'A bakery buys a new oven. In GDP this is...', ['investment', 'an intermediate good, so not counted', 'consumption', 'government purchases'], 'The oven does not go into the cake and customers never buy it. It is a capital good built to help make other things: investment.'],
+  [6, 'GDP is $32.49T. C = $22.1T, I = $5.7T, NX = -$0.9T. What is G?', ['$5.5T', '$4.6T', '$6.4T', '$10.3T'], 'Y = C + I + G + NX, so G = 32.49 - 22.1 - 5.7 + 0.9 = about $5.5T.'],
+  [6, 'The largest part of U.S. GDP by spending is...', ['consumption', 'investment', 'government purchases', 'net exports'], 'Consumption is about 68% of GDP.'],
+  [6, 'U.S. net exports are negative. That means...', ['the U.S. imports more than it exports', 'the U.S. exports more than it imports', 'GDP is falling', 'the government runs a deficit'], 'Net exports = exports minus imports. Negative means imports are bigger.'],
+  [6, 'The income approach adds up...', ['labor income and capital income', 'consumption and investment', 'exports and imports', 'the value of all stocks and bonds'], 'Wages, salaries and compensation plus profits, interest and rents. That total is GDI.'],
+  [6, 'A frame sells for $100, the bike for $350 to a store, and the store sells it for $400. Value added by the store?', ['$50', '$400', '$250', '$350'], 'Value added = sale price minus what that step paid: $400 - $350 = $50. All the steps add up to $400.'],
+  [6, 'Using the value added approach, GDP from that bicycle is...', ['$400', '$850', '$100', '$50'], '$100 + $250 + $50 = $400, the same as the final price. Adding all three sale prices ($850) would double count.'],
+  [6, 'About what share of U.S. GDP is services?', ['82.5%', '50%', '17.5%', '68%'], 'Goods are only about 17.5%. The U.S. is a service economy.'],
+  [6, 'Which is NOT measured by GDP?', ['Leisure time', 'New houses', 'Haircuts', 'Government purchases'], 'GDP counts the income from work but not the leisure you give up to work.'],
+  [6, 'Why is the shadow economy left out of GDP?', ['It is very hard to measure', 'It is too small to matter', 'It is all illegal', 'It only exists in other countries'], 'Illegal and informal markets are mostly left out because they are hard to measure. In some countries they are 20 to 30% of official GDP.'],
+  [6, 'Quantity stays the same but prices rise 4%. Then...', ['nominal GDP rises and real GDP stays the same', 'real GDP rises 4%', 'both rise 4%', 'nothing changes'], 'Nominal GDP uses today\'s prices, so it rises. Real GDP uses constant prices, so it does not.'],
+  [6, 'Nominal GDP grew 5% and inflation was 2%. Real GDP grew about...', ['3%', '7%', '2.5%', '10%'], 'Nominal growth = real growth + inflation, so real growth = 5% - 2% = 3%.'],
+  [6, 'An economy grows 3.5% a year. About how long until it doubles?', ['20 years', '35 years', '3.5 years', '70 years'], 'Rule of 70: 70 / 3.5 = 20 years.'],
 ];
 
 const SCENARIOS = [
@@ -659,6 +714,107 @@ const LESSONS = {
     '**Fairness** is a separate question. Should every question be settled by cost-benefit math? The deck asks: do doctors check whether you can pay before admitting a patient to the emergency room?',
     'John Stuart Mill\'s book Utilitarianism (1861) laid the foundation for modern cost-benefit analysis. He also said it can only reach its goal through the general cultivation of nobleness of character. In other words, human virtue is necessary for human happiness.'],
     chk: ['Name two costs of redistribution and two efficiency arguments for a safety net.', 'Costs: tax avoidance and weaker incentives to build and innovate. Efficiency arguments: it spreads risk, it invests in children and education, and a healthy population creates more.'] }
+]},
+
+6: { intro: 'GDP is the number everyone uses to say how big an economy is. You will learn exactly what it counts, three ways to measure it, what it misses, and how to separate real growth from inflation.', items: [
+  { h: 'What is "the economy"?', t: [
+    'The word economy comes from the Greek **oikonomia**: oikos (household) + nemein (management). Economics began as household management.',
+    'To measure an economy you need to know one distinction first. A **stock** is measured at a point in time. A **flow** is measured over a period of time.',
+    '- Stock: how many tractors exist in Pullman today. Total wealth (savings, real estate, the "stock" market).',
+    '- Flow: how many new tractors were built last year. New production this year.',
+    '**GDP measures new stuff produced in each period, so GDP is a flow.**'],
+    ex: 'A dam holds a lake (a stock of water). The water pouring over it each second is a flow.',
+    chk: ['Is your bank balance a stock or a flow? Your paycheck?', 'Your balance is a stock (measured at a point in time). Your paycheck is a flow (earned over a period).'] },
+
+  { h: 'The circular flow', t: [
+    'The circular flow is a map of how money and goods move through the economy.',
+    '- **Households** sell inputs (labor and capital) to firms and earn **income** (wages and rents).',
+    '- **Firms** use those inputs to make goods and services and sell them to households, who pay with that income (**consumption**).',
+    'There are two markets. The **goods and services market** (the "output market") is where firms supply and households demand final goods. The **input market** is its mirror: firms demand labor and capital, households supply them.',
+    'The full picture adds three more players. The **financial** sector turns household **savings** into **loans** for firm investment. The **government** collects taxes and buys goods. The **world** buys our exports and sells us imports.'],
+    chk: ['In the input market, who is the buyer?', 'Firms. They demand labor and capital. Households are the sellers.'] },
+
+  { h: 'Defining GDP, word by word', t: [
+    '**Gross Domestic Product is the market value of all final goods and services produced within a country in a given period.** The Bureau of Economic Analysis (BEA) calculates it.',
+    '- **Market value:** GDP includes everything from honey to butter. You cannot add gallons to pounds, so use **market prices**. GDP is the sum of price x quantity for everything sold. Current U.S. GDP is about $32.5 trillion.',
+    '- **Market:** only things sold in a market count. Nonmarket goods and services (cooking at home, volunteering) are left out.',
+    '- **Final goods and services:** only the end product counts, to avoid **double counting**. Intermediate goods are counted inside the final product: when you buy a car, you also buy the tires, steel and upholstery. Used goods do not count either, because a used car was counted when it was made.',
+    '- **Domestic:** produced inside the country\'s borders, whoever owns the factory.',
+    '- **In a given period:** GDP is a flow. The convention is to measure the past 12 months. Data comes out every quarter.'],
+    tbl: { head: ['Counted in GDP?', 'Why'], rows: [['A new car made this year', 'Yes. New, final, sold in a market.'], ['A used car sold this year', 'No. Counted when it was new.'], ['Tires bought by the car maker', 'No. Intermediate, already inside the car\'s price.'], ['Mowing your own lawn', 'No. Nonmarket.'], ['A baker\'s new oven', 'Yes. Investment (a final capital good).']] },
+    exam: 'Expect "which of these is counted in GDP?" questions. Walk through the definition: is it new, final, sold in a market, and made here this period?',
+    chk: ['Why does GDP leave out intermediate goods?', 'To avoid double counting. Their value is already in the price of the final good.'] },
+
+  { h: 'Three ways to measure GDP', t: [
+    'There are three methods. They are equivalent and should give about the same answer:',
+    '- **Expenditure approach:** count every dollar spent on final goods and services.',
+    '- **Income approach:** count every dollar earned.',
+    '- **Value added approach:** count the market value each step of production adds.',
+    'They match because every dollar spent on a final good becomes a dollar of income for someone, and the value added at each step adds up to the final price.'],
+    chk: ['Name the three approaches to measuring GDP.', 'Expenditure, income, and value added.'] },
+
+  { h: 'The expenditure approach: Y = C + I + G + NX', t: [
+    'Add up all the spending in the economy, split by who does it:',
+    '- **C, consumption:** households buying goods and services.',
+    '- **I, investment:** spending on capital goods (machines, buildings, ovens) that are built to help make other things.',
+    '- **G, government purchases.**',
+    '- **NX, net exports:** exports minus imports.',
+    '**Investment vs intermediate goods.** The flour a baker buys goes into the cake, and the customer who buys the cake ends up buying that flour too. So the flour is intermediate and not counted on its own. The oven is not inside the cake and the customer never buys it. It is a final good, counted as investment.',
+    'U.S. numbers for 2026:Q2 (nominal): **$32.49T = 22.1 + 5.7 + 5.5 - 0.9**.'],
+    tbl: { head: ['Component', 'Amount', 'Share of GDP'], rows: [['Consumption (C)', '$22.1T', '68%'], ['Investment (I)', '$5.7T', '17.6%'], ['Government (G)', '$5.5T', '17.1%'], ['Net exports (NX)', '-$0.9T', '-2.7%'], ['GDP (Y)', '$32.49T', '100%']] },
+    exam: 'Know the formula cold and be ready to solve for a missing piece. Remember NX can be negative, which subtracts from GDP.',
+    chk: ['Why is the oven investment but the flour is not counted?', 'The flour goes into the cake, so it is counted in the cake\'s price. The oven is a final capital good that never goes into the cake.'] },
+
+  { h: 'The income approach and the labor share', t: [
+    'Sum up all **labor income** (annual salaries, wages and compensation) and all **capital income** (profits, interest and rents). **Labor income + capital income = total income**, which equals GDP (Y). Measured this way it is called **Gross Domestic Income (GDI)**.',
+    'U.S. 2026:Q2: **GDI = $32.24T = 16.2 (labor) + 16.2 (capital)**. Close to GDP, as it should be.',
+    'The **labor share of income** is the fraction going to workers. In the deck\'s chart it fell from about **63.0%** to **57.6%**. Economists actively debate how to measure this. Some measures show a dramatic fall, others show stability.',
+    'Hypotheses for the decline:',
+    '- **Robots** replacing labor rather than augmenting it (Acemoglu and Restrepo).',
+    '- **Large trade shocks** (the China Shock, Autor, Dorn and Hanson). Places facing import competition in manufacturing lost jobs, but more jobs were created elsewhere. For the country as a whole: a net benefit.',
+    '- **Declining worker bargaining power**, such as falling union membership (Stansbury and Summers).',
+    '- **Capital ownership is highly unequal.** The top 10% of households own over 80% of stocks (Wolff), so when capital\'s share rises, most of it goes to the top.'],
+    chk: ['What two kinds of income make up GDI?', 'Labor income (wages, salaries, compensation) and capital income (profits, interest, rents).'] },
+
+  { h: 'The value added approach', t: [
+    'At each step of production, count only the value that step adds: its sale price minus what it paid the step before. Follow a bicycle:'],
+    tbl: { head: ['Step', 'Sold for', 'Value added', 'Type of good'], rows: [['Frame maker sells frame to factory', '$100', '$100', 'Intermediate'], ['Factory sells bicycle to retailer', '$350', '$250', 'Intermediate'], ['Store sells bicycle to consumer', '$400', '$50', 'Final'], ['Total', '', '$400', '= final price']] },
+    ex: 'Adding up all the sale prices ($100 + $350 + $400 = $850) double counts the frame and the factory\'s work. Value added gives $400, exactly the final price.',
+    chk: ['A farmer sells wheat for $1, the miller sells flour for $3, the baker sells bread for $5. Value added by the baker?', '$5 - $3 = $2. Total value added = $1 + $2 + $2 = $5, the price of the bread.'] },
+
+  { h: 'We are a service economy', t: [
+    'Over history, output and jobs shifted from agriculture, to industry, to services. Today services are about **82.5%** of U.S. GDP and goods only about **17.5%**.',
+    'The biggest slices: professional services (13.8%), wholesale, retail and utilities (13.2%), real estate (12.5%), and government (11.6%). Manufacturing is about 10.9%.'],
+    chk: ['Roughly what share of U.S. output is goods?', 'About 17.5%. The rest (about 82.5%) is services.'] },
+
+  { h: 'What GDP misses', t: [
+    'Robert Kennedy (1968): GDP "measures everything, in short, except that which makes life worthwhile."',
+    '- **Market price vs moral value.** Tap water gives a huge consumer surplus but has a very low price. A classic novel (The Brothers Karamazov) is free online yet has tremendous value. GDP counts price, not value.',
+    '- **The shadow economy.** Illegal and informal markets are not counted, mostly because they are hard to measure. Across rich countries it ranges from about 7.5% of official GDP (U.S.) to over 30% (Bulgaria) (Enste 2015).',
+    '- **Environmental damage.** GDP does not measure a sunset or a frozen lake, and poorly measures clean air. Mining and pollution can raise GDP while making people worse off.',
+    '- **Leisure.** GDP includes the benefit of work (more income) but not the cost (less leisure). Working more hours raises GDP even if quality of life falls.',
+    '**No single measure tells the whole story.** GDP measures essential parts of a prosperous society but not everything. However, more productive capacity usually means we can buy what we like (healthcare, environmental protection, education, art). Productive capacity gives us the resources to pursue the things we value. Richer countries tend to have longer life expectancy, lower child mortality, fewer working hours, and higher life satisfaction (Our World in Data).'],
+    exam: 'Be able to name the things GDP leaves out: nonmarket production, the shadow economy, environmental damage, leisure, and the gap between price and value.',
+    chk: ['Why can GDP rise while people are worse off?', 'Because GDP counts more work and more extraction as gains but does not subtract lost leisure or environmental damage.'] },
+
+  { h: 'Nominal vs real GDP', t: [
+    'GDP = P x Q. Each year, the **quantity** changes (growth) and **prices** change (inflation). To see real growth, strip out the price changes.',
+    '- **Nominal GDP:** measured in today\'s prices.',
+    '- **Real GDP:** measured in constant prices.',
+    'The deck\'s example (Stevenson and Wolfers): an economy that only makes couches. Real GDP uses the same average price for both years, so only quantity changes.',
+    '[[tbl]]',
+    'Nominal grew 5%, but 2% of that was just higher prices. Real GDP grew 3%. That gives the rule: **growth in nominal GDP = growth in real GDP + inflation.**'],
+    tbl: { head: ['', 'Quantity', 'Price', 'Nominal GDP', 'Average price', 'Real GDP'], rows: [['Last year', '100 couches', '$1,500', '$150,000', '$1,515', '$151,500'], ['This year', '103 couches', '$1,530', '$157,590', '$1,515', '$156,045'], ['Growth', '+3%', '+2%', '+5%', '0%', '+3%']] },
+    chk: ['Nominal GDP grew 6% and inflation was 4%. Real growth?', '6% - 4% = 2%.'] },
+
+  { h: 'Growth rates matter', t: [
+    'Average real U.S. GDP growth: **3.1%** a year from 1948 to 2023. It was **3.8%** from 1948 to 1975 and **2.8%** from 1976 to 2023.',
+    'Small differences compound. The **Rule of 70** tells you how quickly something doubles: **doubling period = 70 / growth rate** (growth rate in percent).',
+    '- At 3.8% growth, output doubles in about 18 years.',
+    '- At 2.8%, it takes about 25 years.',
+    '- At 1%, it takes 70 years.'],
+    exam: 'Rule of 70 is a quick calculation question. Divide 70 by the percent growth rate, not by a decimal (use 2, not 0.02).',
+    chk: ['How long for GDP to double at 2% growth?', '70 / 2 = 35 years.'] }
 ]}
 };
 
@@ -729,7 +885,19 @@ const RAW_TF = [
   [5, `Wealth is a flow.`, false, `Wealth is a stock. Income is a flow.`],
   [5, `The Earned Income Tax Credit pays in cash.`, true, `It is means tested and cash.`],
   [5, `Most Americans will experience poverty at some point.`, true, `Poverty is usually not permanent for an individual.`],
-  [5, `Global inequality is rising for the first time in four centuries.`, false, `It is declining for the first time in four centuries.`]
+  [5, `Global inequality is rising for the first time in four centuries.`, false, `It is declining for the first time in four centuries.`],
+  [6, `GDP is a stock.`, false, `GDP is a flow. It measures new production over a period, usually the past 12 months.`],
+  [6, `A used car sold this year adds its full price to this year's GDP.`, false, `It was counted when it was first produced.`],
+  [6, `Flour a bakery buys to make cakes is counted separately in GDP.`, false, `It is an intermediate good, already counted in the price of the cake.`],
+  [6, `A bakery's new oven is counted in GDP as investment.`, true, `It is a final capital good that never goes into the cake.`],
+  [6, `Consumption is the largest part of U.S. GDP.`, true, `About 68%.`],
+  [6, `U.S. net exports are positive.`, false, `The U.S. imports more than it exports, so net exports are negative (about -2.7% of GDP).`],
+  [6, `The expenditure, income, and value added approaches should give about the same GDP.`, true, `Every dollar spent becomes someone's income, and the value added at each step adds up to the final price.`],
+  [6, `Goods make up most of U.S. GDP.`, false, `Services are about 82.5%. Goods are about 17.5%.`],
+  [6, `GDP counts the value of leisure time.`, false, `It counts the income from working but not the leisure given up.`],
+  [6, `If prices rise but output stays the same, real GDP rises.`, false, `Only nominal GDP rises. Real GDP uses constant prices.`],
+  [6, `Volunteering at a food bank is counted in GDP.`, false, `It is a nonmarket activity.`],
+  [6, `At 7% growth, an economy doubles in about 10 years.`, true, `Rule of 70: 70 / 7 = 10.`],
 ];
 
 // [unit, sentence with ___, accepted answers (lowercase)]
@@ -778,7 +946,16 @@ const RAW_CLOZE = [
   [5, `The philosophy of maximizing total happiness is ___.`, [`utilitarianism`]],
   [5, `Each extra dollar adds less happiness: diminishing marginal ___.`, [`utility`]],
   [5, `The ___ poverty rate leaves out transfers like food stamps.`, [`official`]],
-  [5, `Being poor compared with others in your society is ___ poverty.`, [`relative`]]
+  [5, `Being poor compared with others in your society is ___ poverty.`, [`relative`]],
+  [6, `GDP is the market value of all ___ goods and services produced within a country in a given period.`, [`final`]],
+  [6, `A quantity measured at a point in time is a ___. A quantity measured over a period is a flow.`, [`stock`]],
+  [6, `Y = C + I + G + ___`, [`nx`, `net exports`]],
+  [6, `Goods used up in making a final product are called ___ goods.`, [`intermediate`]],
+  [6, `GDP measured in constant prices is called ___ GDP.`, [`real`]],
+  [6, `Growth in nominal GDP = growth in real GDP + ___.`, [`inflation`]],
+  [6, `The Rule of 70: doubling period = 70 divided by the ___ rate.`, [`growth`]],
+  [6, `U.S. GDP is calculated by the Bureau of Economic ___.`, [`analysis`]],
+  [6, `Illegal and informal markets are called the ___ economy.`, [`shadow`, `underground`, `informal`]],
 ];
 
 // [unit, term, short definition]
@@ -836,7 +1013,17 @@ const RAW_MATCH = [
   [5, `Utilitarianism`, `Maximize total happiness`],
   [5, `Diminishing marginal utility`, `Each extra dollar adds less happiness`],
   [5, `Social insurance`, `Social Security, UI, DI, Workers' Comp, Medicare`],
-  [5, `Safety net`, `Medicaid, SNAP, Section 8, EITC, SSI`]
+  [5, `Safety net`, `Medicaid, SNAP, Section 8, EITC, SSI`],
+  [6, `Stock`, `Measured at a point in time`],
+  [6, `Flow`, `Measured over a period of time`],
+  [6, `Intermediate good`, `Used up making a final good`],
+  [6, `Investment`, `Capital goods that help make other things`],
+  [6, `Net exports`, `Exports minus imports`],
+  [6, `GDI`, `Labor income plus capital income`],
+  [6, `Value added`, `Sale price minus cost of inputs bought`],
+  [6, `Nominal GDP`, `Measured in today's prices`],
+  [6, `Real GDP`, `Measured in constant prices`],
+  [6, `Shadow economy`, `Illegal and informal markets`],
 ];
 
 // units (array), title, buckets, items [text, bucket index]
@@ -855,7 +1042,10 @@ const RAW_SORTS = [
   { u: [5], title: `Social insurance or safety net?`, b: [`Social insurance`, `Safety net`], items: [[`Social Security`, 0], [`Unemployment Insurance`, 0], [`Disability Insurance`, 0], [`Workers' Compensation`, 0], [`Medicare`, 0], [`Medicaid`, 1], [`SNAP`, 1], [`Section 8 housing`, 1], [`Earned Income Tax Credit`, 1], [`Supplemental Security Income`, 1]] },
   { u: [5], title: `Means tested or not means tested?`, b: [`Means tested`, `Not means tested`], items: [[`Social Security`, 1], [`Medicare`, 1], [`Medicaid`, 0], [`SNAP`, 0], [`Earned Income Tax Credit`, 0], [`Unemployment Insurance`, 1], [`Section 8 housing`, 0], [`Workers' Compensation`, 1]] },
   { u: [5], title: `Cash or in kind?`, b: [`Cash`, `In kind`], items: [[`Social Security`, 0], [`SNAP`, 1], [`Medicaid`, 1], [`Section 8 housing`, 1], [`Earned Income Tax Credit`, 0], [`Unemployment Insurance`, 0], [`WIC`, 1], [`Medicare`, 1]] },
-  { u: [5], title: `Progressive or regressive?`, b: [`Progressive`, `Regressive`], items: [[`Federal income tax with rising brackets`, 0], [`Sales tax`, 1], [`Social Security tax on income above the cap`, 1], [`A 37% rate on income above $626,350`, 0], [`A payroll tax that stops at an income cap`, 1]] }
+  { u: [5], title: `Progressive or regressive?`, b: [`Progressive`, `Regressive`], items: [[`Federal income tax with rising brackets`, 0], [`Sales tax`, 1], [`Social Security tax on income above the cap`, 1], [`A 37% rate on income above $626,350`, 0], [`A payroll tax that stops at an income cap`, 1]] },
+  { u: [6], title: `Counted in this year's GDP or not?`, b: [`Counted`, `Not counted`], items: [[`A new house built this year`, 0], [`A used car bought from a neighbor`, 1], [`Steel bought by a car maker`, 1], [`A haircut`, 0], [`Cleaning your own apartment`, 1], [`A new oven for a bakery`, 0], [`Selling drugs illegally`, 1], [`A new fighter jet bought by the government`, 0], [`Hours of leisure`, 1]] },
+  { u: [6], title: `Which part of GDP? (Y = C + I + G + NX)`, b: [`C`, `I`, `G`, `NX`], items: [[`A family buys groceries`, 0], [`A firm builds a new factory`, 1], [`The city pays for a new road`, 2], [`Boeing sells a plane to a French airline`, 3], [`You pay for a Netflix subscription`, 0], [`A bakery buys a new oven`, 1], [`The army buys trucks`, 2], [`Americans buy cars made in Japan`, 3]] },
+  { u: [6, 1], title: `Stock or flow?`, b: [`Stock`, `Flow`], items: [[`Your bank balance today`, 0], [`Your monthly paycheck`, 1], [`GDP`, 1], [`Total wealth`, 0], [`New tractors built last year`, 1], [`Tractors in Pullman today`, 0], [`Income`, 1]] },
 ];
 
 // Recall lists: free text typed from memory, matched by keywords. Digits match as whole numbers.
@@ -873,7 +1063,11 @@ const RAW_LISTS = [
   { u: [5], title: `The five social insurance programs`, items: [[`Social Security`, [`social security`]], [`Unemployment Insurance`, [`unemployment`]], [`Disability Insurance`, [`disability`]], [`Workers' Compensation`, [`worker`]], [`Medicare`, [`medicare`]]] },
   { u: [5], title: `The five safety net programs`, items: [[`Medicaid`, [`medicaid`]], [`SNAP (food)`, [`snap`, `food`]], [`Section 8 (housing)`, [`section 8`, `housing`]], [`Earned Income Tax Credit`, [`eitc`, `earned income`]], [`Supplemental Security Income`, [`ssi`, `supplemental`]]] },
   { u: [5], title: `Costs of redistribution`, items: [[`Tax avoidance`, [`avoid`]], [`Weaker incentives to build and innovate`, [`incentive`, `innovat`, `build`]]] },
-  { u: [5], title: `Efficiency arguments for a safety net`, items: [[`Spreads risk across society`, [`risk`]], [`Investing in children and education pays off`, [`child`, `educat`]], [`A healthy population creates more`, [`health`]]] }
+  { u: [5], title: `Efficiency arguments for a safety net`, items: [[`Spreads risk across society`, [`risk`]], [`Investing in children and education pays off`, [`child`, `educat`]], [`A healthy population creates more`, [`health`]]] },
+  { u: [6], title: `The four parts of GDP (expenditure approach)`, items: [[`Consumption`, [`consum`]], [`Investment`, [`invest`]], [`Government purchases`, [`govern`]], [`Net exports`, [`export`, `nx`]]] },
+  { u: [6], title: `Three ways to measure GDP`, items: [[`Expenditure approach`, [`expend`, `spend`]], [`Income approach`, [`income`]], [`Value added approach`, [`value`, `added`]]] },
+  { u: [6], title: `Things GDP leaves out`, items: [[`Nonmarket goods and services`, [`nonmarket`, `non-market`, `home`]], [`The shadow economy`, [`shadow`, `illegal`, `informal`]], [`Environmental damage`, [`environment`, `pollution`]], [`Leisure`, [`leisure`]], [`Moral value (price is not value)`, [`moral`, `value`]]] },
+  { u: [6], title: `Hypotheses for the falling labor share`, items: [[`Robots replacing labor`, [`robot`, `automat`]], [`Trade shocks (China Shock)`, [`trade`, `china`]], [`Declining worker bargaining power`, [`bargain`, `union`]], [`Unequal capital ownership`, [`capital`, `ownership`]]] },
 ];
 
 // Memory hooks: t (what it helps you recall), h (the hook), w (what it unpacks to), u (unit)
@@ -902,7 +1096,12 @@ const HOOKS = [
   { u: 5, t: `Safety net programs`, h: `MESS-8`, w: `**M**edicaid, **E**ITC, **S**NAP, **S**SI, Section **8** housing.` },
   { u: 5, t: `Marginal tax rates`, h: `Brackets are buckets. Each fills at its own rate.`, w: `Spilling into the next bucket does not change what is already in the first. Only the extra dollars get the higher rate.` },
   { u: 5, t: `Progressive versus regressive`, h: `Progressive: the more you earn, the bigger your share. Regressive: it hits the poor harder.`, w: `Sales and capped payroll taxes are regressive. The income tax is progressive. Overall the U.S. system is progressive.` },
-  { u: 5, t: `Diminishing marginal utility`, h: `A dollar is a feast to the poor and a crumb to the rich.`, w: `Moving $25,000 from $200k to $175k costs little happiness. Raising $20k to $45k gains a lot.` }
+  { u: 5, t: `Diminishing marginal utility`, h: `A dollar is a feast to the poor and a crumb to the rich.`, w: `Moving $25,000 from $200k to $175k costs little happiness. Raising $20k to $45k gains a lot.` },
+  { u: 6, t: `The GDP definition`, h: `Market, Final, Domestic, Period`, w: `GDP is the **market** value of all **final** goods and services produced **domestically** in a given **period**. Check each word to decide if something counts.` },
+  { u: 6, t: `Expenditure approach`, h: `Your GDP: Y = C + I + G + NX`, w: `**C**onsumption, **I**nvestment, **G**overnment purchases, **N**et e**X**ports. Read it as "Consumers, Investors, Government, the World."` },
+  { u: 6, t: `Investment vs intermediate`, h: `The flour is in the cake. The oven is not.`, w: `Anything that ends up inside the final product is intermediate (not counted separately). A capital good that helps make the product is investment.` },
+  { u: 6, t: `Nominal vs real`, h: `Nominal = Now prices. Real = Rigid prices.`, w: `Nominal GDP uses today's prices, so inflation inflates it. Real GDP holds prices fixed, so only quantity counts. Nominal growth = real growth + inflation.` },
+  { u: 6, t: `Rule of 70`, h: `70 over the rate, then wait.`, w: `Doubling time = 70 / growth rate in percent. 2% doubles in 35 years, 7% in 10.` },
 ];
 
 /* Practice Exam 1 text-only questions. [number, question, options, correct index, explanation] */
@@ -1061,7 +1260,7 @@ const GAPS = [
 
 window.COURSE = {
   id: 'macro',
-  title: 'Macro Exam Gym',
+  title: 'Macro Economics Study',
   storagePrefix: 'mxg_',
   units: UNITS,
   cards: RAW_CARDS,
@@ -1089,7 +1288,7 @@ window.COURSE = {
   tips: [
     '<b>Recall before you reread.</b> Trying to pull an answer out of your head (Write it, Recall lists, Test me below) strengthens memory more than rereading does.',
     '<b>Space it.</b> Do a short session tonight and another tomorrow morning. Go after what you missed.',
-    '<b>Mix the units.</b> Select all five units in Quiz and Practice. On the exam, nobody tells you which unit a question is from.',
+    '<b>Mix the units.</b> Select all the units in Quiz and Practice. On the exam, nobody tells you which unit a question is from.',
     '<b>Say it out loud.</b> Explain each lesson to an imaginary friend. If you get stuck, that is the gap.',
     '<b>Draw the graphs from memory.</b> Sketch the PPF and the supply and demand shifts on paper, then check them in the Shock Lab.'
   ],

@@ -4,5 +4,5 @@
    subtitle optional one-liner under the title
    extras   true if the class has an extras.js (custom tabs or lesson diagrams) */
 window.CLASSES = [
-  { id: 'macro', title: 'Macro Exam Gym', subtitle: 'Scarcity, demand, supply, equilibrium, inequality', extras: true }
+  { id: 'macro', title: 'Macro Economics Study', subtitle: 'Scarcity, demand, supply, equilibrium, inequality, GDP', extras: true }
 ];
