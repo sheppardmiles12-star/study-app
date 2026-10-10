@@ -70,15 +70,23 @@
       return '<button class="tab" data-a="tab" data-v="' + t[0] + '"' + (S.tab === t[0] ? ' aria-current="page"' : '') + '>' + t[1] + '</button>';
     }).join('');
   }
-  // C.countdown: { weekday: 0-6, label: 'Friday' } for a weekly target, or { date: 'YYYY-MM-DD', label: 'the final' }.
+  // C.countdown: { weekday: 0-6, label: 'Friday' } for a weekly target, { date: 'YYYY-MM-DD', label: 'the final' },
+  // or { dates: [{ date, label }, ...] } to count down to whichever date comes next.
+  function daysUntil(date) {
+    var now = new Date();
+    return Math.round((new Date(date + 'T00:00:00') - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5);
+  }
   function countdown() {
-    var cd = C.countdown, d;
+    var cd = C.countdown, d, label;
     if (!cd) return;
-    if (cd.date) {
-      var now = new Date(), t = new Date(cd.date + 'T00:00:00');
-      d = Math.round((t - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5);
-      if (d < 0) return;
-    } else d = (cd.weekday - new Date().getDay() + 7) % 7;
+    if (cd.dates || cd.date) {
+      var next = (cd.dates || [cd]).filter(function (x) { return daysUntil(x.date) >= 0; })[0];
+      if (!next) return;
+      d = daysUntil(next.date); label = next.label;
+      $('#countdown').textContent = d === 0 ? 'Today: ' + label : d + (d === 1 ? ' day' : ' days') + ' to ' + label;
+      return;
+    }
+    d = (cd.weekday - new Date().getDay() + 7) % 7;
     $('#countdown').textContent = d === 0 ? 'Exam day' : d + (d === 1 ? ' day' : ' days') + ' to ' + cd.label;
   }
 
@@ -96,7 +104,7 @@
     var weak = QS.filter(function (q) { var st = S.qstat[q.id]; return st && st.last === 0; });
     var weakHtml = weak.length ? '<p>You have <b>' + weak.length + '</b> quiz question' + (weak.length > 1 ? 's' : '') + ' you last got wrong.</p><div class="row"><button class="btn" data-a="quizweak">Drill my weak spots</button></div>' : '<p class="muted">No missed questions yet. Take a quiz and your weak spots will show up here.</p>';
     var start = TABS.filter(function (t) { return t[0] !== 'home' && t[0] !== 'learn'; }).map(function (t, i) { return '<button class="btn' + (i ? ' ghost' : '') + '" data-a="tab" data-v="' + t[0] + '">' + t[1] + '</button>'; }).join('');
-    return (plan.length ? '<div class="stack"><h2>What to do today</h2>' +
+    return (plan.length ? '<div class="stack"><h2>' + (C.planTitle || 'What to do today') + '</h2>' +
       '<div class="plan">' + plan.map(function (p) { return '<div class="' + (p[0] === day ? 'now' : '') + '"><div class="label">' + p[1] + (p[0] === day ? ' (today)' : '') + '</div><div class="small">' + p[2] + '</div></div>'; }).join('') + '</div></div>' : '<div class="stack"><h2>' + C.title + '</h2></div>') +
       '<div class="panel stack"><h3>Mastery by unit</h3>' + rows + '<p class="small muted">A card counts as mastered after two correct answers in a row.</p></div>' +
       '<div class="grid2"><div class="panel stack"><h3>Start here</h3><div class="row">' + start + '</div></div>' +
@@ -241,10 +249,19 @@
   /* ---------- shared unit picker ---------- */
   function inSel(u) { return S.sel.indexOf(u) > -1; }
   function uOk(u) { return Array.isArray(u) ? u.some(inSel) : inSel(u); }
+  // C.groups: optional quick picks, e.g. [{ label: 'Exam 1', units: [1, 2, 3, 4] }].
+  function sameSel(units) { return units.length === S.sel.length && units.every(inSel); }
   function picker() {
-    return '<div class="stack" style="gap:6px"><span class="label">' + UL + 's</span><div class="row" role="group" aria-label="Units to study">' +
+    var groups = (C.groups || []).map(function (g, i) { return '<button class="chip" data-a="ugroup" data-v="' + i + '" aria-pressed="' + sameSel(g.units) + '">' + g.label + '</button>'; }).join('');
+    var chips = '<div class="row" role="group" aria-label="Units to study">' +
       UIDS.map(function (u) { return '<button class="chip" data-a="utoggle" data-v="' + u + '" aria-pressed="' + inSel(u) + '">' + u + '. ' + UNITS[u] + '</button>'; }).join('') +
-      '<button class="chip" data-a="uall" aria-pressed="' + (S.sel.length === UIDS.length) + '">All</button></div></div>';
+      '<button class="chip" data-a="uall" aria-pressed="' + (S.sel.length === UIDS.length) + '">All</button></div>';
+    // With many units, keep the individual chips folded away behind a toggle so the content stays near the top.
+    if (UIDS.length > 8) {
+      var summary = S.sel.length === UIDS.length ? 'all' : S.sel.length === 1 ? UL.toLowerCase() + ' ' + S.sel[0] : S.sel.length + ' ' + UL.toLowerCase() + 's';
+      chips = '<div class="row"><button class="chip" data-a="upick" aria-expanded="' + !!S.pickOpen + '">' + (S.pickOpen ? 'Hide ' : 'Choose ') + UL.toLowerCase() + 's (' + summary + ')</button></div>' + (S.pickOpen ? chips : '');
+    }
+    return '<div class="stack" style="gap:6px"><span class="label">' + UL + 's</span>' + (groups ? '<div class="row" role="group" aria-label="Quick picks">' + groups + '</div>' : '') + chips + '</div>';
   }
   function resetModes() { S.cs = null; S.P = { mode: S.P ? S.P.mode : 'match' }; }
   function norm(s) { return String(s).toLowerCase().replace(/[%$.,;:!?"'()]/g, function (c) { return c === '.' ? '.' : ''; }).replace(/\s+/g, ' ').trim(); }
@@ -415,6 +432,8 @@
     var P = S.P;
     switch (a) {
       case 'utoggle': var i = S.sel.indexOf(+v); if (i > -1) { if (S.sel.length > 1) S.sel.splice(i, 1); } else S.sel.push(+v); S.sel.sort(function (a, b) { return a - b; }); store.set('sel', S.sel); resetModes(); render(); return true;
+      case 'upick': S.pickOpen = !S.pickOpen; render(); return true;
+      case 'ugroup': S.sel = C.groups[+v].units.slice(); store.set('sel', S.sel); resetModes(); render(); return true;
       case 'uall': S.sel = UIDS.slice(); store.set('sel', S.sel); resetModes(); render(); return true;
       case 'pmode': P.mode = v; render(); return true;
       case 'mnew': startMatch(); render(); return true;
@@ -587,6 +606,7 @@
   /* ---------- public API for extras.js + boot ---------- */
   window.StudyApp = {
     course: C, S: S, store: store, $: $, md: md, fmt: fmt, money: money, shuffle: shuffle, hash: hash, render: render,
+    picker: picker, inSel: inSel, unitLabel: UL,
     // ext: { tabs: [[id, label, viewFn]], viz: fn(key) -> { svg, cap } | null, click: fn(action, value, el) -> handled?, input: fn(dataI, el) -> handled? }
     register: function (ext) { EXT.push(ext); },
     start: function () {

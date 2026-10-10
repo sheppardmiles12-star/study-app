@@ -68,10 +68,18 @@ window.COURSE = {
     { u: 1, t: 'The two things', h: 'F-S', w: '**F**irst thing, **S**econd thing.' }
   ],
 
-  // Header countdown. Either a date or a weekly day (0 = Sunday ... 6 = Saturday).
-  countdown: { date: '2026-12-15', label: 'the final' },
+  // Optional quick-pick buttons above the unit chips, e.g. one per exam.
+  groups: [
+    { label: 'Exam 1', units: [1, 2] }
+  ],
 
-  // Home > "What to do today": [weekday 0-6, label, what to do]
+  // Header countdown. One date, a list of dates (counts down to the next one), or a weekly day (0 = Sunday ... 6 = Saturday).
+  countdown: { date: '2026-12-15', label: 'the final' },
+  // countdown: { dates: [{ date: '2026-10-23', label: 'Exam 2' }, { date: '2026-12-14', label: 'the final' }] },
+  // countdown: { weekday: 5, label: 'Friday' },
+
+  // Home > "What to do today": [weekday 0-6 (or -1 to never highlight), label, what to do]
+  planTitle: 'What to do today',
   plan: [],
 
   // Study tips shown under the Hooks tab.
