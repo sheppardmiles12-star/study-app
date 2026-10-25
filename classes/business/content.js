@@ -278,7 +278,7 @@ LESSONS[3] = { intro: 'The founder\'s biggest claim: if you want to get better a
     'Vanessa Van Edwards\'s core idea (from research by Dr. Susan Fiske): **charisma is a mix of warmth and competence**, and the two make up about **82%** of the impressions people form of you.',
     '- **Warmth** says: I like you, you can trust me. (Trust, likability, friendliness.)',
     '- **Competence** says: I know what I am talking about, you can rely on me. (Power, reliability, capability.)',
-    'If you only have one: **competence without warmth** makes people **suspicious** of you (they push back on your numbers, you cannot close). **Warmth without competence** makes you seem nice but not credible. **Low on both** is the danger zone.',
+    'If you only have one: **competence without warmth** makes people **suspicious** of you (they push back on your numbers, you cannot close). **Warmth without competence** makes you seem nice but not credible. **Low on both** is the danger zone: people cannot trust you or work with you. That is "the curse of very smart people," who assume their ideas will speak for themselves. Vanessa\'s example: the Ring founder on Shark Tank relied only on his ideas and numbers and did not get a deal.',
     'Most people lean one way. Typically (not always) **men lean competence, women lean warmth**. Find which side you lean toward and **train the other**. The founder leans competence, so studied warmth to balance it.',
     'Think of it like a thermostat: dial up warmth cues or competence cues depending on what you need.'],
     exam: 'Too much of any one cue backfires: constant nodding, laughing, or agreeing reads as "too warm" and costs you competence.',
@@ -484,6 +484,7 @@ LESSONS[5] = { intro: 'Communication is not only verbal. This unit covers hand g
     '- **Eye contact at the end of your sentence**: it is fine to look away while thinking, but land your point looking at them. Aim for **60 to 70%** eye contact; over 70% feels territorial.',
     '- **The lower lid flex**: slightly tightening your lower eyelids shows you are focused on them. When you **see** someone do it to you, they may be skeptical or confused, so ask: "Does that make sense? Any questions?"',
     '- **Downward inflection**: end statements going **down**. If your voice goes up at the end, a statement sounds like a question, and the listener starts scrutinizing. **Never "ask" your price.** "The cost is five thousand dollars?" invites negotiation.'],
+    ex: 'Why the upward inflection hurts: when the brain hears a statement that sounds like a question, it switches from **listening** to **scrutinizing**. In Vanessa\'s lab, people playing "two truths and a lie" tended to say their **lie** with a question inflection, as if asking "do you believe this?" Listeners pick up on it. Her book cover shows the balance: a steeple and intense eye contact (competence) with her body angled toward you and a slight smile (warmth).',
     exam: 'For sales: state your price with a downward inflection, then pause.',
     chk: ['Why is saying your price with an upward inflection a mistake?', 'It sounds like a question: you seem unsure, and you invite negotiation.'] },
 
@@ -521,6 +522,8 @@ CARDS.push(
   [5, 'Lower lid flex', 'Slightly tightened lower eyelids = focus. If they do it, check for confusion or skepticism.'],
   [5, 'Downward inflection', 'End statements going down. An upward ending sounds like a question.'],
   [5, 'Asking your price', 'An upward inflection on your price invites negotiation.'],
+  [5, 'Accidental question inflection', 'A statement that rises at the end. Makes listeners scrutinize you; liars tend to do it.'],
+  [3, 'Danger zone', 'Low warmth and low competence: people cannot trust you or work with you.'],
   [5, 'Slow nod vs fast nod', 'Slow: tell me more. Fast: hurry up, I want to talk.'],
   [5, 'Zoom framing', 'Show your torso and hands, not just a close-up of your face.'],
   [5, 'Third form of generosity', 'Energy (after money and time).']
@@ -529,6 +532,8 @@ CARDS.push(
 QS.push(
   [5, 'Where should your hand gestures mostly happen?', ['Between your belly button and your eyes', 'Below your waist', 'Above your head', 'Out of view'], 'The Power Sphere.'],
   [5, 'Which gesture signals authority?', ['Leveler (palms down)', 'Placator (palms up)', 'Computer', 'Distractor'], 'Palms down.'],
+  [5, 'When a listener hears a statement that sounds like a question, their brain switches from listening to:', ['scrutinizing', 'agreeing', 'relaxing', 'daydreaming'], 'It wonders why you asked. In Vanessa\'s lab, liars tended to "ask" their lies.'],
+  [3, 'Someone low on both warmth and competence is in the:', ['danger zone', 'trust zone', 'power zone', 'friend zone'], 'People cannot trust them or work with them.'],
   [5, 'The top-rated hand gesture leaders make, per Vanessa Van Edwards:', ['The steeple', 'Crossed arms', 'Hands in pockets', 'Pointing'], 'Keep it still.'],
   [5, 'Ideal eye contact is about:', ['60 to 70% of the conversation', '100%', '30%', '90%'], 'Over 70% feels territorial.'],
   [5, 'You state your price and your voice rises at the end. What happens?', ['It sounds like a question and invites negotiation', 'It sounds confident', 'It sounds warmer and closes faster', 'Nothing'], 'Use a downward inflection.'],
