@@ -1,7 +1,7 @@
 /* Macro Economics Study: study content for ECON macro, written from the lecture decks (Units 1-5, plus deck 9 GDP as Unit 6).
    See classes/_template/content.js for what every field means. */
 (function () {
-const UNITS = { 1: 'Introduction', 2: 'Demand', 3: 'Supply', 4: 'Equilibrium', 5: 'Inequality', 6: 'GDP' };
+const UNITS = { 1: 'Introduction', 2: 'Demand', 3: 'Supply', 4: 'Equilibrium', 5: 'Inequality', 6: 'GDP', 7: 'Growth' };
 
 const RAW_CARDS = [
   [1, 'Economics', 'The study of the allocation of scarce resources.'],
@@ -146,6 +146,35 @@ const RAW_CARDS = [
   [6, 'Nominal growth formula', 'Growth in nominal GDP = growth in real GDP + inflation.'],
   [6, 'Average real U.S. GDP growth', 'About 3.1% a year (1948 to 2023): 3.8% for 1948 to 1975, 2.8% for 1976 to 2023.'],
   [6, 'Rule of 70', 'Doubling period = 70 / growth rate (in percent). At 2% growth, output doubles in 35 years.'],
+  // Unit 7: Economic Growth (deck a7)
+  [7, 'Why economic growth matters', 'It brings prosperity in real life: better living standards, less poverty, more security, more possibilities.'],
+  [7, 'Price of light in the UK', 'The price of a lumen (a unit of light) fell enormously over the centuries, a sign of growth.'],
+  [7, '"The most important graph in human history"', 'Global average GDP per capita over the long run: flat for most of history, then a sharp rise in the last two centuries.'],
+  [7, 'Agricultural Revolution', 'Agriculture developed independently around the world, from Mesopotamia (about 9,000 BC) to eastern North America (about 2,000 BC).'],
+  [7, 'Industrial Revolution (1700s-1800s)', 'Fertilizers, machine-made textiles, the Watt steam engine, and railroads that connected markets.'],
+  [7, '20th-century growth', 'Synthetic materials, robotic automation, and the information revolution (telegraph, radio, intercontinental flight, internet).'],
+  [7, 'Robert Gordon (2016)', 'Showed how American life changed: the high school movement, affordable appliances, plumbing, electricity, central heating.'],
+  [7, 'Production function', 'Turns inputs (labor, physical capital, human capital) into output.'],
+  [7, 'Constant returns to scale', 'Double ALL the inputs and output doubles.'],
+  [7, 'Diminishing marginal product', 'Double only ONE input and output rises by less than double.'],
+  [7, 'Labor (L)', 'Hours worked. More labor raises GDP but not GDP per capita.'],
+  [7, 'Ways to get more labor', 'Population growth (births, immigration) and higher labor force participation.'],
+  [7, 'Human capital (H)', 'Skills and knowledge: literacy, education, on-the-job training.'],
+  [7, 'Physical capital (K)', 'Tools and machinery. Makes each labor hour more efficient; complements labor.'],
+  [7, 'Productivity (technological progress)', 'Doing more with the same inputs, or the same with less.'],
+  [7, 'Solow model assumptions', 'Constant returns to scale and diminishing marginal returns.'],
+  [7, 'Solow lesson 1', 'Developing countries can catch up through capital accumulation: the same investment raises their output more.'],
+  [7, 'Solow lesson 2', 'Capital accumulation alone cannot sustain long-run growth (diminishing returns: "bridges to nowhere").'],
+  [7, 'Source of most long-run growth', 'Better technology, techniques, methods, and institutions, which shift the whole curve up.'],
+  [7, 'Inclusive vs extractive institutions', 'Inclusive institutions (property rights, stability, competition) produce prosperity; extractive ones let the powerful hoard the surplus.'],
+  [7, 'Acemoglu and Robinson', 'Economists (MIT and U. Chicago) behind the inclusive vs extractive institutions argument.'],
+  [7, 'Trade and growth', 'Countries open to trade grow faster. China banned shipbuilding after Zheng He\'s voyages, leading to centuries of decline.'],
+  [7, 'Malthusian trap', 'Malthus believed finite resources doomed us to subsistence. He missed that technology would outpace population growth.'],
+  [7, 'Growth and the environment', 'More productive capacity lets us spend more on preserving the environment. The U.S. has more forest than 100 years ago.'],
+  [7, 'Asian Tigers', 'Economies that grew rapidly after World War II (the deck charts Japan, Singapore, Hong Kong, South Korea).'],
+  [7, 'Hong Kong lesson', 'Growth is never guaranteed: GDP per capita stopped growing after China took over its institutions.'],
+  [7, 'Global inequality and Solow', 'The catch-up effect was not universal; some countries grew richer and others did not.'],
+  [7, 'Dollar Street', 'Gapminder site showing how families at different incomes live. Income, not country, mostly decides living conditions.']
 ];
 
 // Each question: correct answer first, then three wrong ones. Options are shuffled at runtime.
@@ -223,6 +252,21 @@ const RAW_QS = [
   [6, 'Quantity stays the same but prices rise 4%. Then...', ['nominal GDP rises and real GDP stays the same', 'real GDP rises 4%', 'both rise 4%', 'nothing changes'], 'Nominal GDP uses today\'s prices, so it rises. Real GDP uses constant prices, so it does not.'],
   [6, 'Nominal GDP grew 5% and inflation was 2%. Real GDP grew about...', ['3%', '7%', '2.5%', '10%'], 'Nominal growth = real growth + inflation, so real growth = 5% - 2% = 3%.'],
   [6, 'An economy grows 3.5% a year. About how long until it doubles?', ['20 years', '35 years', '3.5 years', '70 years'], 'Rule of 70: 70 / 3.5 = 20 years.'],
+  [7, 'Doubling labor, physical capital, AND human capital doubles output. This is:', ['constant returns to scale', 'diminishing marginal product', 'the Malthusian trap', 'productivity growth'], 'All inputs doubled means output doubles.'],
+  [7, 'Doubling only physical capital, holding everything else fixed, raises output by:', ['less than double', 'exactly double', 'more than double', 'nothing'], 'Diminishing marginal product.'],
+  [7, 'A country grows its population through immigration. This raises:', ['GDP, but not necessarily GDP per capita', 'GDP per capita only', 'productivity directly', 'nothing'], 'More labor means more output, but also more people sharing it.'],
+  [7, 'Which is human capital?', ['On-the-job training', 'A tractor', 'Hours worked', 'A new railroad'], 'Skills and knowledge in people.'],
+  [7, 'Which is physical capital?', ['A wheel tractor scraper', 'Literacy', 'Population growth', 'Property rights'], 'Tools and machinery.'],
+  [7, 'Switching from propeller planes to jet engines is an example of:', ['productivity (technological progress)', 'more labor', 'human capital only', 'diminishing returns'], 'Doing more with the same inputs.'],
+  [7, 'In the deck\'s Solow example, $100B of investment raises output per worker from $20k to $27k in a developing country and from $40k to $46k in a wealthy one. The lesson:', ['developing countries can catch up through capital accumulation', 'wealthy countries gain more from capital', 'capital has increasing returns', 'investment never matters'], 'Same investment, bigger gain where capital is scarce.'],
+  [7, 'According to the Solow model, why can\'t capital accumulation alone sustain long-run growth?', ['Diminishing returns to capital', 'Constant returns to scale', 'Population always falls', 'Trade makes capital useless'], 'Eventually you are "building bridges to nowhere."'],
+  [7, 'Most long-run economic growth comes from:', ['better technology and institutions that shift the curve up', 'adding more capital forever', 'population growth', 'printing money'], 'More output per worker at the same capital.'],
+  [7, 'Acemoglu and Robinson argue prosperity comes from:', ['inclusive institutions', 'extractive institutions', 'closing borders to trade', 'more natural resources'], 'Extractive institutions let the powerful hoard the surplus.'],
+  [7, 'What happened after China\'s bureaucrats banned shipbuilding following Zheng He\'s voyages?', ['Centuries of economic decline', 'Rapid industrialization', 'The Agricultural Revolution', 'Nothing changed'], 'Countries open to trade grow faster.'],
+  [7, 'What did Thomas Malthus fail to predict?', ['Technological progress outpacing population growth', 'Population growth', 'Finite resources', 'Agriculture'], 'He thought we were doomed to subsistence.'],
+  [7, 'The deck\'s example of growth not lasting forever:', ['Hong Kong after China took over its institutions', 'South Korea', 'The Industrial Revolution', 'U.S. forests'], 'Institutions matter.'],
+  [7, 'The deck\'s view on growth and the environment:', ['More productive capacity lets us spend more preserving the environment', 'Growth always destroys forests', 'Growth and the environment are unrelated', 'We must stop growing to save the environment'], 'E.g., the U.S. has more forested land than 100 years ago.'],
+  [7, 'Which was part of the Industrial Revolution?', ['The Watt steam engine', 'The internet', 'Robotic automation', 'Intercontinental flight'], '1700s to 1800s.']
 ];
 
 const SCENARIOS = [
@@ -815,6 +859,79 @@ const LESSONS = {
     '- At 1%, it takes 70 years.'],
     exam: 'Rule of 70 is a quick calculation question. Divide 70 by the percent growth rate, not by a decimal (use 2, not 0.02).',
     chk: ['How long for GDP to double at 2% growth?', '70 / 2 = 35 years.'] }
+]},
+
+7: { intro: 'Economic growth is the secret to our modern prosperity. This unit covers how living standards exploded, the inputs that produce output, the Solow model, and why institutions and trade decide which countries get rich.', items: [
+  { h: 'Why care about growth?', t: [
+    '**Economic growth brings prosperity in real life**: better standards of living, less poverty, more security, more possibilities.',
+    'Two charts from the deck make the point:',
+    '- **The price of light in the UK**: the cost of a lumen (a unit of light) has fallen enormously over the centuries. Light that was a luxury is now nearly free.',
+    '- **"The most important graph in human history"**: global average GDP per capita over 2,000 years. It is almost flat for most of history, then rises steeply in the last two centuries. The deck also shows the share of the world living in extreme poverty falling over the same period.',
+    'Growth here means growth in **real GDP per capita** (Unit 6): more output per person, not just more output.'],
+    chk: ['Why does the deck focus on GDP per capita instead of total GDP?', 'Per capita growth is what raises each person\'s living standard.'] },
+
+  { h: 'How we got here: revolutions in production', t: [
+    '**Agricultural Revolution**: agriculture developed **independently** across the globe:'],
+    tbl: { head: ['Region', 'About when', 'Crops and animals'], rows: [['Mesopotamia', '9,000 BC', 'Wheat and goats'], ['China', '7,000 BC', 'Rice, millet, pigs'], ['Papua New Guinea', '6,000 BC', 'Sugar cane and bananas'], ['Mesoamerica', '4,500 BC', 'Maize and beans'], ['Peru', '3,500 BC', 'Potatoes and llamas'], ['East Africa', '3,000 BC', 'Millet, rice, sorghum, wheat'], ['Eastern North America', '2,000 BC', 'Pumpkins']] },
+    ex: '**Industrial Revolution (1700s to 1800s)**: fertilizers allowed population growth, textiles pioneered machines, the Watt steam engine, and railroads lowered transport costs and connected markets. **20th century**: synthetic materials and chemistry, robotic automation, and the information revolution (telegraph in the 19th century, radio in the 1930s, intercontinental flight in the 1950s, the internet in the 1990s). The result: urbanization, political engagement, technological progress, and the rise of the middle class.',
+    exam: 'Robert Gordon (2016) documents how this reached ordinary Americans: the **high school movement** in the first half of the 20th century, affordable **modern appliances**, and better **plumbing** (hygiene), **electricity**, and **central heating** (less fire risk).',
+    chk: ['Name two inventions of the Industrial Revolution from the deck.', 'Any two: the Watt steam engine, railroads, machine textiles, fertilizers.'] },
+
+  { h: 'The production function', t: [
+    'How does growth happen? The **production function** turns inputs into output:',
+    '- **Labor (L)**: hours worked.',
+    '- **Physical capital (K)**: tools and machinery.',
+    '- **Human capital (H)**: skills and knowledge.',
+    '- **Productivity**: how well we combine the three (technology).',
+    'Two properties:',
+    '- **Constant returns to scale**: double **all** the inputs and you double output.',
+    '- **Diminishing marginal product**: double only **one** input and output rises by **less** than double. Each extra unit helps, but less than the one before.'],
+    chk: ['A farm doubles its workers but keeps the same land and tools. What happens to output?', 'It rises, but by less than double (diminishing marginal product).'] },
+
+  { h: 'The inputs, one by one', t: [
+    '**Labor (L)**: each hour worked by a human. More people means more GDP, **but not more GDP per capita**. Ways to get more labor:',
+    '- Population growth: **births** and **immigration**.',
+    '- Higher **labor force participation**. The deck charts the rise in U.S. female labor force participation (FRED data).',
+    'The deck also flags a challenge: an **aging population combined with lower birth rates**.',
+    '**Human capital (H)**: **literacy** is fundamental, plus **education** and **on-the-job training**.',
+    '**Physical capital (K)**: "tools of the trade." Tools and machinery **make each labor hour more efficient** and are **complementary to labor**. Would you rather move dirt with a basket or a wheel tractor scraper?',
+    '**Productivity (technological progress)**: doing **more with the same**, or **the same with less**. More wheat from the same land; the same energy with less water; a jet engine instead of a propeller.'],
+    chk: ['Why does more labor not necessarily raise living standards?', 'It raises total GDP, but the output is shared by more people, so GDP per capita may not rise.'] },
+
+  { h: 'The Solow model', t: [
+    'The **Solow model** looks at output per worker as physical capital per worker grows. Key assumptions: **constant returns to scale** and **diminishing marginal returns** (more inputs are always better, but not as good as the previous ones). So the curve rises but flattens out.',
+    'The deck\'s example: invest **$100B** in each of two countries.'],
+    tbl: { head: ['', 'Output per worker before', 'After $100B of capital', 'Gain'], rows: [['Developing country (little capital)', '$20k', '$27k', '+$7k'], ['Wealthy country (lots of capital)', '$40k', '$46k', '+$6k']] },
+    ex: '**Lesson 1**: developing countries can **catch up** through **capital accumulation**, because capital is scarce there and each dollar of it does more. **Lesson 2**: capital accumulation **cannot sustain long-term growth**. With diminishing returns, rich countries eventually start "building bridges to nowhere." We need something else.',
+    exam: 'If capital has diminishing returns, how does a country keep getting richer? By improving **efficiency**: better technology, new techniques, new methods, better institutions. These **shift the whole curve up**, so each worker produces more with the same capital. **This is where most long-run economic growth comes from.**',
+    chk: ['Moving along the Solow curve vs shifting it up: which comes from adding capital, and which from technology?', 'Adding capital moves you along the curve; better technology and institutions shift the curve up.'] },
+
+  { h: 'Institutions and trade', t: [
+    '**The power of institutions** (Daron Acemoglu of MIT and James Robinson of U. Chicago):',
+    '- Good **property rights** promote innovation.',
+    '- **Political stability** creates a good business environment.',
+    '- **Inclusive institutions** produce economic prosperity.',
+    '- **Extractive institutions** let the powerful hoard all the surplus.',
+    '- Warning sign: when business leaders seek **political favor** more than **market competition**.',
+    '**Trade**: countries open to trade grow faster. General **Zheng He** led grand Chinese trading voyages across the entire Indian Ocean. Bureaucrats back home felt threatened and **banned shipbuilding**, which led to **centuries of economic decline** (the deck shows China\'s GDP per capita in the Maddison Project data).'],
+    chk: ['What is the difference between inclusive and extractive institutions?', 'Inclusive institutions spread opportunity and reward innovation; extractive ones let a powerful few take the surplus.'] },
+
+  { h: 'Limits? Malthus and the environment', t: [
+    '**The Malthusian trap**: Thomas Malthus, an 18th-century economist, believed the world was forever doomed to **subsistence living** because resources are finite and population keeps growing. He **failed to predict technological progress outpacing population growth**.',
+    '**Is economic growth unlimited?** The deck\'s answer: growth is **limited only by our imagination**.',
+    '**What about the environment?** More productive capacity means we can spend more resources **preserving** the environment:',
+    '- The **U.S. has more forested land today than 100 years ago**.',
+    '- Better technology lets countries reduce CO2 emissions while their GDP grows (Our World in Data, "CO2-GDP decoupling").'],
+    chk: ['What did Malthus get wrong?', 'He did not foresee technology raising output faster than population.'] },
+
+  { h: 'Winners, losers, and global inequality', t: [
+    '- **The Asian Tigers**: rapid growth after World War II (the deck charts Japan, Singapore, Hong Kong, and South Korea from 1960 to 2022).',
+    '- **Growth is never guaranteed**: Hong Kong\'s GDP per capita **stopped growing after China took over its institutions**.',
+    '- **New superpowers**: India and China\'s fast rise in GDP per capita.',
+    '- **Not all stories are victories**: the deck shows countries that stalled or fell behind (El Salvador and Nicaragua, Iran, and Italy).',
+    '**Global inequality**: Solow\'s predicted **catch-up effect was not universal**. Some countries grew richer and others did not. The deck\'s point: people with the same purchasing power can get the same quality of life anywhere; **the real difference between countries is how many people are in poverty**.',
+    '**Gapminder\'s Dollar Street** shows this with photos: beds and families at under $100, under $1,000, and over $1,000 a month look alike across very different countries. A family over $1,000 a month in Nigeria lives more like one in Ukraine or China than like a poorer family in its own country.'],
+    chk: ['According to the deck, what is the real difference between rich and poor countries?', 'How many of their people are in poverty, since similar incomes buy similar lives anywhere.'] }
 ]}
 };
 
@@ -898,6 +1015,13 @@ const RAW_TF = [
   [6, `If prices rise but output stays the same, real GDP rises.`, false, `Only nominal GDP rises. Real GDP uses constant prices.`],
   [6, `Volunteering at a food bank is counted in GDP.`, false, `It is a nonmarket activity.`],
   [6, `At 7% growth, an economy doubles in about 10 years.`, true, `Rule of 70: 70 / 7 = 10.`],
+  [7, `Doubling all inputs doubles output under constant returns to scale.`, true, `That is the definition.`],
+  [7, `Adding more physical capital can make a country richer forever.`, false, `Diminishing returns: you need technology and institutions.`],
+  [7, `Immigration raises GDP per capita automatically.`, false, `More labor raises GDP; per capita depends on productivity.`],
+  [7, `Countries open to trade tend to grow faster.`, true, `The deck's example: China's decline after banning shipbuilding.`],
+  [7, `Malthus correctly predicted that we would stay at subsistence living.`, false, `Technology outpaced population growth.`],
+  [7, `The U.S. has more forested land today than 100 years ago.`, true, `Per the deck.`],
+  [7, `Solow's catch-up effect happened in every country.`, false, `It was not universal.`]
 ];
 
 // [unit, sentence with ___, accepted answers (lowercase)]
@@ -956,6 +1080,11 @@ const RAW_CLOZE = [
   [6, `The Rule of 70: doubling period = 70 divided by the ___ rate.`, [`growth`]],
   [6, `U.S. GDP is calculated by the Bureau of Economic ___.`, [`analysis`]],
   [6, `Illegal and informal markets are called the ___ economy.`, [`shadow`, `underground`, `informal`]],
+  [7, `Double only one input and output rises less than double: diminishing marginal ___.`, [`product`, `returns`]],
+  [7, `Skills, education, and training are ___ capital.`, [`human`]],
+  [7, `Tools and machinery are ___ capital.`, [`physical`]],
+  [7, `Inclusive institutions produce prosperity; ___ institutions let the powerful hoard the surplus.`, [`extractive`]],
+  [7, `The belief that population will always outrun resources is the ___ trap.`, [`malthusian`]]
 ];
 
 // [unit, term, short definition]
@@ -1024,6 +1153,12 @@ const RAW_MATCH = [
   [6, `Nominal GDP`, `Measured in today's prices`],
   [6, `Real GDP`, `Measured in constant prices`],
   [6, `Shadow economy`, `Illegal and informal markets`],
+  [7, `Labor`, `Hours worked`],
+  [7, `Human capital`, `Skills and knowledge`],
+  [7, `Physical capital`, `Tools and machinery`],
+  [7, `Productivity`, `More output from the same inputs`],
+  [7, `Malthusian trap`, `Doomed to subsistence`],
+  [7, `Asian Tigers`, `Rapid post-war growth`]
 ];
 
 // units (array), title, buckets, items [text, bucket index]
@@ -1046,6 +1181,8 @@ const RAW_SORTS = [
   { u: [6], title: `Counted in this year's GDP or not?`, b: [`Counted`, `Not counted`], items: [[`A new house built this year`, 0], [`A used car bought from a neighbor`, 1], [`Steel bought by a car maker`, 1], [`A haircut`, 0], [`Cleaning your own apartment`, 1], [`A new oven for a bakery`, 0], [`Selling drugs illegally`, 1], [`A new fighter jet bought by the government`, 0], [`Hours of leisure`, 1]] },
   { u: [6], title: `Which part of GDP? (Y = C + I + G + NX)`, b: [`C`, `I`, `G`, `NX`], items: [[`A family buys groceries`, 0], [`A firm builds a new factory`, 1], [`The city pays for a new road`, 2], [`Boeing sells a plane to a French airline`, 3], [`You pay for a Netflix subscription`, 0], [`A bakery buys a new oven`, 1], [`The army buys trucks`, 2], [`Americans buy cars made in Japan`, 3]] },
   { u: [6, 1], title: `Stock or flow?`, b: [`Stock`, `Flow`], items: [[`Your bank balance today`, 0], [`Your monthly paycheck`, 1], [`GDP`, 1], [`Total wealth`, 0], [`New tractors built last year`, 1], [`Tractors in Pullman today`, 0], [`Income`, 1]] },
+  { u: [7], title: `Which input to the production function?`, b: [`Labor`, `Human capital`, `Physical capital`, `Productivity`], items: [[`Immigration adds workers`, 0], [`More women join the labor force`, 0], [`Literacy`, 1], [`On-the-job training`, 1], [`A wheel tractor scraper`, 2], [`Factory machinery`, 2], [`Jet engines replace propellers`, 3], [`More wheat from the same land`, 3]] },
+  { u: [7], title: `Moves along the Solow curve or shifts it up?`, b: [`Moves along (more capital)`, `Shifts it up (efficiency)`], items: [[`Building more factories`, 0], [`Better technology`, 1], [`More machines per worker`, 0], [`Stronger property rights`, 1], [`New production methods`, 1], [`Investing $100B in equipment`, 0]] }
 ];
 
 // Recall lists: free text typed from memory, matched by keywords. Digits match as whole numbers.
@@ -1068,6 +1205,8 @@ const RAW_LISTS = [
   { u: [6], title: `Three ways to measure GDP`, items: [[`Expenditure approach`, [`expend`, `spend`]], [`Income approach`, [`income`]], [`Value added approach`, [`value`, `added`]]] },
   { u: [6], title: `Things GDP leaves out`, items: [[`Nonmarket goods and services`, [`nonmarket`, `non-market`, `home`]], [`The shadow economy`, [`shadow`, `illegal`, `informal`]], [`Environmental damage`, [`environment`, `pollution`]], [`Leisure`, [`leisure`]], [`Moral value (price is not value)`, [`moral`, `value`]]] },
   { u: [6], title: `Hypotheses for the falling labor share`, items: [[`Robots replacing labor`, [`robot`, `automat`]], [`Trade shocks (China Shock)`, [`trade`, `china`]], [`Declining worker bargaining power`, [`bargain`, `union`]], [`Unequal capital ownership`, [`capital`, `ownership`]]] },
+  { u: [7], title: `Inputs to the production function`, items: [[`Labor`, [`labor`, `labour`]], [`Physical capital`, [`physical`]], [`Human capital`, [`human`]], [`Productivity (technology)`, [`productiv`, `technolog`]]] },
+  { u: [7], title: `Ways to improve efficiency (shift the Solow curve)`, items: [[`Better technology`, [`technolog`]], [`New techniques`, [`technique`]], [`New methods`, [`method`]], [`Better institutions`, [`institution`]]] }
 ];
 
 // Memory hooks: t (what it helps you recall), h (the hook), w (what it unpacks to), u (unit)
@@ -1102,6 +1241,8 @@ const HOOKS = [
   { u: 6, t: `Investment vs intermediate`, h: `The flour is in the cake. The oven is not.`, w: `Anything that ends up inside the final product is intermediate (not counted separately). A capital good that helps make the product is investment.` },
   { u: 6, t: `Nominal vs real`, h: `Nominal = Now prices. Real = Rigid prices.`, w: `Nominal GDP uses today's prices, so inflation inflates it. Real GDP holds prices fixed, so only quantity counts. Nominal growth = real growth + inflation.` },
   { u: 6, t: `Rule of 70`, h: `70 over the rate, then wait.`, w: `Doubling time = 70 / growth rate in percent. 2% doubles in 35 years, 7% in 10.` },
+  { u: 7, t: `Production function inputs`, h: `Lots of Hands, Heads, Hammers, and Hacks.`, w: `**L**abor (hands), **H**uman capital (heads), physical **K**apital (hammers), and **productivity** (hacks: better ways of doing things).` },
+  { u: 7, t: `Solow model`, h: `Capital catches you up; ideas keep you going.`, w: `Capital accumulation lets poor countries catch up, but diminishing returns stop it. Long-run growth comes from technology and institutions shifting the curve up.` }
 ];
 
 /* Practice Exam 1 text-only questions. [number, question, options, correct index, explanation] */
