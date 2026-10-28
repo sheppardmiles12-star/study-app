@@ -1,7 +1,7 @@
 /* Macro Economics Study: study content for ECON macro, written from the lecture decks (Units 1-5, plus deck 9 GDP as Unit 6).
    See classes/_template/content.js for what every field means. */
 (function () {
-const UNITS = { 1: 'Introduction', 2: 'Demand', 3: 'Supply', 4: 'Equilibrium', 5: 'Inequality', 6: 'GDP', 7: 'Growth' };
+const UNITS = { 1: 'Introduction', 2: 'Demand', 3: 'Supply', 4: 'Equilibrium', 5: 'Inequality', 6: 'GDP', 7: 'Growth', 8: 'Unemployment', 9: 'Inflation' };
 
 const RAW_CARDS = [
   [1, 'Economics', 'The study of the allocation of scarce resources.'],
@@ -174,7 +174,63 @@ const RAW_CARDS = [
   [7, 'Asian Tigers', 'Economies that grew rapidly after World War II (the deck charts Japan, Singapore, Hong Kong, South Korea).'],
   [7, 'Hong Kong lesson', 'Growth is never guaranteed: GDP per capita stopped growing after China took over its institutions.'],
   [7, 'Global inequality and Solow', 'The catch-up effect was not universal; some countries grew richer and others did not.'],
-  [7, 'Dollar Street', 'Gapminder site showing how families at different incomes live. Income, not country, mostly decides living conditions.']
+  [7, 'Dollar Street', 'Gapminder site showing how families at different incomes live. Income, not country, mostly decides living conditions.'],
+  // Unit 8: Unemployment (deck a8)
+  [8, 'Unemployed (official definition)', 'Not employed (zero hours) AND actively looked for work in the last 4 weeks.'],
+  [8, 'Household survey', 'The Bureau of Labor Statistics surveys about 60,000 households every month to estimate unemployment.'],
+  [8, 'Labor force', 'Employed + unemployed. People not looking for work are not in it.'],
+  [8, 'Unemployment rate', 'Unemployed / Labor force x 100.'],
+  [8, 'Why the rate can fall when people give up', 'Discouraged people leave the labor force: fewer unemployed and a smaller labor force (2/98 = 2.04%).'],
+  [8, 'U3', 'The official unemployment rate.'],
+  [8, 'Discouraged worker', 'Looked in the last year but gave up because they believe no job is available for them.'],
+  [8, 'Marginally attached', 'Looked in the last year but gave up for any reason.'],
+  [8, 'Involuntarily part-time', 'Works part time but wants full time.'],
+  [8, 'U5', 'Unemployed + discouraged + marginally attached.'],
+  [8, 'U6', 'Unemployed + discouraged + marginally attached + involuntarily part-time. The broadest measure.'],
+  [8, 'Labor market churn', 'Every month more than 5 million people start new jobs and more than 5 million leave jobs.'],
+  [8, 'Labor demand and supply', 'Firms demand labor (based on the value of the marginal product of labor); households supply it (opportunity cost: leisure). The wage is the price.'],
+  [8, 'Frictional unemployment', 'Moving between jobs until finding a suitable one: job search, skills mismatch, unemployment insurance.'],
+  [8, 'Structural unemployment', 'Wages do not fall to bring labor demand and supply into equilibrium.'],
+  [8, 'Cyclical unemployment', 'Unemployment from recessions.'],
+  [8, 'Efficiency wage', 'A wage above equilibrium paid to raise productivity. Causes structural unemployment but can lower total labor costs.'],
+  [8, 'Ford\'s $5 day', 'In 1913 Ford had a 10% absentee rate and 370% turnover; the $5 wage raised productivity, partly because more workers competed for the jobs.'],
+  [8, 'Causes of wages staying above equilibrium', 'Efficiency wages, unions, job protection rules, and minimum wage laws.'],
+  [8, 'Monopsony', 'A labor market with one (or few) employers. How competitive the market is decides whether a minimum wage costs jobs.'],
+  [8, 'Minimum wage evidence (Dube 2019)', 'After correcting for publication bias, the research no longer finds a negative employment effect.'],
+  [8, 'Publication bias', 'Papers finding a positive employment effect are harder to publish, so published estimates are skewed.'],
+  [8, 'Does unemployment insurance cause unemployment?', 'The deck says no (housing crisis and pandemic studies): it is temporary, return-to-work offers may expire, and long spells cut future earnings.'],
+  [8, 'Hysteresis', 'High unemployment raising the equilibrium unemployment rate itself.'],
+  [8, 'Costs of unemployment', 'Economy: hysteresis, fewer resources for children. Individuals: the longer unemployed, the harder to find work. Government: more health and social spending, less tax revenue.'],
+
+  // Unit 9: Inflation (deck a9)
+  [9, 'Inflation', 'A rise in average prices.'],
+  [9, 'CPI', 'Consumer Price Index: cost of the monthly purchases of the average urban household (cost of living).'],
+  [9, 'GDP deflator', 'Price index for everything in GDP (C + I + G + NX): real output.'],
+  [9, 'The four indexes to know', 'CPI, core PCE (excludes food and energy), PPI, GDP deflator.'],
+  [9, 'PPI', 'Producer Price Index. Very volatile.'],
+  [9, 'Core PCE', 'Personal consumption expenditures price index excluding food and energy. Economists prefer PCE for long-run changes.'],
+  [9, 'CPI-U vs CPI-W', 'CPI-U covers all urban consumers (87% of people); CPI-W covers urban wage earners and clerical workers (32%).'],
+  [9, 'Hyperinflation', 'Monthly inflation above 50% (Cagan, 1956). Happens with extreme political instability.'],
+  [9, 'Hungary 1945', 'Prices doubled every 15 hours. Compare: 2% a year doubles prices in 35 years.'],
+  [9, 'Fixed basket', 'Hold quantities the same so only price changes are measured.'],
+  [9, 'Inflation rate', '(Basket cost this year - basket cost last year) / basket cost last year x 100.'],
+  [9, 'Student basket example', '150 coffees and 15 pizzas: $495 in 2025, $547.50 in 2026 = 10.6% inflation.'],
+  [9, 'Substitution bias', 'People switch to cheaper goods over time; a fixed basket misses it. PCE handles it better than CPI.'],
+  [9, 'Why CPI can overstate inflation', 'Quality improvements, new products, substitution away from expensive goods.'],
+  [9, 'Why CPI can understate inflation', 'Quality declines: worse service, longer waits, shrinkflation.'],
+  [9, 'Billion Prices Project', 'Economists compared online prices to official data. U.S. numbers matched; Argentina\'s official numbers looked "divided by 3."'],
+  [9, 'Truflation', 'Private inflation measure tracking 13M prices (BLS tracks 94,000). Shows numbers similar to the government, but is not transparent.'],
+  [9, 'ShadowStats', 'Claims inflation is really about 10% a year using pre-1983 methods. The deck calls it fakers and liars.'],
+  [9, 'Real vs nominal', 'Nominal is in the dollars of the time; real adjusts for inflation (real wage, real wealth, real revenue).'],
+  [9, 'Converting to today\'s dollars', 'Old amount x (CPI today / CPI then).'],
+  [9, 'Box office in 2026 dollars', 'Force Awakens (2015) $1.3B, A New Hope (1977) $2.6B, Gone with the Wind (1939) $4.9B.'],
+  [9, 'Does inflation weaken your paycheck?', 'Not necessarily: wages rise too, and over time have kept up with and passed consumer prices.'],
+  [9, 'Recent inflation and wages', 'Lower incomes saw the fastest wage growth (Autor, Dube & McGrew 2024).'],
+  [9, 'Protecting wealth from inflation', 'Don\'t hold lots of cash; buy interest-bearing assets: high-yield savings, CDs, TIPS, low-risk funds, real estate.'],
+  [9, 'Menu costs', 'Costs of changing prices (reprinting, recalculating).'],
+  [9, 'Shoe-leather costs', 'Extra errands and transactions to avoid holding cash during inflation.'],
+  [9, 'Costs of unexpected inflation', 'Confuses the signals prices send, and redistributes income.'],
+  [9, 'Three functions of money', 'Medium of exchange, unit of account, store of value.']
 ];
 
 // Each question: correct answer first, then three wrong ones. Options are shuffled at runtime.
@@ -266,7 +322,33 @@ const RAW_QS = [
   [7, 'What did Thomas Malthus fail to predict?', ['Technological progress outpacing population growth', 'Population growth', 'Finite resources', 'Agriculture'], 'He thought we were doomed to subsistence.'],
   [7, 'The deck\'s example of growth not lasting forever:', ['Hong Kong after China took over its institutions', 'South Korea', 'The Industrial Revolution', 'U.S. forests'], 'Institutions matter.'],
   [7, 'The deck\'s view on growth and the environment:', ['More productive capacity lets us spend more preserving the environment', 'Growth always destroys forests', 'Growth and the environment are unrelated', 'We must stop growing to save the environment'], 'E.g., the U.S. has more forested land than 100 years ago.'],
-  [7, 'Which was part of the Industrial Revolution?', ['The Watt steam engine', 'The internet', 'Robotic automation', 'Intercontinental flight'], '1700s to 1800s.']
+  [7, 'Which was part of the Industrial Revolution?', ['The Watt steam engine', 'The internet', 'Robotic automation', 'Intercontinental flight'], '1700s to 1800s.'],
+  [8, 'To be officially unemployed, a person must:', ['have no job and have actively looked in the last 4 weeks', 'have no job', 'want a full-time job', 'have lost a job in the last year'], 'Not looking means not in the labor force.'],
+  [8, 'Labor force 100, unemployed 3. Three more lose jobs. Unemployment rate:', ['6%', '3%', '9%', '6.2%'], '6/100.'],
+  [8, 'Labor force 100, 4 unemployed. Two unemployed people stop looking. New rate:', ['2.04%', '2%', '4%', '6%'], '2 unemployed out of a labor force of 98.'],
+  [8, 'Which measure adds discouraged, marginally attached, AND involuntarily part-time workers?', ['U6', 'U3', 'U5', 'U1'], 'U5 leaves out involuntary part-time.'],
+  [8, 'Someone working 20 hours a week who wants full time is:', ['involuntarily part-time (counted in U6)', 'unemployed in U3', 'discouraged', 'out of the labor force'], 'They are employed in U3.'],
+  [8, 'In the labor market, who are the demanders?', ['Firms', 'Households', 'The government', 'Unions'], 'Labor is an input market.'],
+  [8, 'A software engineer quits and takes three months to find the right new job. This is:', ['frictional unemployment', 'structural unemployment', 'cyclical unemployment', 'not unemployment'], 'Time spent searching.'],
+  [8, 'Unemployment caused by a recession is:', ['cyclical', 'frictional', 'structural', 'seasonal'], 'It moves with the business cycle.'],
+  [8, 'Wages stuck above the market-clearing level cause:', ['structural unemployment', 'frictional unemployment', 'cyclical unemployment', 'no unemployment'], 'Labor supplied exceeds labor demanded.'],
+  [8, 'Why did Ford\'s $5 day pay off?', ['Productivity rose, partly because more workers competed for the jobs', 'Ford cut the number of workers in half', 'The government paid half', 'Cars got more expensive'], 'An efficiency wage. Ford had a 370% turnover rate before.'],
+  [8, 'After correcting for publication bias, Dube (2019) finds minimum wage increases:', ['no longer show a negative employment effect', 'cause large job losses', 'double employment', 'cannot be studied'], 'Published estimates were skewed.'],
+  [8, 'What does the deck conclude about unemployment insurance?', ['It does not cause unemployment', 'It is the main cause of unemployment', 'It causes cyclical unemployment', 'It should be permanent'], 'Studies from the housing crisis and pandemic.'],
+  [8, 'High unemployment that raises the long-run equilibrium unemployment rate is called:', ['hysteresis', 'monopsony', 'publication bias', 'friction'], 'A lasting scar on the economy.'],
+  [9, 'Which index measures the cost of living for urban households?', ['CPI', 'GDP deflator', 'PPI', 'Employment Cost Index'], 'The GDP deflator covers all of GDP.'],
+  [9, 'The GDP deflator covers prices of:', ['everything in GDP (C + I + G + NX)', 'only consumer goods', 'only producer goods', 'only food and energy'], 'It measures real output.'],
+  [9, 'Hyperinflation is defined (Cagan) as monthly inflation above:', ['50%', '10%', '100%', '5%'], 'Usually with war or collapse.'],
+  [9, 'A basket of 150 coffees ($2.50 → $2.75) and 15 pizzas ($8 → $9). Inflation:', ['10.6%', '10%', '12.5%', '9.6%'], '$495 → $547.50; $52.50 / $495.'],
+  [9, 'Why do we hold the basket quantities fixed?', ['To measure only price changes', 'Because people never change what they buy', 'To make inflation look smaller', 'Because the CPI requires 150 items'], 'Otherwise quantity changes mix in.'],
+  [9, 'Which makes CPI UNDERSTATE inflation?', ['Shrinkflation', 'Quality improvements', 'New products', 'Substituting toward cheaper goods'], 'The others make it overstate.'],
+  [9, 'Economists prefer PCE for long-run inflation because it:', ['handles substitution bias better', 'covers more people', 'excludes housing', 'is less volatile than everything'], 'People switch goods over time.'],
+  [9, 'What did the Billion Prices Project find about Argentina?', ['Official inflation looked roughly "divided by 3"', 'It matched online prices exactly', 'Argentina had deflation', 'It had hyperinflation of 1,000%'], 'The U.S. numbers matched.'],
+  [9, 'A $461M box office in 1977 (CPI 60.6), in 2026 dollars, is about:', ['$2.6B', '$461M', '$1.3B', '$4.9B'], 'Old amount x (CPI 2026 / CPI 1977).'],
+  [9, 'To convert an old dollar amount to today\'s dollars:', ['multiply by CPI today / CPI then', 'multiply by CPI then / CPI today', 'add the inflation rate', 'subtract CPI'], 'Real value in today\'s money.'],
+  [9, 'Which protects savings from inflation, per the deck?', ['Treasury Inflation Protected Securities (TIPS)', 'Holding lots of cash', 'Keeping money under the mattress', 'Avoiding all interest-bearing assets'], 'Also CDs, high-yield savings, low-risk funds, real estate.'],
+  [9, 'The cost of reprinting price lists when prices rise is:', ['a menu cost', 'a shoe-leather cost', 'substitution bias', 'hysteresis'], 'Shoe-leather costs are extra errands and transactions.'],
+  [9, 'Which is NOT a function of money?', ['Source of income', 'Medium of exchange', 'Unit of account', 'Store of value'], 'The deck asks whether bitcoin passes all three.']
 ];
 
 const SCENARIOS = [
@@ -932,6 +1014,142 @@ const LESSONS = {
     '**Global inequality**: Solow\'s predicted **catch-up effect was not universal**. Some countries grew richer and others did not. The deck\'s point: people with the same purchasing power can get the same quality of life anywhere; **the real difference between countries is how many people are in poverty**.',
     '**Gapminder\'s Dollar Street** shows this with photos: beds and families at under $100, under $1,000, and over $1,000 a month look alike across very different countries. A family over $1,000 a month in Nigeria lives more like one in Ukraine or China than like a poorer family in its own country.'],
     chk: ['According to the deck, what is the real difference between rich and poor countries?', 'How many of their people are in poverty, since similar incomes buy similar lives anywhere.'] }
+]},
+
+8: { intro: 'Unemployment is the economy\'s thermometer: do people who want jobs have them? This unit covers how it is measured, the three types, what keeps wages from clearing the market, and what unemployment costs.', items: [
+  { h: 'Who counts as unemployed', t: [
+    'To tell whether the economy is doing well, ask: **do people who want jobs have them?**',
+    'Officially, a person is **unemployed** if they are:',
+    '- **Not employed** (zero hours of work), **and**',
+    '- **Actively looking for work in the last 4 weeks.**',
+    'The **Bureau of Labor Statistics (BLS)** runs a **household survey** of about **60,000 households every month** and estimates unemployment from it. (In September 2023 it counted about 5,996,000 unemployed people.)',
+    'The **labor force** = employed + unemployed. Someone not working and **not looking** (a retiree, a full-time student) is **not in the labor force** at all.',
+    'The deck shows the U.S. labor force participation rate by gender and by age, and the unemployment rate broken down by gender, age, race, and education (FRED charts).'],
+    chk: ['A college student who is not working and not looking for work: employed, unemployed, or out of the labor force?', 'Out of the labor force.'] },
+
+  { h: 'Calculating the unemployment rate', t: [
+    '**Unemployment rate = Unemployed / Labor force x 100.** Think of the labor force as a swimming pool, with people moving in and out.'],
+    tbl: { head: ['What happens', 'Unemployed / Labor force', 'Rate'], rows: [['Start', '3 / 100', '3%'], ['3 more workers lose their jobs', '6 / 100', '6%'], ['2 people find jobs', '4 / 100', '4%'], ['2 unemployed get tired and stop looking (leave the labor force)', '2 / 98', '2.04%']] },
+    exam: 'The trap: when discouraged people **stop looking**, the official rate **falls**, even though nobody found a job. That is why there are broader measures.',
+    chk: ['Labor force 200, unemployed 10. What is the rate?', '5%.'] },
+
+  { h: 'U3 and the broader measures', t: [
+    'The definition above is **U3**, the **official** rate. There are six measures (U1 to U6). The broader ones add:',
+    '- **Discouraged workers**: looked in the last year but **gave up because they believe no job is available** for them in their line of work or area.',
+    '- **Marginally attached**: looked in the last year but gave up **for any reason**.',
+    '- **Involuntarily part-time**: working part time but **wanting full time**.',
+    '**U5** = unemployed + discouraged + marginally attached.',
+    '**U6** = U5 + involuntarily part-time.',
+    'The measures **move together** over time; U6 is always the highest.'],
+    chk: ['Which measure would rise if many full-time workers were cut to part time?', 'U6 (involuntarily part-time).'] },
+
+  { h: 'The labor market', t: [
+    'The labor market is **dynamic**: every month **more than 5 million** people start a new job and **more than 5 million** leave one. Businesses hire and eliminate jobs every day. That churn makes it easier to find new jobs.',
+    'It is a supply and demand market, but an **input market**, so the roles flip from Unit 3:',
+    '- **Firms are the demanders**. They hire based on worker productivity: the **value of the marginal product of labor**.',
+    '- **Households are the suppliers**. Their cost of working is the **opportunity cost**: leisure or other options.',
+    '- **Wages are the price.**'],
+    chk: ['In the labor market, who supplies and who demands?', 'Households supply labor; firms demand it.'] },
+
+  { h: 'Three types of unemployment', t: [
+    '- **Frictional**: people **moving between jobs** until they find a suitable one. Causes: job search, skills mismatch, unemployment insurance and other income support. Is it bad? Not entirely: it takes time to find the right job, and you **shouldn\'t always take the first option**.',
+    '- **Structural**: **wages don\'t fall** to bring labor demand and supply into equilibrium, so more people want jobs than there are jobs at that wage.',
+    '- **Cyclical**: unemployment caused by **recessions**.'],
+    tbl: { head: ['Type', 'Cause', 'Example'], rows: [['Frictional', 'Searching and matching', 'A nurse moves cities and spends a month finding the right hospital'], ['Structural', 'Wages above equilibrium', 'More workers want union jobs at the union wage than there are openings'], ['Cyclical', 'Recession', 'A factory lays off workers when sales collapse in a downturn']] },
+    chk: ['Layoffs during the 2008 recession are mainly which type?', 'Cyclical.'] },
+
+  { h: 'Why wages stay above equilibrium', t: [
+    'Wages **above equilibrium** cause **structural unemployment** (more labor supplied than demanded). Reasons wages stay high:',
+    '- **Efficiency wages**: paying **more** to encourage greater productivity. In **1913**, Ford\'s Highland Park factory had a **10% absentee rate** and a **370% turnover rate**. Ford\'s **$5 wage** raised productivity, partly because **more workers competed** for the jobs. Efficiency wages cause structural unemployment but can **lower total labor costs**.',
+    '- **Unions** keep wages high for some workers.',
+    '- **Job protection regulations** make it hard to fire workers.',
+    '- **Minimum wage laws** can stop wages falling to the market-clearing wage.',
+    'The central question: **how competitive is the labor market?** In a **monopsony** (few employers with power to set wages low), a minimum wage need not cost jobs; in a perfectly competitive market, the textbook says it would.'],
+    chk: ['How can paying workers more lower a company\'s total labor costs?', 'Higher productivity and less absenteeism and turnover (Ford\'s $5 day).'] },
+
+  { h: 'Minimum wage and unemployment insurance: the evidence', t: [
+    '**Does the minimum wage cause unemployment?** Dube (2019) reviewed the international evidence: collect every paper\'s estimate of how raising the minimum wage affects employment, and check whether they are statistically different from zero.',
+    '**Publication bias**: papers finding a **positive** employment effect are **harder to publish**, so published estimates lean negative. **Correcting for the missing results, the negative effect disappears.**',
+    '**Unemployment insurance (UI)**: temporary payments while you **actively look for work** (the deck notes something like it existed in ancient Rome).',
+    '**Does UI cause unemployment?** The deck says **no**, citing studies from the housing crisis (Boone, Dube, Goodman & Kaplan 2021) and the pandemic. Why not:',
+    '- Extended UI is **temporary**.',
+    '- People are **uncertain** when a return-to-work offer might expire.',
+    '- **Future wage losses**: the longer you are unemployed, the more future earnings you lose.'],
+    chk: ['What is publication bias, in one sentence?', 'Studies with certain results are less likely to be published, so the published evidence is skewed.'] },
+
+  { h: 'The social cost of unemployment', t: [
+    'Some unemployment is normal: frictions mean wages can never perfectly clear the market. But **persistent, structural** unemployment has consequences:',
+    '- **For the economy**: **hysteresis**, when high unemployment leads to a **higher equilibrium unemployment rate**. Children of unemployed parents get fewer resources, raising their own odds of poverty and unemployment.',
+    '- **For individuals**: a **self-reinforcing cycle**: the longer you are unemployed, the harder it is to find a job.',
+    '- **For the government**: unemployed people have more illness and depression and **lower life expectancy**, which raises social insurance spending, while higher unemployment also means **less tax revenue**.'],
+    chk: ['Give one cost of unemployment for the government.', 'More spending on social insurance and health, or less tax revenue.'] }
+]},
+
+9: { intro: 'Inflation is a rise in average prices. This unit covers what "average" means, the price indexes, how to calculate inflation, whether the data can be trusted, real vs nominal, who inflation actually hurts, and the functions of money.', items: [
+  { h: 'What inflation is and how we measure it', t: [
+    '**Inflation** is a **rise in average prices**. But there are millions of prices, so what "average" do we mean? It depends on what we want to measure:',
+    '- **Cost of living**: the monthly purchases of the average urban American household. That is the **Consumer Price Index (CPI)**.',
+    '- **Real output**: everything in GDP, C + I + G + NX. That is the **GDP deflator**.',
+    'There are many indexes (CPI-U covers 87% of the population, CPI-W covers urban wage earners and clerical workers, 32%; PCE; PPI; the Employment Cost Index; and more). **You need to know four:**'],
+    tbl: { head: ['Index', 'Measures'], rows: [['Consumer Price Index (CPI)', 'Cost of a basket of what urban households buy'], ['Core PCE', 'Personal consumption expenditures prices, excluding food and energy'], ['Producer Price Index (PPI)', 'Prices producers receive; very volatile'], ['GDP deflator', 'Prices of everything in GDP']] },
+    chk: ['Which index would you use to measure inflation in everything the economy produces?', 'The GDP deflator.'] },
+
+  { h: 'Inflation vs hyperinflation', t: [
+    '**Hyperinflation**: episodes when the **monthly** inflation rate is greater than **50%** (Cagan, 1956).',
+    'In **Hungary in 1945**, prices **doubled every 15 hours**. Compare: at **2%** a year, prices take about **35 years** to double (the Rule of 70 from Unit 6).',
+    'Hyperinflation happens under **extreme political instability**: major wars, the fall of the USSR, the French Revolution (1795).',
+    'Clickbait channels call today\'s inflation "hyperinflation." It is not. The deck recommends the channel **Money & Macro** (Dr. Joeri Schasfoort) instead.'],
+    chk: ['Was the U.S. inflation of 2021 to 2022 hyperinflation?', 'No. Hyperinflation is over 50% a month.'] },
+
+  { h: 'Calculating inflation with a basket', t: [
+    'Some prices go up and others go down. To measure only **price** changes, keep the **quantities in the basket fixed**.',
+    'A student\'s basket, with 2025 as the base year:'],
+    tbl: { head: ['Good', 'Quantity', 'Price 2025', 'Price 2026', 'Cost 2025', 'Cost 2026'], rows: [['Coffee', '150', '$2.50', '$2.75', '$375', '$412.50'], ['Pizza', '15', '$8.00', '$9.00', '$120', '$135'], ['Basket total', '', '', '', '$495', '$547.50']] },
+    ex: '**Inflation rate = (Cost this year - Cost last year) / Cost last year x 100** = ($547.50 - $495) / $495 = **10.6%**.',
+    chk: ['A basket costs $200 last year and $210 this year. Inflation?', '5%.'] },
+
+  { h: 'Measurement difficulties', t: [
+    '**Basket changes**: over time people buy different things (fewer turntables, more streaming). A fixed basket causes **substitution bias**. CPI and PCE handle substitution differently; **economists prefer PCE** for long-run changes because it handles substitution bias more accurately.'],
+    tbl: { head: ['CPI overstates inflation when...', 'CPI understates inflation when...'], rows: [['Quality improves (hedonic pricing controls for this)', 'Quality falls'], ['New products are introduced', 'Service gets worse'], ['People substitute away from expensive goods (PCE controls for this)', 'Wait times increase'], ['', 'Shrinkflation: same price, smaller package']] },
+    ex: 'The deck notes modern methods address all of these.',
+    chk: ['Your favorite chips shrink from 10 oz to 8 oz at the same price. Does CPI overstate or understate inflation if it misses this?', 'Understate.'] },
+
+  { h: 'Can we trust government data?', t: [
+    'The **Billion Prices Project** gathered public online prices and compared them with official government data. In the U.S., they matched. In **Argentina**, the official number looked like the real one **"divided by 3."**',
+    '**In the U.S. today? So far, no** evidence of manipulation. But in **August 2025**, the head of the BLS was fired the same day some weak jobs numbers came out (the deck tells it in four headlines).',
+    '**Private measures show similar numbers**: **Truflation** tracks about **13 million** prices (the BLS tracks about **94,000**). But Truflation is not transparent or fully free, with one 20-page methodology paper; the BLS has thousands of methodology papers and government oversight.',
+    '**Fakers and liars**: **ShadowStats** claims to use pre-1983 BLS methods and says inflation is really about **10% every year**. The deck calls this false.'],
+    chk: ['What did comparing online prices to official data show for Argentina?', 'The official inflation numbers were far too low, roughly the real rate divided by 3.'] },
+
+  { h: 'Real vs nominal', t: [
+    '**Nominal** values are in the dollars of their time. **Real** values adjust for inflation. You need real values to know whether:',
+    '- you are actually better paid (**real wage**),',
+    '- your stocks are really worth more (**real wealth**),',
+    '- your sales staff really sold more (**real revenue**).',
+    '**To convert to today\'s dollars: Value today = Old value x (CPI today / CPI then).**'],
+    tbl: { head: ['Film', 'Year', 'Box office', 'CPI', 'In 2026 dollars'], rows: [['Star Wars VII: The Force Awakens', '2015', '$936.7M', '237', '$1.3B'], ['Star Wars IV: A New Hope', '1977', '$461.0M', '60.6', '$2.6B'], ['Gone with the Wind', '1939', '$200.8M', '13.9', '$4.9B']] },
+    ex: 'In nominal terms The Force Awakens earned the most. In real terms, Gone with the Wind earned almost four times as much. (Box Office Mojo adjusts using ticket prices instead of CPI, and re-releases decades apart complicate it.)',
+    chk: ['Something cost $10 when CPI was 100. CPI is now 300. Cost in today\'s dollars?', '$30.'] },
+
+  { h: 'Who does inflation really hurt?', t: [
+    'Rising prices raise the cost of living. **Does your paycheck get weaker? Not necessarily**: **wages go up too**. Over time U.S. wages have **kept up with and surpassed** consumer prices (FRED chart).',
+    'In the recent inflation cycle, **lower incomes saw the fastest wage growth** (Autor, Dube & McGrew 2024, "The Unexpected Compression").',
+    '**Does inflation destroy wealth?** It depends where you store it. To protect yourself:',
+    '- **Don\'t hold a lot of cash.**',
+    '- Buy **interest-bearing assets**: a high-yield savings account or certificate of deposit (CD), **Treasury Inflation Protected Securities (TIPS)**, a low-risk mutual fund, or other assets like real estate.'],
+    chk: ['Why is holding a lot of cash a problem during inflation?', 'Cash earns no interest, so its purchasing power falls.'] },
+
+  { h: 'Costs of inflation, interest rates, and money', t: [
+    'The deck splits costs into **expected** and **unexpected** inflation.',
+    '**Expected inflation** still has costs:',
+    '- **Menu costs**: changing prices costs money (reprinting, plus the work of recalculating the best price).',
+    '- **Shoe-leather costs**: more errands and transactions to avoid holding cash.',
+    '**Unexpected inflation**:',
+    '- **Confuses the signals** that prices send.',
+    '- **Redistributes income**. (Generally from lenders to borrowers, since loans are repaid in cheaper dollars. This explanation is standard, not spelled out in the slide text.)',
+    '**Interest rates**: the deck\'s interest rate slide is a picture. The standard idea it connects to: **real interest rate ≈ nominal interest rate - inflation**.',
+    '**Money** has three functions: **medium of exchange**, **unit of account**, **store of value**. The deck asks: **is bitcoin money?** Test it against all three.'],
+    chk: ['Name the three functions of money.', 'Medium of exchange, unit of account, store of value.'] }
 ]}
 };
 
@@ -1021,7 +1239,19 @@ const RAW_TF = [
   [7, `Countries open to trade tend to grow faster.`, true, `The deck's example: China's decline after banning shipbuilding.`],
   [7, `Malthus correctly predicted that we would stay at subsistence living.`, false, `Technology outpaced population growth.`],
   [7, `The U.S. has more forested land today than 100 years ago.`, true, `Per the deck.`],
-  [7, `Solow's catch-up effect happened in every country.`, false, `It was not universal.`]
+  [7, `Solow's catch-up effect happened in every country.`, false, `It was not universal.`],
+  [8, `A person who isn't working and stopped looking for work counts as unemployed in U3.`, false, `They are out of the labor force (but may count in U5 or U6).`],
+  [8, `When discouraged workers stop looking, the official unemployment rate can fall.`, true, `2/98 = 2.04% instead of 4%.`],
+  [8, `In the labor market, households are the demanders.`, false, `Firms demand labor; households supply it.`],
+  [8, `Some frictional unemployment can be a good thing.`, true, `It takes time to find the right job.`],
+  [8, `Efficiency wages can lower a company's total labor costs.`, true, `Ford's $5 day.`],
+  [8, `The deck concludes that unemployment insurance causes unemployment.`, false, `The studies it cites find it does not.`],
+  [9, `Hyperinflation means inflation above 50% a year.`, false, `Above 50% a month.`],
+  [9, `CPI measures the cost of living; the GDP deflator measures prices of everything in GDP.`, true, `Different baskets for different questions.`],
+  [9, `Shrinkflation makes CPI overstate inflation.`, false, `It makes CPI understate inflation if missed.`],
+  [9, `Economists prefer PCE over CPI for long-run inflation.`, true, `It handles substitution bias better.`],
+  [9, `In nominal terms, Gone with the Wind earned more than The Force Awakens.`, false, `Only in real terms ($4.9B vs $1.3B in 2026 dollars).`],
+  [9, `According to the deck, wages have kept up with and surpassed consumer prices over time.`, true, `And low earners saw the fastest recent growth.`]
 ];
 
 // [unit, sentence with ___, accepted answers (lowercase)]
@@ -1084,7 +1314,16 @@ const RAW_CLOZE = [
   [7, `Skills, education, and training are ___ capital.`, [`human`]],
   [7, `Tools and machinery are ___ capital.`, [`physical`]],
   [7, `Inclusive institutions produce prosperity; ___ institutions let the powerful hoard the surplus.`, [`extractive`]],
-  [7, `The belief that population will always outrun resources is the ___ trap.`, [`malthusian`]]
+  [7, `The belief that population will always outrun resources is the ___ trap.`, [`malthusian`]],
+  [8, `Unemployment rate = Unemployed / ___ force.`, [`labor`, `labour`]],
+  [8, `Unemployment from recessions is ___ unemployment.`, [`cyclical`]],
+  [8, `A wage above equilibrium paid to boost productivity is an ___ wage.`, [`efficiency`]],
+  [8, `High unemployment raising the equilibrium unemployment rate is called ___.`, [`hysteresis`]],
+  [9, `The Consumer Price Index is abbreviated ___.`, [`cpi`]],
+  [9, `Monthly inflation over 50% is ___.`, [`hyperinflation`]],
+  [9, `Same price, smaller package: ___.`, [`shrinkflation`]],
+  [9, `Value today = Old value x (CPI today / CPI ___).`, [`then`]],
+  [9, `Money is a medium of exchange, a unit of account, and a store of ___.`, [`value`]]
 ];
 
 // [unit, term, short definition]
@@ -1158,7 +1397,19 @@ const RAW_MATCH = [
   [7, `Physical capital`, `Tools and machinery`],
   [7, `Productivity`, `More output from the same inputs`],
   [7, `Malthusian trap`, `Doomed to subsistence`],
-  [7, `Asian Tigers`, `Rapid post-war growth`]
+  [7, `Asian Tigers`, `Rapid post-war growth`],
+  [8, `Frictional`, `Searching between jobs`],
+  [8, `Structural`, `Wages above equilibrium`],
+  [8, `Cyclical`, `Caused by recessions`],
+  [8, `U6`, `Broadest unemployment measure`],
+  [8, `Discouraged worker`, `Gave up, believes no jobs exist`],
+  [8, `Hysteresis`, `Unemployment that raises itself`],
+  [9, `CPI`, `Cost of living basket`],
+  [9, `GDP deflator`, `Prices of all of GDP`],
+  [9, `PPI`, `Producer prices, very volatile`],
+  [9, `Menu costs`, `Cost of changing prices`],
+  [9, `Shoe-leather costs`, `Extra errands to avoid cash`],
+  [9, `TIPS`, `Inflation-protected Treasury bonds`]
 ];
 
 // units (array), title, buckets, items [text, bucket index]
@@ -1182,7 +1433,10 @@ const RAW_SORTS = [
   { u: [6], title: `Which part of GDP? (Y = C + I + G + NX)`, b: [`C`, `I`, `G`, `NX`], items: [[`A family buys groceries`, 0], [`A firm builds a new factory`, 1], [`The city pays for a new road`, 2], [`Boeing sells a plane to a French airline`, 3], [`You pay for a Netflix subscription`, 0], [`A bakery buys a new oven`, 1], [`The army buys trucks`, 2], [`Americans buy cars made in Japan`, 3]] },
   { u: [6, 1], title: `Stock or flow?`, b: [`Stock`, `Flow`], items: [[`Your bank balance today`, 0], [`Your monthly paycheck`, 1], [`GDP`, 1], [`Total wealth`, 0], [`New tractors built last year`, 1], [`Tractors in Pullman today`, 0], [`Income`, 1]] },
   { u: [7], title: `Which input to the production function?`, b: [`Labor`, `Human capital`, `Physical capital`, `Productivity`], items: [[`Immigration adds workers`, 0], [`More women join the labor force`, 0], [`Literacy`, 1], [`On-the-job training`, 1], [`A wheel tractor scraper`, 2], [`Factory machinery`, 2], [`Jet engines replace propellers`, 3], [`More wheat from the same land`, 3]] },
-  { u: [7], title: `Moves along the Solow curve or shifts it up?`, b: [`Moves along (more capital)`, `Shifts it up (efficiency)`], items: [[`Building more factories`, 0], [`Better technology`, 1], [`More machines per worker`, 0], [`Stronger property rights`, 1], [`New production methods`, 1], [`Investing $100B in equipment`, 0]] }
+  { u: [7], title: `Moves along the Solow curve or shifts it up?`, b: [`Moves along (more capital)`, `Shifts it up (efficiency)`], items: [[`Building more factories`, 0], [`Better technology`, 1], [`More machines per worker`, 0], [`Stronger property rights`, 1], [`New production methods`, 1], [`Investing $100B in equipment`, 0]] },
+  { u: [8], title: `Frictional, structural, or cyclical?`, b: [`Frictional`, `Structural`, `Cyclical`], items: [[`A graduate spends two months finding the right first job`, 0], [`A recession closes a car plant`, 2], [`A minimum wage above the market wage leaves some teens jobless`, 1], [`A worker quits to look for a better-paying job`, 0], [`Union wages mean more applicants than openings`, 1], [`Restaurants lay off staff during a downturn`, 2], [`Skills mismatch while switching careers`, 0]] },
+  { u: [8], title: `In the labor force?`, b: [`Employed`, `Unemployed (U3)`, `Not in the labor force`], items: [[`Works 10 hours a week, wants more`, 0], [`No job, applied to jobs last week`, 1], [`Retired, not looking`, 2], [`Full-time student, not looking`, 2], [`No job, gave up looking 6 months ago`, 2], [`Laid off, interviewing this week`, 1]] },
+  { u: [9], title: `Does it make CPI overstate or understate inflation?`, b: [`Overstate`, `Understate`], items: [[`Phones get much better at the same price`, 0], [`Shrinkflation`, 1], [`A new product appears and gets cheaper fast`, 0], [`People switch from beef to chicken when beef rises`, 0], [`Longer wait times for the same service`, 1], [`Worse customer service`, 1]] }
 ];
 
 // Recall lists: free text typed from memory, matched by keywords. Digits match as whole numbers.
@@ -1206,7 +1460,11 @@ const RAW_LISTS = [
   { u: [6], title: `Things GDP leaves out`, items: [[`Nonmarket goods and services`, [`nonmarket`, `non-market`, `home`]], [`The shadow economy`, [`shadow`, `illegal`, `informal`]], [`Environmental damage`, [`environment`, `pollution`]], [`Leisure`, [`leisure`]], [`Moral value (price is not value)`, [`moral`, `value`]]] },
   { u: [6], title: `Hypotheses for the falling labor share`, items: [[`Robots replacing labor`, [`robot`, `automat`]], [`Trade shocks (China Shock)`, [`trade`, `china`]], [`Declining worker bargaining power`, [`bargain`, `union`]], [`Unequal capital ownership`, [`capital`, `ownership`]]] },
   { u: [7], title: `Inputs to the production function`, items: [[`Labor`, [`labor`, `labour`]], [`Physical capital`, [`physical`]], [`Human capital`, [`human`]], [`Productivity (technology)`, [`productiv`, `technolog`]]] },
-  { u: [7], title: `Ways to improve efficiency (shift the Solow curve)`, items: [[`Better technology`, [`technolog`]], [`New techniques`, [`technique`]], [`New methods`, [`method`]], [`Better institutions`, [`institution`]]] }
+  { u: [7], title: `Ways to improve efficiency (shift the Solow curve)`, items: [[`Better technology`, [`technolog`]], [`New techniques`, [`technique`]], [`New methods`, [`method`]], [`Better institutions`, [`institution`]]] },
+  { u: [8], title: `Three types of unemployment`, items: [[`Frictional`, [`friction`]], [`Structural`, [`structur`]], [`Cyclical`, [`cyclic`]]] },
+  { u: [8], title: `What keeps wages above equilibrium`, items: [[`Efficiency wages`, [`efficiency`]], [`Unions`, [`union`]], [`Job protection regulations`, [`protection`, `regulation`, `fire`]], [`Minimum wage laws`, [`minimum`]]] },
+  { u: [9], title: `The four price indexes to know`, items: [[`CPI`, [`cpi`, `consumer`]], [`Core PCE`, [`pce`, `personal consumption`]], [`PPI`, [`ppi`, `producer`]], [`GDP deflator`, [`deflator`]]] },
+  { u: [9], title: `Three functions of money`, items: [[`Medium of exchange`, [`exchange`]], [`Unit of account`, [`account`]], [`Store of value`, [`store`, `value`]]] }
 ];
 
 // Memory hooks: t (what it helps you recall), h (the hook), w (what it unpacks to), u (unit)
@@ -1242,7 +1500,11 @@ const HOOKS = [
   { u: 6, t: `Nominal vs real`, h: `Nominal = Now prices. Real = Rigid prices.`, w: `Nominal GDP uses today's prices, so inflation inflates it. Real GDP holds prices fixed, so only quantity counts. Nominal growth = real growth + inflation.` },
   { u: 6, t: `Rule of 70`, h: `70 over the rate, then wait.`, w: `Doubling time = 70 / growth rate in percent. 2% doubles in 35 years, 7% in 10.` },
   { u: 7, t: `Production function inputs`, h: `Lots of Hands, Heads, Hammers, and Hacks.`, w: `**L**abor (hands), **H**uman capital (heads), physical **K**apital (hammers), and **productivity** (hacks: better ways of doing things).` },
-  { u: 7, t: `Solow model`, h: `Capital catches you up; ideas keep you going.`, w: `Capital accumulation lets poor countries catch up, but diminishing returns stop it. Long-run growth comes from technology and institutions shifting the curve up.` }
+  { u: 7, t: `Solow model`, h: `Capital catches you up; ideas keep you going.`, w: `Capital accumulation lets poor countries catch up, but diminishing returns stop it. Long-run growth comes from technology and institutions shifting the curve up.` },
+  { u: 8, t: `Types of unemployment`, h: `Fumbling, Stuck, or Crashed.`, w: `**Frictional**: fumbling between jobs. **Structural**: stuck because wages won't fall. **Cyclical**: the economy crashed.` },
+  { u: 8, t: `Unemployed`, h: `No hours, and hunting in the last 4 weeks.`, w: `Both must be true. Stop hunting and you leave the labor force, which can make the official rate fall.` },
+  { u: 9, t: `Today's dollars`, h: `New over old.`, w: `Value today = Old value x (**CPI now / CPI then**). The newer CPI goes on top.` },
+  { u: 9, t: `Functions of money`, h: `Money must Move, Measure, and Maintain.`, w: `**Move** (medium of exchange), **measure** (unit of account), **maintain** value (store of value).` }
 ];
 
 /* Practice Exam 1 text-only questions. [number, question, options, correct index, explanation] */
