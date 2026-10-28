@@ -12,12 +12,14 @@
 <body>
 <header class="top">
   <div class="top-in">
-    <div class="brand"><span><a class="back" href="index.html" aria-label="All classes" title="All classes">&larr;</a><b id="brand">Study Gym</b></span><span class="label" id="countdown"></span></div>
+    <div class="brand"><span><a class="back" href="index.html" aria-label="All classes" title="All classes">&larr;</a><b id="brand">Study Gym</b></span><span><span class="label" id="countdown"></span> <span class="label" id="ver" style="opacity:.7"></span></span></div>
     <nav class="tabs" id="tabs" aria-label="Sections"></nav>
   </div>
 </header>
 <main id="main"></main>
 
+<script src="app/version.js"></script>
+<script>document.getElementById('ver').textContent = 'v' + window.GYM_VERSION;</script>
 <script src="classes/index.js"></script>
 <script>
 // Loads one class: app.html?c=<id>. Order matters: content, then the engine, then optional extras.

@@ -52,3 +52,8 @@ StudyApp.register({
 ```
 
 See `classes/macro/extras.js` for a full example.
+
+## Versions
+
+`app/version.js` holds the changelog. Each update adds one entry to the top of `GYM_CHANGES`; the version
+number (shown on the class picker and in each class's header) is the number of entries.

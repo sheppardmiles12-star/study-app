@@ -12,19 +12,23 @@
 <body>
 <header class="top">
   <div class="top-in">
-    <div class="brand"><b>Study Gym</b></div>
+    <div class="brand"><b>Study Gym</b><span class="label" id="ver"></span></div>
   </div>
 </header>
 <main id="main">
   <div class="stack"><h2>Pick a class</h2></div>
   <div class="grid2" id="classes"></div>
 </main>
+<script src="app/version.js"></script>
 <script src="classes/index.js"></script>
 <script>
 document.getElementById('classes').innerHTML = window.CLASSES.map(function (c) {
   return '<a class="panel stack class-card" href="app.html?c=' + encodeURIComponent(c.id) + '"><h3>' + c.title + '</h3>' +
     (c.subtitle ? '<p class="muted small">' + c.subtitle + '</p>' : '') + '</a>';
 }).join('');
+document.getElementById('ver').textContent = window.gymVersionText();
+document.getElementById('main').insertAdjacentHTML('beforeend', '<details class="chk" style="margin-top:24px"><summary>What\'s new</summary><ul class="tight">' +
+  window.GYM_CHANGES.map(function (c, i) { return '<li><span class="mono small">v' + (window.GYM_VERSION - i) + ' · ' + c[0] + '</span> ' + c[1] + '</li>'; }).join('') + '</ul></details>');
 </script>
 </body>
 </html>

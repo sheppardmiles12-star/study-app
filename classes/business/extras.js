@@ -378,19 +378,34 @@
     [8, 'Why plan the night before instead of in the morning?', 'At night you are calmer and decide from facts. Mornings bring a cortisol spike plus messages and chores, so decisions become reactive. Planning ahead means your morning goes to action instead of deciding.', [['Night: calmer, logical', ['calm', 'logic', 'fact']], ['Morning: stress and distractions', ['cortisol', 'stress', 'message', 'notification', 'react']], ['Morning goes to action', ['act', 'do', 'action']]]]
   ];
 
-  var P = S.plab = { mode: 'gen', gen: null, gpick: null, gn: 0, sitOrder: null, sitKey: '', i: 0, pick: null, score: 0, tried: 0, math: null, mres: null, mval: '', ex: 0, exText: '', exShown: false };
+  var P = S.plab = { mode: 'gen', gen: null, gpick: null, gn: 0, sitOrder: null, sitKey: '', i: 0, pick: null, score: 0, tried: 0, math: null, mres: null, mval: '', exCur: null, exText: '', exShown: false };
   var done = store.get('plab', {});
 
   function inUnits(u) { return A.inSel(u); }
+
+  /* No repeats: a question you've seen stays out of rotation for 12 hours (saved on this device). */
+  var WINDOW = 12 * 3600 * 1000, seenQ = store.get('plseen', {});
+  (function prune() { var now = Date.now(); Object.keys(seenQ).forEach(function (k) { if (now - seenQ[k] >= WINDOW) delete seenQ[k]; }); })();
+  function wasSeen(k) { return seenQ[k] && Date.now() - seenQ[k] < WINDOW; }
+  function markSeen(k) { seenQ[k] = Date.now(); store.set('plseen', seenQ); }
+  function unlockIn(keys) {
+    var t = Math.min.apply(null, keys.map(function (k) { return seenQ[k] || Infinity; })) + WINDOW - Date.now(), h = Math.floor(t / 3600000), m = Math.ceil((t % 3600000) / 60000);
+    if (m === 60) { h++; m = 0; }
+    return t === Infinity ? '' : (h ? h + 'h ' : '') + m + 'm';
+  }
+  function allDone(what, keys) {
+    return '<div class="panel stack"><h3>You\'ve done every ' + what + ' for these units in the last 12 hours.</h3><p class="muted">The next one comes back in about ' + unlockIn(keys) + '. Until then, try another mode or add more units.</p>' +
+      '<div class="row"><button class="btn" data-a="plmode" data-v="gen">Go to Endless</button></div></div>';
+  }
   function sitPool() { return SIT.map(function (s, i) { return i; }).filter(function (i) { return inUnits(SIT[i][0]); }); }
   function buildSit() {
-    var pool = sitPool(), un = pool.filter(function (i) { return !done['s' + i]; }), seen = pool.filter(function (i) { return done['s' + i]; });
+    var pool = sitPool().filter(function (i) { return !wasSeen('s' + i); }), un = pool.filter(function (i) { return !done['s' + i]; }), seen = pool.filter(function (i) { return done['s' + i]; });
     P.sitOrder = shuffle(un).concat(shuffle(seen)).map(function (i) { return { i: i, o: shuffle(SIT[i][3].map(function (_, k) { return k; })) }; });
     P.sitKey = S.sel.join(','); P.i = 0; P.pick = null;
   }
   function vSit() {
     if (P.sitKey !== S.sel.join(',') || !P.sitOrder) buildSit();
-    if (!P.sitOrder.length) return '<div class="panel"><p class="muted">No situations for these units. Pick other units.</p></div>';
+    if (!P.sitOrder.length) return sitPool().length ? allDone('situation', sitPool().map(function (i) { return 's' + i; })) : '<div class="panel"><p class="muted">No situations for these units. Pick other units.</p></div>';
     var cur = P.sitOrder[P.i % P.sitOrder.length], s = SIT[cur.i], answered = P.pick !== null;
     var opts = cur.o.map(function (k, n) {
       var o = s[3][k], cls = 'opt';
@@ -405,7 +420,8 @@
 
   function newMath() {
     var gens = MATH.filter(function (g) { return true; }), tries = 0, m;
-    do { m = gens[Math.floor(Math.random() * gens.length)](); tries++; } while (!inUnits(m.u) && tries < 40);
+    do { m = gens[Math.floor(Math.random() * gens.length)](); tries++; } while ((!inUnits(m.u) || wasSeen(A.hash(m.q))) && tries < 300);
+    markSeen(A.hash(m.q));
     P.math = m; P.mres = null; P.mval = '';
   }
   function fmtAns(m) { return m.unit === '%' ? m.a.toFixed(1) + '%' : m.unit === '$' ? money(m.a) : (m.exact || m.unit === 'dials' ? Math.round(m.a) : m.a.toFixed(1)) + ' ' + m.unit; }
@@ -425,9 +441,12 @@
   }
 
   function exPool() { return EXPL.map(function (e, i) { return i; }).filter(function (i) { return inUnits(EXPL[i][0]); }); }
+  function exPick() { var pool = exPool().filter(function (i) { return !wasSeen('e' + i); }); P.exCur = pool.length ? one(pool) : null; P.exText = ''; P.exShown = false; }
   function vExpl() {
     var pool = exPool(); if (!pool.length) return '<div class="panel"><p class="muted">No prompts for these units.</p></div>';
-    var e = EXPL[pool[P.ex % pool.length]], body;
+    if (P.exCur == null || !inUnits(EXPL[P.exCur][0]) || (!P.exShown && wasSeen('e' + P.exCur))) exPick();
+    if (P.exCur == null) return allDone('Explain It prompt', pool.map(function (i) { return 'e' + i; }));
+    var e = EXPL[P.exCur], body, left = pool.filter(function (i) { return !wasSeen('e' + i); }).length;
     if (!P.exShown) body = '<label class="stack" style="gap:6px"><span class="muted small">Write it as if teaching someone who knows nothing. No peeking at Learn. Aim for 3 to 5 sentences.</span><textarea id="pl-ex" rows="6" placeholder="Explain it in your own words">' + P.exText.replace(/</g, '&lt;') + '</textarea></label><div class="row"><button class="btn" data-a="plexshow">Compare with the key points</button></div>';
     else {
       var t = P.exText.toLowerCase(), keys = e[3].map(function (k) { var hit = k[1].some(function (w) { return t.indexOf(w.toLowerCase()) > -1; }); return '<li class="' + (hit ? 'hit' : '') + '">' + (hit ? '✓ ' : '○ ') + k[0] + '</li>'; }).join('');
@@ -435,7 +454,7 @@
         '<div class="stack" style="gap:4px"><span class="label">Key points a strong answer covers</span><ul class="tight keys" style="list-style:none;padding:0">' + keys + '</ul><span class="small muted">✓ marks are a rough keyword check. Judge for yourself whether you really explained each point.</span></div>' +
         '<div class="box"><span class="label">Model answer</span>' + md(e[2]) + '</div><div class="row"><button class="btn ghost" data-a="plexagain">Try this one again</button><button class="btn" data-a="plexnext">Next prompt</button></div>';
     }
-    return '<div class="row small muted"><span class="mono">prompt ' + ((P.ex % pool.length) + 1) + ' of ' + pool.length + '</span><span>If you can explain it, you understand it.</span></div>' +
+    return '<div class="row small muted"><span class="mono">' + left + ' of ' + pool.length + ' prompts left in this 12-hour window</span><span>If you can explain it, you understand it.</span></div>' +
       '<div class="panel stack"><span class="label">' + A.unitLabel + ' ' + e[0] + ' ' + C.units[e[0]] + '</span><h3 style="font-size:1.2rem;line-height:1.4">' + e[1] + '</h3>' + body + '</div>';
   }
 
@@ -559,7 +578,8 @@
   ];
 
   function newGen() {
-    var g, t = 0; do { g = one(GEN)(); t++; } while (!inUnits(g.u) && t < 60);
+    var g, t = 0; do { g = one(GEN)(); t++; } while ((!inUnits(g.u) || wasSeen(A.hash(g.sit + g.q))) && t < 500);
+    markSeen(A.hash(g.sit + g.q));
     P.gen = g; P.gpick = null; P.gn = (P.gn || 0) + 1;
   }
   function vGen() {
@@ -586,7 +606,7 @@
     else if (a === 'plsit') {
       if (P.pick !== null) return true;
       var cur = P.sitOrder[P.i % P.sitOrder.length], ok = SIT[cur.i][3][+v][1];
-      P.pick = +v; P.tried++; if (ok) { P.score++; done['s' + cur.i] = 1; store.set('plab', done); }
+      P.pick = +v; P.tried++; markSeen('s' + cur.i); if (ok) { P.score++; done['s' + cur.i] = 1; store.set('plab', done); }
     }
     else if (a === 'plnext') { P.i++; P.pick = null; if (P.i >= P.sitOrder.length) buildSit(); render(); window.scrollTo(0, 0); return true; }
     else if (a === 'plgen') { if (P.gpick !== null) return true; P.gpick = +v; P.tried++; if (P.gen.opts[+v][1]) P.score++; }
@@ -594,9 +614,9 @@
     else if (a === 'plmcheck') { mathCheck(); return true; }
     else if (a === 'plmshow') { P.mres = 'shown'; P.tried++; }
     else if (a === 'plmnew') { newMath(); }
-    else if (a === 'plexshow') { var ta = document.getElementById('pl-ex'); P.exText = ta ? ta.value : ''; P.exShown = true; }
+    else if (a === 'plexshow') { var ta = document.getElementById('pl-ex'); P.exText = ta ? ta.value : ''; P.exShown = true; markSeen('e' + P.exCur); }
     else if (a === 'plexagain') { P.exText = ''; P.exShown = false; }
-    else if (a === 'plexnext') { P.ex++; P.exText = ''; P.exShown = false; }
+    else if (a === 'plexnext') { exPick(); }
     else return false;
     render(); return true;
   }
