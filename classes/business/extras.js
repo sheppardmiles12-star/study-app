@@ -378,7 +378,7 @@
     [8, 'Why plan the night before instead of in the morning?', 'At night you are calmer and decide from facts. Mornings bring a cortisol spike plus messages and chores, so decisions become reactive. Planning ahead means your morning goes to action instead of deciding.', [['Night: calmer, logical', ['calm', 'logic', 'fact']], ['Morning: stress and distractions', ['cortisol', 'stress', 'message', 'notification', 'react']], ['Morning goes to action', ['act', 'do', 'action']]]]
   ];
 
-  var P = S.plab = { mode: 'sit', sitOrder: null, sitKey: '', i: 0, pick: null, score: 0, tried: 0, math: null, mres: null, mval: '', ex: 0, exText: '', exShown: false };
+  var P = S.plab = { mode: 'gen', gen: null, gpick: null, gn: 0, sitOrder: null, sitKey: '', i: 0, pick: null, score: 0, tried: 0, math: null, mres: null, mval: '', ex: 0, exText: '', exShown: false };
   var done = store.get('plab', {});
 
   function inUnits(u) { return A.inSel(u); }
@@ -439,11 +439,146 @@
       '<div class="panel stack"><span class="label">' + A.unitLabel + ' ' + e[0] + ' ' + C.units[e[0]] + '</span><h3 style="font-size:1.2rem;line-height:1.4">' + e[1] + '</h3>' + body + '</div>';
   }
 
+  /* ---------- Endless: generated situations. Each generator returns {u, sit, q, opts: [[text, correct, why]]} ---------- */
+  function one(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function some(a, n) { return shuffle(a.slice()).slice(0, n); }
+  var NICHE = [['roofing company', 'roof quotes'], ['dental office', 'cleanings'], ['HVAC company', 'AC tune-ups'], ['med spa', 'consultations'], ['landscaping company', 'yard estimates'], ['solar installer', 'home assessments'], ['plumbing company', 'service calls'], ['chiropractor', 'first visits'], ['remodeling company', 'kitchen consults'], ['auto detailer', 'detail bookings'], ['law firm', 'case reviews'], ['pest control company', 'inspections'], ['gym', 'free trial sessions'], ['window cleaning company', 'quotes']];
+  var NAMES = ['Jordan', 'Taylor', 'Casey', 'Riley', 'Morgan', 'Sam', 'Alex', 'Jamie', 'Drew', 'Avery', 'Priya', 'Marcus', 'Elena', 'Kenji', 'Tomás', 'Aisha', 'Dev', 'Nia'];
+  function mc(u, sit, q, right, wrongs) { return { u: u, sit: sit, q: q, opts: shuffle([[right[0], true, right[1]]].concat(wrongs.map(function (w) { return [w[0], false, w[1]]; }))) }; }
+
+  var GEN = [
+    function () { // which part of the agency
+      var n = one(NICHE), biz = n[0], ap = n[1];
+      var T = {
+        fa: ['cold call the owner of a ' + biz + ' to pitch your service', 'run a strategy call with a ' + biz + ' owner who booked from your outreach', 'walk into a local ' + biz + ' and introduce yourself to the owner', 'call back a ' + biz + ' owner who missed your strategy call'],
+        ba: ['set up the calendar link prospects use to book a strategy call with you', 'build an automation that texts a ' + biz + ' owner a reminder before your strategy call', 'build a spreadsheet of ' + biz + ' owners you plan to call next week', 'write the email sequence that goes to ' + biz + ' owners who said "not right now"'],
+        ff: ['call the new leads from your ' + biz + ' client\'s ads to book ' + ap, 'get on the monthly results call with your ' + biz + ' client', 'text a lead from your ' + biz + ' client\'s ad to confirm their booking'],
+        bf: ['build the ad campaign for your ' + biz + ' client', 'set up the automation that texts your ' + biz + ' client\'s new leads within 60 seconds', 'build the onboarding form that collects your ' + biz + ' client\'s logins and photos', 'build the lead pipeline inside your ' + biz + ' client\'s GHL sub-account']
+      };
+      var L = { fa: 'Front-end acquisition', ba: 'Back-end acquisition', ff: 'Front-end fulfillment', bf: 'Back-end fulfillment' };
+      var k = one(['fa', 'ba', 'ff', 'bf']), task = one(T[k]);
+      var acq = k[1] === 'a', front = k[0] === 'f';
+      var why = function (c) {
+        var a = c[1] === 'a', f = c[0] === 'f';
+        if (c === k) return 'It is ' + (acq ? 'about getting YOUR agency a client' : 'serving a client you already have') + ' (' + (acq ? 'acquisition' : 'fulfillment') + '), and it is ' + (front ? 'talking to a person directly (front end)' : 'a system, not a live conversation (back end)') + '.';
+        return (a !== acq ? 'Ask who it serves: ' + (acq ? 'this wins clients for your own agency, so it is acquisition.' : 'this serves an existing client, so it is fulfillment.') : '') + (f !== front ? (a !== acq ? ' Also, ' : '') + (front ? 'it is a live conversation, so it is front end.' : 'it is a system, not a conversation, so it is back end.') : '');
+      };
+      return mc(1, 'Your task today: ' + task + '.', 'Which part of the agency is this?', [L[k], why(k)], Object.keys(L).filter(function (c) { return c !== k; }).map(function (c) { return [L[c], why(c)]; }));
+    },
+    function () { // warmth vs competence diagnosis
+      var nm = one(NAMES), biz = one(NICHE)[0], lowW = Math.random() < 0.5;
+      var B = lowW ? ['jumps straight into numbers with no small talk', 'keeps a serious, unsmiling face the whole call', 'talks mostly about their own results', 'never asks about the owner\'s business', 'sits rigid with arms crossed'] : ['laughs at almost everything', 'agrees with every point the owner makes', 'ends most sentences with a rising "...right?"', 'nods quickly the entire call', 'apologizes for "taking up your time"'];
+      var O = lowW ? ['agrees ' + nm + ' clearly knows marketing, but keeps questioning the numbers', 'says "send me something in writing and I\'ll look it over"', 'gives short, guarded answers'] : ['enjoys the call but says they want to "keep looking around"', 'asks if ' + nm + ' has actually done this before', 'immediately asks for a big discount'];
+      var b = some(B, 2);
+      var W = ['Warmth: the owner does not yet trust or like ' + nm + '. Add warmth, like asking about their business, smiling, and open body language.', lowW ? 'Those behaviors show skill but no warmth, and competence without warmth makes people suspicious. That is why the owner pushes back and stalls.' : 'Warmth is not the problem here; ' + nm + ' has plenty. Too much warmth without competence is the issue.'];
+      var Cc = ['Competence: the owner likes ' + nm + ' but does not take them seriously. Add a steady pace, downward endings, and a clear plan.', lowW ? 'The owner already believes ' + nm + ' is skilled. More proof will not fix a trust problem.' : 'Those behaviors are friendly but signal low credibility, so the owner enjoys the call without seeing ' + nm + ' as the expert.'];
+      var right = lowW ? W : Cc, wrong = lowW ? Cc : W;
+      return mc(3, nm + ' is on a call with the owner of a ' + biz + '. ' + nm + ' ' + b[0] + ' and ' + b[1] + '. The owner ' + one(O) + '.', 'What is most likely missing?', right,
+        [wrong, ['A lower price', 'Discounting does not fix how the owner sees ' + nm + ', and it trains them to push back.'], ['More dials, since this lead is a lost cause', 'Volume matters, but this call is telling ' + nm + ' something specific to fix.']]);
+    },
+    function () { // price delivery: one thing wrong
+      var nm = one(NAMES), biz = one(NICHE)[0], price = one([997, 1200, 1500, 1800, 2000, 2500, 3000]);
+      var F = [
+        { u: 4, good: 'slows down on the number', bad: 'rushes through the number', fix: 'Slow down on the number', why: 'Rushing makes the price sound like something to get past. Slowing down highlights it.' },
+        { u: 5, good: 'ends the number on a downward note', bad: 'ends the number going up, like a question', fix: 'End the number on a downward note', why: 'A rising ending turns a statement into a question and invites negotiation.' },
+        { u: 4, good: 'pauses and lets the number sit', bad: 'immediately starts justifying the price before the owner says anything', fix: 'Pause after the number instead of justifying it', why: 'Filling the silence shows discomfort. A pause lets the number land.' },
+        { u: 4, good: 'keeps their volume steady and clear', bad: 'drops to a near-whisper on the number', fix: 'Keep volume steady and clear on the number', why: 'Going quiet on the price sounds unsure of it.' }
+      ];
+      var bad = Math.floor(Math.random() * F.length), parts = shuffle(F.map(function (f, i) { return i === bad ? f.bad : f.good; }));
+      return mc(F[bad].u, nm + ' tells a ' + biz + ' owner, "The investment is $' + price.toLocaleString('en-US') + ' a month." While saying it, ' + nm + ' ' + parts.slice(0, -1).join(', ') + ', and ' + parts[parts.length - 1] + '.', 'Which ONE change would help most?', [F[bad].fix, F[bad].why],
+        F.filter(function (f, i) { return i !== bad; }).map(function (f) { return [f.fix, nm + ' is already doing this (' + f.good + '). The weak spot is elsewhere.']; }));
+    },
+    function () { // yes, and
+      var n = one(NICHE), biz = n[0];
+      var X = [
+        ['"You\'re more expensive than the last agency."', '"Yes, and that\'s because we call every lead within minutes, which is where most ' + biz + ' owners lose jobs."'],
+        ['"I\'m too busy to take this on right now."', '"Yes, and that\'s exactly why we handle the lead calls, so this doesn\'t add to your day."'],
+        ['"I get most of my work from referrals."', '"Yes, and referrals are great. This adds a second, steady source on top of them."'],
+        ['"I need to talk to my business partner."', '"Yes, and let\'s book 15 minutes with both of you so they hear it firsthand."'],
+        ['"My last agency got me nothing."', '"Yes, and that\'s why I\'d rather show you the numbers every week than ask you to trust me."']
+      ], x = one(X);
+      return mc(6, 'On your strategy call, the owner of a ' + biz + ' says: ' + x[0], 'Which reply keeps the conversation moving forward?', [x[1], '"Yes, and" accepts their point and builds on it, so the conversation stays cooperative.'],
+        some([['"Yes, but you have to think long-term here."', '"But" cancels what they said and puts them on the defensive.'], ['"I don\'t think that\'s really true."', 'Arguing with how they see it makes them dig in.'], ['"Okay, what if I knock 30% off?"', 'Jumping to a discount signals your price was never real and skips their actual concern.'], ['"No problem, I\'ll follow up in a few months."', 'Giving up at the first concern loses a conversation you could still win.']], 3));
+    },
+    function () { // revenue vs profit
+      var a = { r: ri(10000, 30000, 1000) }, b = { r: ri(10000, 30000, 1000) };
+      a.c = ri(Math.round(a.r * 0.3), Math.round(a.r * 0.95), 100); b.c = ri(Math.round(b.r * 0.3), Math.round(b.r * 0.95), 100);
+      a.p = a.r - a.c; b.p = b.r - b.c; if (a.p === b.p) b.c += 300, b.p -= 300;
+      var na = one(NAMES), nb = one(NAMES.filter(function (x) { return x !== na; })), win = a.p > b.p ? na : nb;
+      var w = na + ' kept ' + money(a.p) + ' (' + (100 * a.p / a.r).toFixed(0) + '% margin); ' + nb + ' kept ' + money(b.p) + ' (' + (100 * b.p / b.r).toFixed(0) + '% margin). Profit, not revenue, is what you keep.';
+      var hiRev = a.r >= b.r ? na : nb;
+      return mc(1, na + '\'s agency collected ' + money(a.r) + ' last month and spent ' + money(a.c) + ' on contractors, software, and ads. ' + nb + '\'s agency collected ' + money(b.r) + ' and spent ' + money(b.c) + '.', 'Whose agency actually kept more money?', [win, w],
+        [[win === na ? nb : na, w], ['They kept the same amount', w], ['Whoever collected more (' + hiRev + ')', hiRev === win ? 'It happens to be the same person this time, but only by checking costs can you know. ' + w : 'Higher revenue does not mean higher profit. ' + w]].filter(function (o) { return o[0] !== win; }).slice(0, 3));
+    },
+    function () { // funnel: where is the leak
+      var rates = [ri(10, 25), ri(15, 40), ri(65, 90), ri(20, 40)], weak = Math.floor(Math.random() * 4);
+      rates[weak] = Math.max(3, Math.round(rates[weak] * (weak === 2 ? 0.45 : 0.35)));
+      var st = ['dials', 'conversations with owners', 'calls booked', 'calls showed up', 'clients closed'], c = [ri(400, 900, 50)];
+      for (var i = 0; i < 4; i++) c.push(Math.max(0, Math.round(c[i] * rates[i] / 100)));
+      var pct = function (i) { return c[i] ? Math.round(100 * c[i + 1] / c[i]) : 0; };
+      var sorted = [0, 1, 2, 3].sort(function (x, y) { return pct(x) - pct(y); }), worst = sorted[0];
+      if (pct(sorted[0]) === pct(sorted[1])) return GEN[5]();
+      var L = ['Dial to conversation', 'Conversation to booked call', 'Booked call to showing up', 'Showed up to closed'];
+      var all = [0, 1, 2, 3].map(function (i) { return L[i] + ' ' + pct(i) + '%'; }).join(', ');
+      return mc(2, 'Practice numbers (made up) for one week: ' + c.map(function (n, i) { return n + ' ' + st[i]; }).join(', ') + '.', 'Which step converts at the lowest rate?', [L[worst], 'Turn each step into a percent: ' + all + '. Find the weakest step before you try to fix anything.'],
+        [0, 1, 2, 3].filter(function (i) { return i !== worst; }).map(function (i) { return [L[i], 'This step converts at ' + pct(i) + '%. Steps: ' + all + '.']; }));
+    },
+    function () { // record and review
+      var nm = one(NAMES), iss = some(['talks fast', 'speaks at a low volume', 'has a flat, monotone melody', 'says "um" constantly', 'swivels in the chair', 'never uses their hands', 'ends statements going up'], ri(3, 4)), f = one(iss);
+      return mc(4, nm + '\'s first record-and-review shows that ' + nm + ' ' + iss.slice(0, -1).join(', ') + ', and ' + iss[iss.length - 1] + '.', 'What should ' + nm + '\'s plan be for next week?', ['Pick one, say the fact that ' + nm + ' ' + f + ', work only on that all week, then record and review again', 'One focus per week until it changes. Trying to fix everything at once leads to overwhelm and nothing sticks.'],
+        [['Work on all ' + iss.length + ' this week to save time', 'This is the overwhelm trap. Spread across ' + iss.length + ' things, none of them change.'], ['Stop recording because it makes ' + nm + ' self-conscious', 'Recording is the only way to see your own habits.'], ['Skip practice and just do more real sales calls', 'Sales calls alone give too few reps; practice with recordings and neutral ears too.']]);
+    },
+    function () { // gestures
+      var biz = one(NICHE)[0], G = {
+        lev: ['Leveler: palms facing down', 'Palms down signals authority and control, and your pitch tends to drop with it.', ['explain firmly that payment comes before onboarding', 'state that the contract minimum is three months', 'say that the price is not up for negotiation']],
+        pla: ['Placator: palms up and open', 'Open palms signal openness and invite the other person in.', ['invite the owner to share their concerns', 'ask the ' + biz + ' owner what their biggest headache with leads is', 'show you are open to questions before moving on']],
+        dis: ['Distractor: a clap or sudden movement', 'A pattern break pulls attention back or marks a shift.', ['pull back the attention of an owner who is clearly distracted', 'mark a clear shift from your questions to your plan']]
+      }, k = one(['lev', 'pla', 'dis']), ctx = one(G[k][2]);
+      var wr = Object.keys(G).filter(function (x) { return x !== k; }).map(function (x) { return [G[x][0], 'That fits a different moment. ' + G[x][1]]; });
+      wr.push(['Blamer: pointing at the camera', 'Pointing feels accusing, so it rarely helps on a sales call.']);
+      return mc(5, 'On a call with the owner of a ' + biz + ', you need to ' + ctx + '.', 'Which gesture fits best?', [G[k][0], G[k][1]], wr);
+    },
+    function () { // sub-accounts
+      var n = ri(3, 25);
+      return mc(7, 'Your agency just signed client number ' + n + '.', 'How many GHL sub-accounts do you need in total?', [String(n + 1), 'One for your own agency plus one for each client: ' + n + ' + 1 = ' + (n + 1) + '.'],
+        [[String(n), 'You forgot your own agency\'s sub-account.'], ['1', 'Each client needs their own separate workspace.'], [String(2 * n), 'It is one per client plus one for you, not two per client.']]);
+    },
+    function () { // logic vs emotion timing
+      var calm = Math.random() < 0.45, m = calm ? one(['at 9 p.m. after dinner, feeling calm', 'Sunday evening with a clear head', 'the night before, after a normal day']) : one(['right after a prospect hung up on you', 'first thing in the morning while your messages are piling up', 'in the middle of handling an angry client complaint', 'after your third rejection in a row']);
+      var d = one(['whether to change your price', 'which niche to focus on', 'whether to drop a difficult client', 'what to work on tomorrow', 'whether to rewrite your offer']);
+      var yes = ['Yes: you are calm, so you can decide from the facts', 'Calm moments are when the course says to make decisions.'], no = ['No: write the idea down and decide tonight when you are calm', 'Strong emotion or a stressful morning makes decisions reactive. Capture it, decide later.'];
+      return mc(8, 'It is ' + m + '. You want to decide ' + d + '.', 'Is this a good moment to make the decision?', calm ? yes : no,
+        [calm ? [no[0], 'Nothing here is making you reactive; this is the calm moment the course recommends.'] : [yes[0], 'You are not calm right now, so the decision is likely to be reactive.'], ['Yes: strong feelings mean the decision is important', 'Feeling strongly is a reason to wait, not to rush.'], ['Never change anything; stick to the plan', 'Changing course can be right. The point is to decide when calm.']]);
+    },
+    function () { // match then lead
+      var biz = one(NICHE)[0], low = Math.random() < 0.5;
+      var s = low ? 'The owner of a ' + biz + ' joins the call quiet and a little nervous. You are naturally high energy.' : 'The owner of a ' + biz + ' joins the call loud, fast, and excited. You are naturally calm and quiet.';
+      return mc(6, s, 'What is the best approach?', ['Match their energy first, then gradually lead toward where you want the call to be', 'Meeting them where they are builds rapport; then you can lead.'],
+        [['Stay at your own natural level so they adjust to you', 'A big gap in energy makes people feel out of sync.'], [low ? 'Go even quieter than them' : 'Get even louder than them', 'Matching is not overshooting; you still need to lead.'], ['Reschedule for a better day', 'Nothing is wrong; you just need to adjust.']]);
+    }
+  ];
+
+  function newGen() {
+    var g, t = 0; do { g = one(GEN)(); t++; } while (!inUnits(g.u) && t < 60);
+    P.gen = g; P.gpick = null; P.gn = (P.gn || 0) + 1;
+  }
+  function vGen() {
+    if (!P.gen || !inUnits(P.gen.u)) newGen();
+    var g = P.gen, answered = P.gpick !== null;
+    var opts = g.opts.map(function (o, k) {
+      var cls = 'opt'; if (answered) { if (o[1]) cls += ' right'; else if (P.gpick === k) cls += ' wrong'; }
+      return '<button class="' + cls + '" data-a="plgen" data-v="' + k + '"' + (answered ? ' disabled' : '') + '><span class="k">' + (k + 1) + '</span><span>' + o[0] + (answered && (o[1] || P.gpick === k) ? '<span class="why">' + (o[1] ? '<b>Why this works:</b> ' : '<b>Why not:</b> ') + o[2] + '</span>' : '') + '</span></button>';
+    }).join('');
+    var more = answered ? '<details class="chk"><summary>Why the other options don\'t work</summary><ul class="tight">' + g.opts.filter(function (o, k) { return !o[1] && k !== P.gpick; }).map(function (o) { return '<li><b>' + o[0] + '</b>: ' + o[2] + '</li>'; }).join('') + '</ul></details><div class="row"><button class="btn" data-a="plgnext">Next situation</button></div>' : '';
+    return '<div class="row small muted"><span class="mono">score ' + P.score + ' / ' + P.tried + ' · #' + P.gn + '</span><span>Generated fresh each time: new businesses, people, numbers, and details.</span></div>' +
+      '<div class="panel stack"><span class="label">' + A.unitLabel + ' ' + g.u + ' ' + C.units[g.u] + '</span><div class="sit">' + g.sit + '</div><h3 style="font-size:1.15rem">' + g.q + '</h3>' + opts + more + '</div>';
+  }
+
   function vLab() {
-    var modes = [['sit', 'Situations'], ['math', 'Agency Math'], ['expl', 'Explain It']];
-    var head = '<div class="stack"><h2>Practice Lab</h2><p class="muted" style="max-width:68ch">Practice that tests understanding, not memory. <b>Situations</b> put you in a real moment and explain every option. <b>Agency Math</b> uses fresh numbers each time. <b>Explain It</b> has you teach the idea back in your own words.</p>' + A.picker() +
+    var modes = [['gen', 'Endless'], ['sit', 'Situations'], ['math', 'Agency Math'], ['expl', 'Explain It']];
+    var head = '<div class="stack"><h2>Practice Lab</h2><p class="muted" style="max-width:68ch">Practice that tests understanding, not memory. <b>Endless</b> generates a brand-new situation every time. <b>Situations</b> put you in a real moment and explain every option. <b>Agency Math</b> uses fresh numbers each time. <b>Explain It</b> has you teach the idea back in your own words.</p>' + A.picker() +
       '<div class="row" role="group">' + modes.map(function (m) { return '<button class="chip" data-a="plmode" data-v="' + m[0] + '" aria-pressed="' + (P.mode === m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div></div>';
-    return head + (P.mode === 'sit' ? vSit() : P.mode === 'math' ? vMath() : vExpl());
+    return head + (P.mode === 'gen' ? vGen() : P.mode === 'sit' ? vSit() : P.mode === 'math' ? vMath() : vExpl());
   }
 
   function click(a, v, t) {
@@ -454,6 +589,8 @@
       P.pick = +v; P.tried++; if (ok) { P.score++; done['s' + cur.i] = 1; store.set('plab', done); }
     }
     else if (a === 'plnext') { P.i++; P.pick = null; if (P.i >= P.sitOrder.length) buildSit(); render(); window.scrollTo(0, 0); return true; }
+    else if (a === 'plgen') { if (P.gpick !== null) return true; P.gpick = +v; P.tried++; if (P.gen.opts[+v][1]) P.score++; }
+    else if (a === 'plgnext') { newGen(); render(); window.scrollTo(0, 0); return true; }
     else if (a === 'plmcheck') { mathCheck(); return true; }
     else if (a === 'plmshow') { P.mres = 'shown'; P.tried++; }
     else if (a === 'plmnew') { newMath(); }
@@ -467,6 +604,7 @@
     if (S.tab !== 'plab') return;
     if (e.target.id === 'pl-ans' && e.key === 'Enter') { e.preventDefault(); mathCheck(); return; }
     if (/INPUT|TEXTAREA/.test(e.target.tagName || '')) return;
+    if (P.mode === 'gen' && P.gpick === null && P.gen && /^[1-4]$/.test(e.key) && +e.key <= P.gen.opts.length) { click('plgen', String(+e.key - 1)); return; }
     if (P.mode === 'sit' && P.pick === null && /^[1-4]$/.test(e.key) && P.sitOrder && P.sitOrder.length) { var cur = P.sitOrder[P.i % P.sitOrder.length]; click('plsit', String(cur.o[+e.key - 1])); }
   });
 
