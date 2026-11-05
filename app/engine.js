@@ -481,16 +481,23 @@
   }
 
   /* ---------- PRACTICE EXAM ---------- */
-  var EXQ = EXAM.questions.map(function (r) { return { n: r[0], q: r[1], o: r[2], a: r[3], e: r[4] }; });
-  S.ex = { phase: 'setup', n: 25, exam: true, wrong: store.get('exwrong', []) };
+  // Optional EXAM.sets: [{ id, label, intro }]. A question's 6th field names its set; untagged questions are in set 'main'.
+  var EXQ = EXAM.questions.map(function (r) { return { n: r[0], q: r[1], o: r[2], a: r[3], e: r[4], set: r[5] || 'main' }; });
+  var SETS = EXAM.sets || [];
+  S.ex = { phase: 'setup', n: 25, exam: true, set: SETS.length ? SETS[0].id : null, wrong: store.get('exwrong', []) };
+  function exPool() { var z = S.ex; return EXQ.filter(function (q) { return !z.set || q.set === z.set; }); }
+  function exSet() { var z = S.ex; return SETS.filter(function (x) { return x.id === z.set; })[0] || {}; }
   function vExam() {
     var z = S.ex;
     if (z.phase === 'setup') {
       var gaps = GAPS.map(function (g) { return '<details class="chk"><summary>' + g.h + '</summary><div class="lbody">' + g.t.map(function (p) { return '<p>' + md(p) + '</p>'; }).join('') + '</div></details>'; }).join('');
-      return '<div class="stack"><h2>' + (EXAM.title || 'Practice exam') + '</h2>' + (EXAM.intro ? '<p class="muted" style="max-width:68ch">' + EXAM.intro + '</p>' : '') + '</div>' +
-        '<div class="panel stack"><div class="label">Length</div><div class="row">' + [25, 50, 'all'].map(function (n) { return '<button class="chip" data-a="exn" data-v="' + n + '" aria-pressed="' + (String(z.n) === String(n)) + '">' + (n === 'all' ? 'All ' + EXQ.length : n + ' questions') + '</button>'; }).join('') + '</div>' +
+      var intro = exSet().intro || EXAM.intro, pool = exPool();
+      var missedN = pool.filter(function (q) { return z.wrong.indexOf(q.n) > -1; }).length;
+      var setRow = SETS.length ? '<div class="label">Which exam</div><div class="row">' + SETS.map(function (x) { return '<button class="chip" data-a="exset" data-v="' + x.id + '" aria-pressed="' + (z.set === x.id) + '">' + x.label + '</button>'; }).join('') + '</div>' : '';
+      return '<div class="stack"><h2>' + (EXAM.title || 'Practice exam') + '</h2>' + (intro ? '<p class="muted" style="max-width:68ch">' + intro + '</p>' : '') + '</div>' +
+        '<div class="panel stack">' + setRow + '<div class="label">Length</div><div class="row">' + [25, 50, 'all'].map(function (n) { return '<button class="chip" data-a="exn" data-v="' + n + '" aria-pressed="' + (String(z.n) === String(n)) + '">' + (n === 'all' ? 'All ' + pool.length : n + ' questions') + '</button>'; }).join('') + '</div>' +
         '<div class="label">Mode</div><div class="row"><button class="chip" data-a="exmode" data-v="1" aria-pressed="' + z.exam + '">Exam (score at the end)</button><button class="chip" data-a="exmode" data-v="0" aria-pressed="' + !z.exam + '">Learn (feedback after each)</button></div>' +
-        '<div class="row"><button class="btn" data-a="exstart">Start</button>' + (z.wrong.length ? '<button class="btn ghost" data-a="exmissed">Redo my ' + z.wrong.length + ' missed</button>' : '') + '</div></div>' +
+        '<div class="row"><button class="btn" data-a="exstart">Start</button>' + (missedN ? '<button class="btn ghost" data-a="exmissed">Redo my ' + missedN + ' missed</button>' : '') + '</div></div>' +
         (GAPS.length ? '<div class="panel stack"><h3>' + (EXAM.gapsTitle || 'Extra topics') + '</h3>' + (EXAM.gapsNote ? '<p class="muted small">' + EXAM.gapsNote + '</p>' : '') + gaps + '</div>' : '');
     }
     if (z.phase === 'done') {
@@ -516,7 +523,7 @@
   }
   function exStart(pool, n, exam) {
     pool = shuffle(pool); if (n !== 'all') pool = pool.slice(0, n);
-    S.ex = { phase: 'q', n: n, exam: exam, list: pool, i: 0, picked: null, score: 0, missed: [], wrong: S.ex.wrong };
+    S.ex = { phase: 'q', n: n, exam: exam, set: S.ex.set, list: pool, i: 0, picked: null, score: 0, missed: [], wrong: S.ex.wrong };
   }
   function exPick(i) {
     var z = S.ex; if (z.picked !== null) return;
@@ -531,11 +538,12 @@
     switch (a) {
       case 'exn': z.n = v === 'all' ? 'all' : +v; render(); return true;
       case 'exmode': z.exam = (v === '1'); render(); return true;
-      case 'exstart': exStart(EXQ.slice(), z.n, z.exam); render(); return true;
-      case 'exmissed': exStart(EXQ.filter(function (q) { return z.wrong.indexOf(q.n) > -1; }), 'all', false); render(); return true;
+      case 'exset': z.set = v; render(); return true;
+      case 'exstart': exStart(exPool(), z.n, z.exam); render(); return true;
+      case 'exmissed': exStart(exPool().filter(function (q) { return z.wrong.indexOf(q.n) > -1; }), 'all', false); render(); return true;
       case 'expick': exPick(+v); return true;
       case 'exnext': exNext(); return true;
-      case 'exsetup': S.ex = { phase: 'setup', n: z.n, exam: z.exam, wrong: z.wrong }; render(); return true;
+      case 'exsetup': S.ex = { phase: 'setup', n: z.n, exam: z.exam, set: z.set, wrong: z.wrong }; render(); return true;
       case 'exretry': { var ids = z.missed.map(function (m) { return m.id; }); exStart(EXQ.filter(function (q) { return ids.indexOf(q.n) > -1; }), 'all', false); render(); return true; }
     }
     return false;

@@ -1,7 +1,7 @@
 /* Macro Economics Study: study content for ECON macro, written from the lecture decks (Units 1-5, plus deck 9 GDP as Unit 6).
    See classes/_template/content.js for what every field means. */
 (function () {
-const UNITS = { 1: 'Introduction', 2: 'Demand', 3: 'Supply', 4: 'Equilibrium', 5: 'Inequality', 6: 'GDP', 7: 'Growth', 8: 'Unemployment', 9: 'Inflation' };
+const UNITS = { 1: 'Introduction', 2: 'Demand', 3: 'Supply', 4: 'Equilibrium', 5: 'Inequality', 6: 'GDP', 7: 'Growth', 8: 'Unemployment', 9: 'Inflation', 10: 'Investment' };
 
 const RAW_CARDS = [
   [1, 'Economics', 'The study of the allocation of scarce resources.'],
@@ -230,7 +230,42 @@ const RAW_CARDS = [
   [9, 'Menu costs', 'Costs of changing prices (reprinting, recalculating).'],
   [9, 'Shoe-leather costs', 'Extra errands and transactions to avoid holding cash during inflation.'],
   [9, 'Costs of unexpected inflation', 'Confuses the signals prices send, and redistributes income.'],
-  [9, 'Three functions of money', 'Medium of exchange, unit of account, store of value.']
+  [9, 'Three functions of money', 'Medium of exchange, unit of account, store of value.'],
+  [10, 'Investment (in economics)', 'Resources dedicated to future production: things that increase productive capacity later. NOT financial assets like stocks.'],
+  [10, 'The two big macro problems (deck)', '1. How some countries became rich. 2. How to stop or lessen recessions. Investment matters for both.'],
+  [10, 'What is strongly correlated with rising wages?', 'Investment. Physical capital makes labor more productive.'],
+  [10, 'What fluctuates the most in a recession?', 'Investment.'],
+  [10, 'Capital stock', 'What investment builds up: buildings, machines, animal herds, software. It depreciates over time.'],
+  [10, 'Depreciation', 'Capital losing value: houses need repairs, machines need parts, software becomes obsolete.'],
+  [10, 'Three types of investment (deck)', 'Business investment (new capital), inventories (raw materials, work in progress, unsold goods), housing investment (building or improving homes).'],
+  [10, 'Three types of BUSINESS investment', 'Equipment, structures, and intellectual property (software, R&D).'],
+  [10, 'Is buying stock an investment?', 'No. In economics that is saving (a financial asset). Investment is spending on new physical capital.'],
+  [10, 'Saving vs investment', 'Saving = income you do not consume. Investment = spending on new capital that adds productive capacity.'],
+  [10, 'Why do we have banks?', 'To connect savers (people with cash) with doers (people with ideas and time to build).'],
+  [10, 'Compounding formula', 'Future value = PV x (1 + r)^t.'],
+  [10, 'Compounding example', '$10,000 at 10%: $11,000 after 1 year, $12,100 after 2, $13,310 after 3.'],
+  [10, 'Discounting formula', 'Present value = FV / (1 + r)^t. Same formula, rearranged.'],
+  [10, 'George: CD vs bond for $15,000', 'CD 6% for 8 years = $23,907.72. Bond 4% for 10 years = $22,203.66. The CD wins.'],
+  [10, 'George needs $35,000 in 8 years at 6%', '$35,000 / 1.06^8 = $21,959.43 today, almost $7,000 more than his $15,000.'],
+  [10, 'Opportunity cost of waiting', 'Tomorrow\'s benefit comes at the cost of today\'s loss. $100 now beats $100 later because it could earn interest.'],
+  [10, 'Value of a stream that depreciates', 'PV = yearly revenue / (r + d).'],
+  [10, 'User cost of capital', '(Real interest rate + depreciation rate) x price of the capital.'],
+  [10, 'Rational Rule for investors', 'Invest if the yearly revenue is at least the user cost: revenue >= (r + d) x price. Same as PV of benefits >= cost.'],
+  [10, 'George\'s tractor', '$15,000 tractor, +$2,000 a year, revenue depreciates 5%. Worth it if $2,000 / (r + 0.05) >= $15,000, so if r is about 8.3% or less.'],
+  [10, 'Loanable funds market', 'Price = the (real) interest rate. Savers supply funds; borrowers demand them.'],
+  [10, 'Why loan demand slopes down', 'Firms borrow for projects that pay more than the loan. Lower interest rates make more projects profitable.'],
+  [10, 'Why loan supply slopes up', 'Return on saving is the opportunity cost of spending. Higher rates mean more saved.'],
+  [10, 'Supply shifters (deck)', 'Personal savings rate, government budget surplus/deficit, global shocks.'],
+  [10, 'Demand shifters (deck)', 'Technological advances and new opportunities, expectations, corporate taxes, lending standards and cash reserves.'],
+  [10, 'Baby boomers retire', 'They draw down savings: supply shifts left, interest rate rises.'],
+  [10, '2008: lending standards rose', 'Fewer borrowers qualify: demand shifts left, interest rate and quantity fall.'],
+  [10, 'Green energy subsidy / A.I. boom', 'More profitable projects: demand shifts right, interest rate rises.'],
+  [10, 'Crowding out', 'Government borrowing raises the interest rate, which reduces private investment.'],
+  [10, 'Real interest rate', 'Real = nominal - inflation. Use ACTUAL inflation for the actual real return.'],
+  [10, 'Why rates could fall (deck)', 'Savings glut (richer world saves more), less capital-intensive tech (phones beat old supercomputers), sharing economy wastes less capital.'],
+  [10, 'Why rates could rise (deck)', 'Government borrowing crowds out investment, boomers drawing down savings, green tech and A.I. demand.'],
+  [10, 'Sources of funds for investment', 'Domestic savings and foreign savings.'],
+  [10, 'When does the capital stock stop growing?', 'When investment equals depreciation.']
 ];
 
 // Each question: correct answer first, then three wrong ones. Options are shuffled at runtime.
@@ -348,7 +383,25 @@ const RAW_QS = [
   [9, 'To convert an old dollar amount to today\'s dollars:', ['multiply by CPI today / CPI then', 'multiply by CPI then / CPI today', 'add the inflation rate', 'subtract CPI'], 'Real value in today\'s money.'],
   [9, 'Which protects savings from inflation, per the deck?', ['Treasury Inflation Protected Securities (TIPS)', 'Holding lots of cash', 'Keeping money under the mattress', 'Avoiding all interest-bearing assets'], 'Also CDs, high-yield savings, low-risk funds, real estate.'],
   [9, 'The cost of reprinting price lists when prices rise is:', ['a menu cost', 'a shoe-leather cost', 'substitution bias', 'hysteresis'], 'Shoe-leather costs are extra errands and transactions.'],
-  [9, 'Which is NOT a function of money?', ['Source of income', 'Medium of exchange', 'Unit of account', 'Store of value'], 'The deck asks whether bitcoin passes all three.']
+  [9, 'Which is NOT a function of money?', ['Source of income', 'Medium of exchange', 'Unit of account', 'Store of value'], 'The deck asks whether bitcoin passes all three.'],
+  [10, 'In economics, "investment" means:', ['spending on new capital that increases future productive capacity', 'buying stocks and bonds', 'putting money in a savings account', 'any purchase expected to rise in value'], 'Stocks are financial assets, which count as saving.'],
+  [10, 'Which is NOT one of the deck\'s three types of investment?', ['Buying shares of Apple', 'Business investment', 'Inventories', 'Housing investment'], 'Financial assets are not investment.'],
+  [10, '$10,000 at 10% for 3 years grows to:', ['$13,310', '$13,000', '$12,100', '$11,000'], 'Compounding: 10,000 x 1.1^3. $13,000 is simple interest.'],
+  [10, 'George needs $35,000 in 8 years and can earn 6%. He must invest today:', ['$21,959.43', '$35,000', '$23,907.72', '$15,000'], '$35,000 / 1.06^8.'],
+  [10, 'Which is better for $15,000: a CD at 6% for 8 years or a bond at 4% for 10 years?', ['The CD ($23,907.72 vs $22,203.66)', 'The bond, because it is longer', 'They are equal', 'Cannot tell without inflation'], 'Compute both future values.'],
+  [10, 'The present value of $1,000 in 2 years at 5% is about:', ['$907', '$952', '$1,103', '$900'], '1,000 / 1.05^2 = 907.03.'],
+  [10, 'User cost of a $200,000 machine with 5% real interest and 15% depreciation:', ['$40,000', '$30,000', '$10,000', '$240,000'], '(0.05 + 0.15) x 200,000.'],
+  [10, 'A machine earns $9,000 next year, r = 4%, d = 8%. The value of that stream is:', ['$75,000', '$9,000', '$108,000', '$112,500'], '9,000 / (0.04 + 0.08).'],
+  [10, 'The Rational Rule for investors says invest when:', ['the yearly revenue is at least the user cost', 'the interest rate is above the depreciation rate', 'the stock market is rising', 'the price of capital is falling'], 'Equivalently, PV of benefits >= cost.'],
+  [10, 'In the loanable funds market, the price is the:', ['interest rate', 'wage', 'CPI', 'price of capital'], 'Savers supply, borrowers demand.'],
+  [10, 'Baby boomers retire and draw down their savings. The loanable funds market:', ['supply shifts left, interest rate rises', 'demand shifts left, rate falls', 'supply shifts right, rate falls', 'demand shifts right, rate rises'], 'Less saving is a supply change.'],
+  [10, 'After 2008, lending standards rose. In your deck this is a:', ['demand shifter: demand shifts left', 'supply shifter: supply shifts right', 'demand shifter: demand shifts right', 'movement along supply'], 'Fewer borrowers qualify.'],
+  [10, 'Demand for A.I. data centers increases. The interest rate:', ['rises as demand shifts right', 'falls as supply shifts right', 'falls as demand shifts left', 'does not change'], 'New opportunities raise demand for funds.'],
+  [10, 'A government budget deficit (more borrowing) tends to:', ['raise the interest rate and crowd out private investment', 'lower the interest rate', 'raise private investment', 'have no effect on loanable funds'], 'The deck lists budget surplus/deficit as a supply shifter: a deficit reduces national saving.'],
+  [10, 'Why does the demand for loanable funds slope down?', ['Lower rates make more projects profitable', 'Lower rates make people save more', 'Higher rates make projects more profitable', 'Banks lend less at low rates'], 'Saving explains supply, not demand.'],
+  [10, 'Which is a reason the deck gives that interest rates could FALL in the future?', ['A global savings glut', 'Boomers drawing down savings', 'Government borrowing', 'A.I. investment demand'], 'The other three push rates up.'],
+  [10, 'Investment is the part of GDP that:', ['fluctuates most during recessions', 'never changes', 'is always the largest', 'includes buying used cars'], 'One reason it matters for fighting recessions.'],
+  [10, 'Your nominal rate is 5%; inflation turns out to be 3% (you expected 2%). Your actual real return:', ['2%', '3%', '5%', '1%'], 'Real = nominal - ACTUAL inflation.']
 ];
 
 const SCENARIOS = [
@@ -1150,6 +1203,64 @@ const LESSONS = {
     '**Interest rates**: the deck\'s interest rate slide is a picture. The standard idea it connects to: **real interest rate ≈ nominal interest rate - inflation**.',
     '**Money** has three functions: **medium of exchange**, **unit of account**, **store of value**. The deck asks: **is bitcoin money?** Test it against all three.'],
     chk: ['Name the three functions of money.', 'Medium of exchange, unit of account, store of value.'] }
+]},
+
+10: { intro: 'Investment is the link between today\'s saving and tomorrow\'s prosperity. You will learn to value future money (compounding and discounting), decide when to build, and use the loanable funds market.', items: [
+  { h: 'What investment is, and why it matters', t: [
+    'The deck opens with the **two most important problems** in macro: **how some countries became rich**, and **how to stop or lessen recessions**. Investment is central to both.',
+    '- What is strongly correlated with **rising wages**? **Investment.** Physical capital makes labor more productive, so more capital per worker (capital intensity) goes with higher labor productivity.',
+    '- What **fluctuates the most during a recession**? **Investment.**',
+    '**Investment** means **resources dedicated to future production**: things that increase productive capacity later. It is **NOT "financial investment"** like stocks. (The slide shows Diego Rivera\'s *Wall Street Banquet*, 1928.) Buying stock is **saving**: it moves ownership, but builds nothing new.',
+    'As we invest, we build the **capital stock**: buildings, machines, animal herds, software. Over time it **depreciates**: houses need repairs, machines need new parts, software becomes obsolete. The capital stock stops growing when investment just equals depreciation.'],
+    tbl: { head: ['Type of investment (deck)', 'What it is'], rows: [['Business investment', 'Spending by businesses on new capital: equipment, structures, and intellectual property (software, R&D)'], ['Inventories', 'Accumulated raw materials, work in progress, and unsold goods (the change was only about $18B)'], ['Housing investment', 'Building or improving houses or apartments']] },
+    exam: 'If the answer choice is a stock, gold, a used car, or money in the bank, it is not investment. New equipment, new buildings (including new rooms on a house), software, and inventories are.',
+    chk: ['Fred pays a contractor to add two rooms to his house. Dan buys $6,800 of gold. Which is investment?', 'Fred: new housing construction. Gold already existed, so buying it is not investment.'] },
+
+  { h: 'Compounding: growing money forward', t: [
+    'Banks exist to connect **savers** (people with cash) with **doers** (people with ideas and time to build). Investment takes time, so we need to compare money at different dates. Two tools: **compounding** and **discounting**.',
+    '**Compounding**: an initial deposit grows because you earn interest on your interest.',
+    '**Future value = PV x (1 + r)^t**'],
+    tbl: { head: ['Year', '$10,000 at 10%'], rows: [['0', '$10,000'], ['1', '$10,000 x 1.1 = $11,000'], ['2', '$11,000 x 1.1 = $12,100'], ['3', '$12,100 x 1.1 = $13,310']] },
+    ex: 'George is saving $15,000 for Will\'s college in ten years. A **CD** pays 6% for 8 years: 15,000 x 1.06^8 = **$23,907.72**. A **government bond** pays 4% for 10 years: 15,000 x 1.04^10 = **$22,203.66**. The CD wins even though it is shorter.',
+    exam: 'Calculator keys: 1.06, then ^ (or y^x), then 8, then x 15,000. Simple interest (adding 10% of the original each year) is the classic wrong answer.',
+    chk: ['$10,000 at 6.75% for 5 years?', '10,000 x 1.0675^5 = about $13,862.'] },
+
+  { h: 'Discounting: bringing money back to today', t: [
+    '**Discounting** is the same formula rearranged: **Present value = FV / (1 + r)^t**. It answers "how much do I need today to have X later?"',
+    'George expects college to cost **$35,000** in total. At 6% for 8 years: 35,000 / 1.06^8 = **$21,959.43**. That is almost **$7,000 more** than the $15,000 he has.',
+    '**Opportunity cost**: tomorrow\'s benefit comes at the cost of today\'s loss, and vice versa. $100 today is worth more than $100 next year, because today\'s $100 could earn interest.',
+    'Two facts to know cold: with a positive interest rate, a future payment is **more** than its present value; and when the interest rate **rises**, present value **falls** (you divide by more).'],
+    exam: 'One year: PV = FV / (1 + r). $110 in a year at 10% is worth $100 today. "What rate makes $100 today equal $115 next year?" is 15%.',
+    chk: ['PV of $2,000 in 4 years at 4%?', '2,000 / 1.04^4 = about $1,710.'] },
+
+  { h: 'When to build: user cost and the Rational Rule', t: [
+    'George is offered a **tractor for $15,000**. It would earn an extra **$2,000 a year**, but that revenue **depreciates 5% a year**. Should he buy it? You could build a spreadsheet, but math gives a simple formula.',
+    '**Value of a stream that shrinks with depreciation: PV = yearly revenue / (r + d)**, where r is the real interest rate and d the depreciation rate.',
+    '**User cost of capital = (r + d) x price of the capital.** It is what it really costs per year to use a machine: the interest you give up plus the wear and tear.',
+    '**Rational Rule for investors: invest if yearly revenue >= user cost**, which is the same as **PV of benefits >= the price**. (The deck says: "You need to know this one!")',
+    'For the tractor: $2,000 / (r + 0.05) >= $15,000 when r is about **8.3% or less**. (The slide\'s interest rate did not come through as text.) At 5%: $2,000 / 0.10 = $20,000 > $15,000, so buy.',
+    '**Why did George Lucas sell Star Wars, and why did Disney buy it?** (The slides are images.) The standard lesson: a sale happens when the buyer values the future profits more than the seller does. Disney paid about $4 billion in 2012.'],
+    exam: 'Practice exam Q56: $500,000 computer, 4% real interest, 4% depreciation: user cost = 0.08 x 500,000 = $40,000. Q102: $15,000 / (0.08 + 0.10) = $83,333, far below the $300,000 cost, so do not invest.',
+    chk: ['Machine costs $100,000, earns $12,000 a year, r = 5%, d = 5%. Invest?', 'User cost = 0.10 x 100,000 = $10,000. Revenue $12,000 >= $10,000, so yes.'] },
+
+  { h: 'The loanable funds market', t: [
+    '**The interest rate is the price of loans.** **Savers are the suppliers**; **borrowers are the demanders**. Equilibrium sets the (real, or "neutral") interest rate.',
+    '**Demand slopes down**: firms and people borrow because they have a project that pays out more than the loan. **Lower interest rates make more projects profitable**, so more is borrowed.',
+    '**Supply slopes up**: if you are not saving, you are spending. The **return on savings is the opportunity cost of spending**, so a **higher interest rate means more saved**.',
+    'Sources of funds for investment: **domestic savings** and **foreign savings**. Dissaving (spending more than income) is funded by borrowing or past savings.'],
+    tbl: { head: ['Shifts SUPPLY (savers)', 'Shifts DEMAND (borrowers)'], rows: [['Personal savings rate', 'Technological advances and new opportunities'], ['Government budget surplus / deficit', 'Expectations'], ['Global shocks', 'Corporate taxes'], ['', 'Lending standards and cash reserves']] },
+    exam: 'First ask: is this about savers or borrowers? Then: more or less? Supply right lowers the rate; demand right raises it. Your deck puts **lending standards on the demand side**.',
+    chk: ['College tuition rises a lot, so households save less. What happens?', 'Supply shifts left: the interest rate rises and the quantity of loans falls.'] },
+
+  { h: 'Shift examples from the deck', t: [
+    '- **Baby boomers begin retiring**: they draw down savings. **Supply shifts left**, the interest rate **rises**.',
+    '- **China\'s economy slows**: Chinese savers look for safe places abroad, adding to the U.S. supply of funds. **Supply shifts right**, the rate **falls**. (My reading of the image-only slide.)',
+    '- **After 2008, lending standards increased**: fewer borrowers qualify. **Demand shifts left**, the rate and quantity **fall**.',
+    '- **The government passes a green energy subsidy**: green projects become more profitable. **Demand shifts right**, the rate **rises**.',
+    '- **Demand for A.I. capacity increases**: **demand shifts right**, the rate **rises**.',
+    '- **A government budget deficit** reduces national saving (supply left), raising the rate and **crowding out** private investment. A surplus does the reverse.',
+    '**The future of interest rates.** They could go **down**: a **savings glut** (a richer world saves more), **less capital-intensive** technology (phones beat supercomputers from 40 years ago), and a **sharing economy** that wastes less capital. Or they could go **up**: **government borrowing crowds out** private investment, **boomers draw down savings**, and **green tech and A.I.** need huge investment.'],
+    chk: ['The government gives a tax credit on funds invested. Which curve, which way?', 'Demand for loanable funds shifts right; the interest rate rises.'] }
 ]}
 };
 
@@ -1251,7 +1362,14 @@ const RAW_TF = [
   [9, `Shrinkflation makes CPI overstate inflation.`, false, `It makes CPI understate inflation if missed.`],
   [9, `Economists prefer PCE over CPI for long-run inflation.`, true, `It handles substitution bias better.`],
   [9, `In nominal terms, Gone with the Wind earned more than The Force Awakens.`, false, `Only in real terms ($4.9B vs $1.3B in 2026 dollars).`],
-  [9, `According to the deck, wages have kept up with and surpassed consumer prices over time.`, true, `And low earners saw the fastest recent growth.`]
+  [9, `According to the deck, wages have kept up with and surpassed consumer prices over time.`, true, `And low earners saw the fastest recent growth.`],
+  [10, `Buying shares of stock is investment in the economic sense.`, false, `It is saving. Investment is spending on new capital.`],
+  [10, `Investment is the part of the economy that fluctuates the most during a recession.`, true, `That is why it matters for fighting recessions.`],
+  [10, `When the interest rate rises, the present value of a future payment rises.`, false, `It falls: you divide by a bigger (1 + r)^t.`],
+  [10, `User cost of capital = (real interest rate + depreciation rate) x price.`, true, `Invest if yearly revenue is at least this.`],
+  [10, `Higher interest rates increase the quantity of loanable funds demanded.`, false, `They decrease it: fewer projects are profitable.`],
+  [10, `Your deck lists lending standards as a demand shifter for loanable funds.`, true, `Tighter standards mean fewer borrowers qualify.`],
+  [10, `Baby boomers drawing down savings tends to push interest rates up.`, true, `Supply of loanable funds shifts left.`]
 ];
 
 // [unit, sentence with ___, accepted answers (lowercase)]
@@ -1323,7 +1441,12 @@ const RAW_CLOZE = [
   [9, `Monthly inflation over 50% is ___.`, [`hyperinflation`]],
   [9, `Same price, smaller package: ___.`, [`shrinkflation`]],
   [9, `Value today = Old value x (CPI today / CPI ___).`, [`then`]],
-  [9, `Money is a medium of exchange, a unit of account, and a store of ___.`, [`value`]]
+  [9, `Money is a medium of exchange, a unit of account, and a store of ___.`, [`value`]],
+  [10, `Future value = PV x (1 + r)^___.`, [`t`]],
+  [10, `Present value = FV / (1 + ___)^t.`, [`r`]],
+  [10, `In the loanable funds market, savers are the ___ and borrowers are the demanders.`, [`suppliers`, `supply`]],
+  [10, `User cost = (r + ___) x price of capital.`, [`d`, `depreciation`]],
+  [10, `Government borrowing that raises interest rates and reduces private investment is called crowding ___.`, [`out`]]
 ];
 
 // [unit, term, short definition]
@@ -1409,7 +1532,13 @@ const RAW_MATCH = [
   [9, `PPI`, `Producer prices, very volatile`],
   [9, `Menu costs`, `Cost of changing prices`],
   [9, `Shoe-leather costs`, `Extra errands to avoid cash`],
-  [9, `TIPS`, `Inflation-protected Treasury bonds`]
+  [9, `TIPS`, `Inflation-protected Treasury bonds`],
+  [10, `Compounding`, `FV = PV x (1 + r)^t`],
+  [10, `Discounting`, `PV = FV / (1 + r)^t`],
+  [10, `User cost`, `(r + d) x price`],
+  [10, `Inventories`, `Unsold goods and work in progress`],
+  [10, `Loanable funds price`, `The interest rate`],
+  [10, `Crowding out`, `Govt borrowing cuts private investment`]
 ];
 
 // units (array), title, buckets, items [text, bucket index]
@@ -1436,7 +1565,9 @@ const RAW_SORTS = [
   { u: [7], title: `Moves along the Solow curve or shifts it up?`, b: [`Moves along (more capital)`, `Shifts it up (efficiency)`], items: [[`Building more factories`, 0], [`Better technology`, 1], [`More machines per worker`, 0], [`Stronger property rights`, 1], [`New production methods`, 1], [`Investing $100B in equipment`, 0]] },
   { u: [8], title: `Frictional, structural, or cyclical?`, b: [`Frictional`, `Structural`, `Cyclical`], items: [[`A graduate spends two months finding the right first job`, 0], [`A recession closes a car plant`, 2], [`A minimum wage above the market wage leaves some teens jobless`, 1], [`A worker quits to look for a better-paying job`, 0], [`Union wages mean more applicants than openings`, 1], [`Restaurants lay off staff during a downturn`, 2], [`Skills mismatch while switching careers`, 0]] },
   { u: [8], title: `In the labor force?`, b: [`Employed`, `Unemployed (U3)`, `Not in the labor force`], items: [[`Works 10 hours a week, wants more`, 0], [`No job, applied to jobs last week`, 1], [`Retired, not looking`, 2], [`Full-time student, not looking`, 2], [`No job, gave up looking 6 months ago`, 2], [`Laid off, interviewing this week`, 1]] },
-  { u: [9], title: `Does it make CPI overstate or understate inflation?`, b: [`Overstate`, `Understate`], items: [[`Phones get much better at the same price`, 0], [`Shrinkflation`, 1], [`A new product appears and gets cheaper fast`, 0], [`People switch from beef to chicken when beef rises`, 0], [`Longer wait times for the same service`, 1], [`Worse customer service`, 1]] }
+  { u: [9], title: `Does it make CPI overstate or understate inflation?`, b: [`Overstate`, `Understate`], items: [[`Phones get much better at the same price`, 0], [`Shrinkflation`, 1], [`A new product appears and gets cheaper fast`, 0], [`People switch from beef to chicken when beef rises`, 0], [`Longer wait times for the same service`, 1], [`Worse customer service`, 1]] },
+  { u: [10], title: `Loanable funds: which curve shifts?`, b: [`Supply right`, `Supply left`, `Demand right`, `Demand left`], items: [[`Households start saving more`, 0], [`Baby boomers draw down savings`, 1], [`Government runs a bigger deficit`, 1], [`A.I. boom creates new projects`, 2], [`Green energy subsidy`, 2], [`Lending standards tighten after a crisis`, 3], [`Corporate taxes rise`, 3], [`Foreign savers send more money to the U.S.`, 0], [`Firms become pessimistic about the future`, 3]] },
+  { u: [10], title: `Investment or not?`, b: [`Investment`, `Not investment`], items: [[`A bakery buys a new oven`, 0], [`A firm writes new software for itself`, 0], [`Unsold cars pile up in inventory`, 0], [`A family builds a new house`, 0], [`You buy Tesla stock`, 1], [`You buy a used car`, 1], [`You buy gold`, 1], [`You deposit money in a savings account`, 1]] }
 ];
 
 // Recall lists: free text typed from memory, matched by keywords. Digits match as whole numbers.
@@ -1464,7 +1595,10 @@ const RAW_LISTS = [
   { u: [8], title: `Three types of unemployment`, items: [[`Frictional`, [`friction`]], [`Structural`, [`structur`]], [`Cyclical`, [`cyclic`]]] },
   { u: [8], title: `What keeps wages above equilibrium`, items: [[`Efficiency wages`, [`efficiency`]], [`Unions`, [`union`]], [`Job protection regulations`, [`protection`, `regulation`, `fire`]], [`Minimum wage laws`, [`minimum`]]] },
   { u: [9], title: `The four price indexes to know`, items: [[`CPI`, [`cpi`, `consumer`]], [`Core PCE`, [`pce`, `personal consumption`]], [`PPI`, [`ppi`, `producer`]], [`GDP deflator`, [`deflator`]]] },
-  { u: [9], title: `Three functions of money`, items: [[`Medium of exchange`, [`exchange`]], [`Unit of account`, [`account`]], [`Store of value`, [`store`, `value`]]] }
+  { u: [9], title: `Three functions of money`, items: [[`Medium of exchange`, [`exchange`]], [`Unit of account`, [`account`]], [`Store of value`, [`store`, `value`]]] },
+  { u: [10], title: `Three types of investment (deck)`, items: [[`Business investment`, [`business`]], [`Inventories`, [`inventor`]], [`Housing investment`, [`hous`, `residential`]]] },
+  { u: [10], title: `Supply shifters for loanable funds`, items: [[`Personal savings rate`, [`saving`]], [`Government budget surplus/deficit`, [`govern`, `budget`, `deficit`, `surplus`]], [`Global shocks`, [`global`, `foreign`]]] },
+  { u: [10], title: `Demand shifters for loanable funds`, items: [[`Technological advances and new opportunities`, [`technolog`, `opportunit`]], [`Expectations`, [`expect`]], [`Corporate taxes`, [`tax`]], [`Lending standards and cash reserves`, [`lending`, `standard`, `reserve`]]] }
 ];
 
 // Memory hooks: t (what it helps you recall), h (the hook), w (what it unpacks to), u (unit)
@@ -1504,10 +1638,13 @@ const HOOKS = [
   { u: 8, t: `Types of unemployment`, h: `Fumbling, Stuck, or Crashed.`, w: `**Frictional**: fumbling between jobs. **Structural**: stuck because wages won't fall. **Cyclical**: the economy crashed.` },
   { u: 8, t: `Unemployed`, h: `No hours, and hunting in the last 4 weeks.`, w: `Both must be true. Stop hunting and you leave the labor force, which can make the official rate fall.` },
   { u: 9, t: `Today's dollars`, h: `New over old.`, w: `Value today = Old value x (**CPI now / CPI then**). The newer CPI goes on top.` },
-  { u: 9, t: `Functions of money`, h: `Money must Move, Measure, and Maintain.`, w: `**Move** (medium of exchange), **measure** (unit of account), **maintain** value (store of value).` }
+  { u: 9, t: `Functions of money`, h: `Money must Move, Measure, and Maintain.`, w: `**Move** (medium of exchange), **measure** (unit of account), **maintain** value (store of value).` },
+  { u: 10, t: `Compounding vs discounting`, h: `Forward, multiply. Back, divide.`, w: `Future value = PV **x** (1 + r)^t. Present value = FV **÷** (1 + r)^t.` },
+  { u: 10, t: `User cost`, h: `Rent + Rot.`, w: `The interest you give up (**r**) plus the wear and tear (**d**), times the price. Invest if yearly revenue covers it.` },
+  { u: 10, t: `Loanable funds sides`, h: `Savers Supply, Doers Demand.`, w: `Saving rate, budget, global shocks move **supply**. Tech, expectations, taxes, lending standards move **demand**.` }
 ];
 
-/* Practice Exam 1 text-only questions. [number, question, options, correct index, explanation] */
+/* Practice exam questions. [number, question, options, correct index, explanation, set ("e2"; Exam 1 has none)] */
 const RAW_EXAM = [
 [2,`Amul Food Factory (ice cream, milk, sugar, electricity, robotic lines, freezers). Which are variable costs? (i) raw milk (ii) buying robotic assembly lines (iii) electricity (iv) buying industrial freezers (v) sugar`,[`(ii) and (iv)`,`(iii) and (v)`,`(i), (iii), and (v)`,`(i), (ii), (iii), and (iv)`],2,`Variable costs change with how much you produce: inputs like milk, electricity, sugar. Machines and freezers are fixed costs.`],
 [3,`Which list has only factors that increase demand?`,[`Fewer consumers; price of a substitute rises; price of a complement falls`,`More side effects; income rises (normal good); price of a substitute falls`,`More congestion; fewer consumers; more popularity`,`Fewer side effects; income rises (normal good); price of a substitute rises`],3,`Fewer side effects (better information), higher income for a normal good, and a pricier substitute all raise demand. Each other list includes at least one factor that lowers demand (fewer consumers, more side effects, a pricier complement).`],
@@ -1632,28 +1769,155 @@ const RAW_EXAM = [
 [148,`Pedro earns $18,000, receives $3,600 in in-kind transfers and a $1,200 EITC. If his income rises to $24,000 he loses the tax credit and $800 of in-kind benefits. His effective marginal tax rate?`,[`11.1%`,`33.0%`,`8.3%`,`41.7%`],1,`Extra income $6,000. Lost benefits $1,200 + $800 = $2,000. $2,000 ÷ $6,000 = 33.3%, closest to 33.0%.`],
 [149,`The interdependence principle says your best choice today depends on all of the following EXCEPT`,[`past decisions you have made`,`other decisions you are currently making`,`decisions others are currently making`,`expectations about the future`],0,`Past decisions are sunk. It looks at current decisions, others' decisions, and expectations.`],
 [150,`Graphically, the equilibrium quantity is the:`,[`quantity at the intersection of demand and the price axis.`,`maximum quantity sellers will sell.`,`quantity at the intersection of the demand and supply curves.`,`maximum quantity buyers will buy`],2,`Where the curves cross.`],
-[152,`In the market for chimichangas (a normal good), equilibrium price and quantity both increased. This can be caused only by:`,[`an increase in the salaries of chimichanga shop workers`,`an increase in the incomes of chimichanga lovers`,`an increase in the price of hamburger meat`,`fewer chimichanga shops`],1,`Price and quantity both up means demand shifted right. Higher income does that for a normal good. Higher worker pay, pricier meat (an input), or fewer shops all shift supply left, which raises price but lowers quantity.`]
+[152,`In the market for chimichangas (a normal good), equilibrium price and quantity both increased. This can be caused only by:`,[`an increase in the salaries of chimichanga shop workers`,`an increase in the incomes of chimichanga lovers`,`an increase in the price of hamburger meat`,`fewer chimichanga shops`],1,`Price and quantity both up means demand shifted right. Higher income does that for a normal good. Higher worker pay, pricier meat (an input), or fewer shops all shift supply left, which raises price but lowers quantity.`],
+["1 (Exam 2)", "A relatively low saving rate affects productivity growth by:", ["limiting the funds available for investment in physical capital.", "decreasing consumption spending and increasing investment in human capital.", "reducing the tax base and preventing the government from providing public goods.", "stimulating imports and increasing the trade deficit."], 0, "Saving supplies the loanable funds that pay for investment. Less saving means less new capital per worker, so productivity grows more slowly.", "e2"],
+["2 (Exam 2)", "Thomas Malthus believed that:", ["technology in food production was the key to economic growth.", "food production would require fewer and fewer resources in the future.", "population growth was the key to economic growth.", "food production would not exceed population growth and that this would lead to continuous subsistence living."], 3, "Malthus predicted population would always catch up with the food supply, keeping people at subsistence. He did not foresee how much technology would raise food production.", "e2"],
+["3 (Exam 2)", "Suppose a lake is overfished until the fish stock is depleted. This is an example of:", ["improper use of fishing equipment.", "a lack of established property rights.", "climate change.", "inadequate labor as a resource."], 1, "When nobody owns the lake, nobody has a reason to save fish for later, so everyone takes as much as they can now (the tragedy of the commons).", "e2"],
+["5 (Exam 2)", "The moral of the story of the Solow growth model is that:", ["capital accumulation is the key to sustained economic growth.", "capital accumulation alone cannot lead to sustainable economic growth.", "human capital growth does not lead to economic growth.", "technological advance cannot sustain continuous economic growth."], 1, "Diminishing returns to capital mean more capital adds less and less. Long-run growth needs better technology (efficiency).", "e2"],
+["6 (Exam 2)", "Assuming a positive interest rate, the dollar amount of a future payment is _____ its present value.", ["exactly the same as", "approximately the same as", "less than", "more than"], 3, "PV = future amount ÷ (1 + r). With r above zero, you divide by more than 1, so the future amount is bigger than its present value.", "e2"],
+["7 (Exam 2)", "(Table: Hypothetical Relationship) Each extra 1% of physical capital per worker raises real GDP per worker by 0.55%, then 0.40%, then 0.35%. This economy is undergoing:", ["increasing returns to physical capital per worker.", "decreasing total productivity.", "constant total productivity.", "diminishing returns to physical capital per worker."], 3, "Output still rises each time, but by less each time. That is diminishing returns.", "e2"],
+["8 (Exam 2)", "What is Uganda's real GDP if its nominal GDP is $27.5 billion (in current US$), and the GDP deflator is 163.4?", ["$12.4 billion", "$44.9 billion", "$16.8 billion", "$27.5 billion"], 2, "Real GDP = nominal GDP ÷ (deflator ÷ 100) = $27.5B ÷ 1.634 = $16.8B.", "e2"],
+["9 (Exam 2)", "Your university installs new computer systems in its labs. Each year, the value of these computers falls due to normal wear and tear. These costs are:", ["real interest rate costs.", "depreciation costs.", "up-front costs.", "the price of tuition."], 1, "Depreciation is the value capital loses each year from wear and tear or becoming outdated.", "e2"],
+["10 (Exam 2)", "Shoe-leather costs are the:", ["effect of inflation on the prices of food, clothing, and other necessities.", "increased cost of transactions due to inflation.", "high price of leather goods.", "effect of inflation on transportation costs."], 1, "Extra trips and transfers people make to avoid holding cash that is losing value.", "e2"],
+["11 (Exam 2)", "Unexpected inflation _____ lenders and _____ borrowers.", ["benefits; hurts", "hurts; benefits", "does not affect; benefits", "benefits; does not affect"], 1, "Loans get repaid in dollars that buy less than expected, so the actual real interest rate is lower than planned. Borrowers win; lenders lose.", "e2"],
+["12 (Exam 2)", "Which factor will NOT increase labor productivity?", ["education", "technological progress", "new capital", "population growth"], 3, "Productivity is output per worker. More people adds workers, but not more output per worker.", "e2"],
+["13 (Exam 2)", "A constant returns to scale production function is one where increasing all inputs by a certain proportion leads to output rising by:", ["a smaller proportion.", "the same proportion.", "exactly double the proportion.", "a larger proportion."], 1, "Double every input, and output doubles exactly.", "e2"],
+["14 (Exam 2)", "If there are 100 million people in the total population, a labor force of 50 million, and 47 million employed workers, the unemployment rate is _____.", ["3%", "6%", "8%", "10%"], 1, "Unemployed = 50 − 47 = 3 million. 3 ÷ 50 = 6%. Divide by the labor force, not the population.", "e2"],
+["15 (Exam 2)", "The government enacts regulation to institute enforceable property rights for business investment. Which input in the production function changes, and what is the effect on economic growth in the country?", ["Human capital is enhanced, and economic growth is positively affected.", "The capital stock increases, and economic growth is positively affected.", "Technology regresses, and economic growth stalls.", "The capital stock decreases, and economic growth is negatively affected."], 1, "Secure property rights make businesses willing to invest, because they know they will keep what they build. More investment builds the capital stock.", "e2"],
+["18 (Exam 2)", "What is the GDP deflator if nominal GDP is $300 billion and real GDP is also $300 billion?", ["50", "0", "100", "300"], 2, "Deflator = nominal ÷ real × 100 = 100. Nominal equals real only in the base year.", "e2"],
+["19 (Exam 2)", "An example of physical capital is a:", ["truck that a company purchases for deliveries.", "worker who physically learns how to drive a truck his company buys.", "truck that a worker buys for personal use.", "radio that a truck driver installs in his truck for entertainment purposes."], 0, "Physical capital is equipment used to produce goods and services. A worker's skill is human capital, and a personal truck is consumption.", "e2"],
+["20 (Exam 2)", "The aggregate production function Y = f(L, H, K) shows that economic growth can occur if: (i) human capital increases. (ii) labor productivity falls. (iii) the capital stock in the country depreciates. (iv) the depreciation rate increases.", ["(i) only", "(i), (ii), (iii), and (iv)", "(iii) only", "(i) and (iv)"], 0, "More H raises output. Falling productivity and more depreciation both lower output.", "e2"],
+["21 (Exam 2)", "All else equal, a nation that has a high rate of _____ will have a high rate of _____ and therefore a high growth rate of _____ capital.", ["investment; savings; human", "savings; investment; natural", "savings; investment; physical", "savings; consumption; physical"], 2, "Saving funds investment, and investment builds physical capital.", "e2"],
+["22 (Exam 2)", "The present value of a $110 payment in one year, given an annual 10% interest rate, is:", ["$10.", "$11.", "$100.", "$110."], 2, "$110 ÷ 1.10 = $100.", "e2"],
+["23 (Exam 2)", "You purchase a certificate of deposit and expect an inflation rate of 1.5% over the next year. Your nominal rate of interest is 2.25%. Over the next year, the actual inflation rate turns out to be 1.75%. What is your actual real rate of return?", ["0.75%", "0.25%", "-0.25%", "0.5%"], 3, "Actual real rate = nominal − ACTUAL inflation = 2.25% − 1.75% = 0.5%. The 0.75% you expected is the trap.", "e2"],
+["24 (Exam 2)", "You are given the choice of receiving $100 today or $115 one year from today. What annual interest rate will make you indifferent between these two choices?", ["5%", "10%", "15%", "20%"], 2, "$100 × (1 + r) = $115, so r = 15%.", "e2"],
+["25 (Exam 2)", "If a country has a working-age population of 200 million, 135 million people with jobs, 10 million people who are unemployed and have given up looking for a job, and 5 million people who are unemployed and seeking employment, then its labor force is _____ million.", ["150", "145", "140", "135"], 2, "Labor force = employed + unemployed AND searching = 135 + 5 = 140. People who gave up are not in the labor force.", "e2"],
+["26 (Exam 2)", "A price index:", ["includes a base year.", "is used to measure the cost of a market basket across different years.", "is normalized so that it equals 100 in the base year.", "All of these answers are true."], 3, "All three describe a price index.", "e2"],
+["28 (Exam 2)", "The menu costs of inflation are the:", ["costs of information search with regards to new inflation rates.", "lost interest earnings when holding cash.", "marginal costs of adjusting prices.", "overall costs of purchasing more inputs at higher prices."], 2, "Menu costs are the costs of changing listed prices.", "e2"],
+["29 (Exam 2)", "An example of protecting against inflation means:", ["holding cash during periods of high inflation.", "making oneself knowledgeable about the costs of inflation.", "purchasing financial investments with returns that are protected against inflation.", "purchasing goods and services only when prices are low."], 2, "For example TIPS. Holding cash is the opposite: it loses value.", "e2"],
+["31 (Exam 2)", "If banks are worried about high default rates and institute new tough lending regulations, then the _____ loanable funds shifts to the _____.", ["supply of; right", "demand for; left", "demand for; right", "supply of; left"], 1, "Your deck lists \"lending standards and cash reserves\" as a DEMAND shifter: tougher standards mean fewer borrowers qualify, so demand shifts left (the deck's 2008 financial crisis example). Some textbooks treat this as supply instead, but go with your professor's slides.", "e2"],
+["32 (Exam 2)", "Which of the following people can be classified as \"unemployed\"?", ["Laura, who has been seeking employment for two months", "Damien, who does not have a job but has not looked for work", "Fred, who is on medical leave from his job", "Jose, who is in the military"], 0, "Unemployed means no job AND looking. Damien is not in the labor force, Fred is employed, and the military is not counted.", "e2"],
+["33 (Exam 2)", "If the population and GDP increase by the same percentage, then real GDP per capita:", ["stays the same.", "increases.", "decreases.", "may change, but one cannot be sure of the direction."], 0, "Top and bottom of GDP ÷ population grow by the same percent, so the ratio does not change.", "e2"],
+["34 (Exam 2)", "(Table: Price Levels) 2011: 221.3, 2012: 227.7, 2013: 232.2, 2014: 234.8. What was the rate of inflation from 2012 to 2013?", ["6.4%", "4.5%", "2.9%", "2.0%"], 3, "(232.2 − 227.7) ÷ 227.7 = 4.5 ÷ 227.7 = 2.0%. 4.5 is the change in points, not the percent.", "e2"],
+["35 (Exam 2)", "If the interest rate is 6% and the average inflation rate is 3.1%, what is the approximate future value of $75,000 in 20 years?", ["$89,743", "$132,852", "$240,535", "$42,340"], 2, "FV = $75,000 × 1.06^20 = $75,000 × 3.207 = $240,535. Inflation is extra information you do not need.", "e2"],
+["36 (Exam 2)", "Which of the following is an investment?", ["Frank buys a used car.", "Fred pays a contractor to add two new rooms to his house.", "Dan purchases $6,800 worth of gold.", "Ben's computer depreciates by 15%."], 1, "New construction is investment (residential). Used goods and gold were already produced, and depreciation is a loss, not spending.", "e2"],
+["37 (Exam 2)", "A group of people moves onto a forested piece of land (which has no established owner), cuts down all the trees, and acquires all the lumber on the land. Thereafter, the land is farmed until all the mineral properties of the soil are depleted. Ultimately, the land becomes a barren desert property. This is an example of:", ["a lack of established property rights leading to the depletion of a resource.", "economic growth from agricultural innovation.", "a lack of human capital leading to a depletion of a resource.", "inadequate capital stock."], 0, "No owner means no one protects the land's future value.", "e2"],
+["38 (Exam 2)", "An example of a frictionally unemployed worker is a(n):", ["autoworker who is temporarily laid off because of a decline in sales.", "geologist who is permanently laid off from an oil company because of a technological advance that makes his job obsolete.", "worker at a fast-food restaurant who quits work to attend college.", "real estate agent who leaves a job in Texas and searches for a similar, higher-paying job in California."], 3, "Frictional = searching for a better match. The autoworker is cyclical, the geologist is structural, and the student left the labor force.", "e2"],
+["40 (Exam 2)", "The production function exhibits _____ returns to _____ capital.", ["increasing; physical", "diminishing; physical", "constant; physical", "increasing; financial"], 1, "Each extra unit of physical capital adds less output than the one before.", "e2"],
+["41 (Exam 2)", "If the interest rate is 4%, what is the approximate present value of $2,000 received in four years?", ["$2,340", "$1,710", "$1,923", "$2,849"], 1, "$2,000 ÷ 1.04^4 = $2,000 ÷ 1.170 = $1,710. $1,923 divides by 1.04 only once.", "e2"],
+["42 (Exam 2)", "Many payments made by the U.S. government—such as Social Security payments—are tied to the consumer price index. To the extent that the index is biased upward, use of the CPI:", ["leads to lower benefits.", "raises government expenditures.", "lowers government expenditures.", "prevents benefit recipients from profiting unfairly from these programs."], 1, "If the CPI overstates inflation, benefits rise faster than real prices, so the government pays more.", "e2"],
+["43 (Exam 2)", "Henry Ford's $5 per day wage led to: (i) an increase in the number of workers willing to work at the Ford plant. (ii) workers who were more dedicated to their work. (iii) unemployment. (iv) lower total labor costs.", ["(i), (ii), (iii), and (iv)", "(ii) and (iii)", "(i), (ii), and (iv)", "(i) and (ii)"], 0, "My best answer, so check your notes: crowds lined up for the jobs (i and iii), workers stayed and worked harder (ii), and lower turnover and higher productivity cut Ford's total labor costs (iv). An efficiency wage above equilibrium creates unemployment.", "e2"],
+["44 (Exam 2)", "Inflation is a:", ["rise in the overall level of prices.", "rise in the economic growth rate.", "decrease in the overall level of prices.", "fall in the quality of a product."], 0, "A falling price level is deflation.", "e2"],
+["45 (Exam 2)", "An increasing return to scale production function is one where increasing all inputs by a certain proportion leads to output rising by:", ["exactly double the proportion.", "the same proportion.", "a smaller proportion.", "a larger proportion."], 3, "Double the inputs, more than double the output.", "e2"],
+["46 (Exam 2)", "The three types of business investment are:", ["business investment, inventories, and housing investment.", "consumption, exports, and imports.", "spending on equipment, structures, and intellectual property.", "rent, depreciation, and real interest."], 2, "Equipment (machines, computers), structures (factories, offices), and intellectual property (software, R&D).", "e2"],
+["47 (Exam 2)", "In the loanable funds market, the demand for loanable funds is negatively sloped because the higher the real interest rate, the:", ["greater the benefits of saving.", "higher the profitability of investment projects.", "smaller the benefits of saving.", "lower the profitability of investment projects."], 3, "Borrowing costs more, so fewer projects are worth doing. (Option A is why supply slopes up.)", "e2"],
+["49 (Exam 2)", "Which of the following is an economic cost of unemployment? (i) Unemployed people often accept lower wages when they eventually find work. (ii) Hysteresis occurs. (iii) The unemployment rate falls. (iv) Children whose parents are unemployed have lower academic outcomes.", ["(iv) only", "(i) and (ii)", "(ii) and (iii)", "(iii) and (iv)"], 1, "Lower future wages and hysteresis (unemployment that lingers because skills and connections fade) are economic costs. (iii) is not a cost at all.", "e2"],
+["50 (Exam 2)", "The price in the loanable funds market is the:", ["wage rate.", "GDP deflator.", "real interest rate.", "consumer price index."], 2, "The real interest rate is the price of borrowing, and the reward for saving.", "e2"],
+["51 (Exam 2)", "Suppose that a CPI basket includes avocadoes, pineapples and oranges. Avocadoes become very expensive, and consumers substitute away from avocadoes and buy hummus instead. If the CPI basket does not change to reflect the move away from avocados, the result is:", ["substitution bias.", "understated inflation.", "the failure to capture real variables versus nominal variables.", "quality bias."], 0, "A fixed basket ignores switching to cheaper goods, so the CPI overstates inflation.", "e2"],
+["53 (Exam 2)", "A fixed nominal interest rate of _____ with _____ inflation will yield the highest real rate of return for a lender.", ["7%; 2%", "9%; 5%", "10%; 7%", "19%; 15%"], 0, "Real = nominal − inflation: 5%, 4%, 3%, 4%. The highest is 7% − 2% = 5%.", "e2"],
+["54 (Exam 2)", "Hyperinflation is:", ["a period of high money growth in an economy.", "extremely high rates of inflation.", "very high rates of economic growth.", "inflation that occurs when the economy is in a recession."], 1, "Cagan's line: more than 50% a month.", "e2"],
+["55 (Exam 2)", "If the interest rate is 6.75%, what is the approximate future value of $10,000 in five years?", ["$13,862", "$11,966", "$10,600", "$7,214"], 0, "$10,000 × 1.0675^5 = $10,000 × 1.386 = $13,862.", "e2"],
+["56 (Exam 2)", "An advanced computer system for a multinational corporation costs $500,000 and is expected to depreciate by 4% at the end of next year. The real interest rate is 4%. What is the user cost of the computer system for one year?", ["$50,000", "$20,000", "$540,000", "$40,000"], 3, "User cost = (real interest rate + depreciation rate) × price = (4% + 4%) × $500,000 = $40,000.", "e2"],
+["60 (Exam 2)", "The labor supply curve is positively sloped because:", ["more people are willing to work at low wages than at high wages.", "more people are willing to work at high wages than at low wages.", "employers are willing to hire more people at low wages than at high wages.", "employers are willing to hire more people at high wages than at low wages."], 1, "Supply is about workers. Option C describes labor demand.", "e2"],
+["61 (Exam 2)", "If the actual inflation rate is less than the expected inflation rate:", ["lenders gain and borrowers lose.", "borrowers gain and lenders lose.", "everyone benefits.", "everyone is worse off."], 0, "The real interest rate turns out higher than expected, so lenders are repaid in more valuable dollars.", "e2"],
+["62 (Exam 2)", "(Table: Population Data for Estill County) Employed 5,000; unemployed and looking 1,000; disability 200; retired 700; discouraged 500; under 16: 2,000; total population 9,400. What is the unemployment rate?", ["64%", "48%", "17%", "6%"], 2, "Labor force = 5,000 + 1,000 = 6,000. 1,000 ÷ 6,000 = 16.7% ≈ 17%. Discouraged workers are not in the labor force.", "e2"],
+["64 (Exam 2)", "How can dissaving in the current period be funded? (i) borrowing from friends (ii) bank loans (iii) previous savings (iv) current income earned", ["(ii), (iii), and (iv)", "(i), (ii), (iii), and (iv)", "(i), (ii), and (iii)", "(ii) and (iii)"], 2, "Dissaving means spending more than your current income, so the extra must come from borrowing or past savings, not current income.", "e2"],
+["65 (Exam 2)", "If the government institutes a tax credit on funds invested, then the _____ loanable funds shifts to the _____.", ["supply of; left", "demand for; left", "demand for; right", "supply of; right"], 2, "An investment tax credit makes projects more profitable, so firms want to borrow more: demand shifts right.", "e2"],
+["66 (Exam 2)", "Which statement about the producer price index is TRUE?", ["The producer price index is just another term for the GDP deflator.", "Changes in the producer price index generally follow changes in the consumer price index.", "The producer price index measures the cost of a basket of goods typically purchased by producers of goods and services.", "The producer price index shows how the cost of all purchases by urban families changes."], 2, "The PPI tracks producers' input prices. It usually moves BEFORE the CPI, not after.", "e2"],
+["67 (Exam 2)", "The CPI changes from 100 to 200. This means that:", ["there is deflation.", "overall prices have doubled.", "the inflation rate has doubled.", "the base year has changed."], 1, "The price level doubled (100% inflation over that period). The inflation rate itself did not double.", "e2"],
+["69 (Exam 2)", "The major difference between the producer price index and the consumer price index is that the producer price index _____, and the consumer price index _____.", ["is based on retail prices; is based on wholesale prices", "measures the cost of living of self-employed workers; measures the cost of living of salaried workers", "generally registers a higher rate of inflation; generally registers a lower rate of inflation", "is based on the cost of a market basket typically purchased by producers; is based on the cost of a market basket typically purchased by consumers"], 3, "Different baskets: producers' inputs vs consumers' purchases.", "e2"],
+["70 (Exam 2)", "In the absence of a minimum wage, efficiency wages, or labor unions, a decline in the demand for labor will likely result in _____ if wages are flexible.", ["higher levels of employment", "no changes in employment", "a lower level of employment but likely no change in the unemployment rate", "a lower level of employment and a higher unemployment rate"], 2, "The wage falls to the new equilibrium. Fewer people work, but those who left chose not to work at the lower wage, so they are not counted as unemployed.", "e2"],
+["71 (Exam 2)", "Which expression MOST accurately describes how to calculate the unemployment rate?", ["(Unemployed / Population) × 100", "(Unemployed / Employed) × 100", "(Unemployed / Labor force) × 100", "[(Unemployed − Employed) / Labor force] × 100"], 2, "Labor force = employed + unemployed.", "e2"],
+["72 (Exam 2)", "The present value of $1 realized one year from now is:", ["$1 / (1 + r).", "$1 × (1 + r).", "1 + r.", "1 / r."], 0, "Divide to bring money back to today. Multiplying by (1 + r) gives the future value.", "e2"],
+["73 (Exam 2)", "Diminishing returns to physical capital mean that as more and more physical capital is combined with a fixed amount of human capital and a fixed technology, eventually:", ["GDP per worker declines.", "GDP per worker grows.", "additions to GDP per worker decline.", "additions to GDP per worker increase."], 2, "GDP per worker still rises, but each addition is smaller.", "e2"],
+["74 (Exam 2)", "Menu costs refer to the increased cost of:", ["food in a time of inflation.", "eating out when inflation increases.", "changing listed prices.", "the minimum wage."], 2, "Reprinting and recalculating prices.", "e2"],
+["75 (Exam 2)", "The catch-up effect would be largest in an economy where:", ["the initial level of capital is high.", "foreign direct investment is not allowed.", "capital accumulation is significant.", "the initial level of capital is low."], 3, "With little capital, each new unit adds a lot (diminishing returns have not kicked in yet), so poor countries can grow faster.", "e2"],
+["77 (Exam 2)", "Suppose a labor market is described by the demand equation, Qd = 60 – 2w, and the supply equation, Qs = –10 + w, where Qd is the quantity demanded of labor, Qs is the quantity supplied of labor, and w is the wage (in dollars). If the government institutes a minimum wage of $25, how many workers will be employed in this market?", ["5,000,000", "zero", "10,000,000", "40,000,000"], 2, "At $25: Qd = 60 − 50 = 10, Qs = −10 + 25 = 15. Employment is the SMALLER of the two (firms hire only 10), so 10 (million). The other 5 are unemployed.", "e2"],
+["78 (Exam 2)", "Cyclical unemployment is a result of _____.", ["recessions and economic downturns", "efficiency wages", "union wages", "the minimum wage"], 0, "The other three cause structural unemployment.", "e2"],
+["79 (Exam 2)", "An increase in the number of marginally attached workers tends to:", ["raise the official unemployment rate.", "lower the official unemployment rate.", "lower the number of people who are frictionally unemployed.", "increase the number of people who are structurally unemployed."], 1, "Marginally attached workers want a job but stopped searching recently, so they are not counted as unemployed. When people move into that group, the official (U-3) rate falls.", "e2"],
+["81 (Exam 2)", "(Table: Peanut Butter and Jelly Prices) A basket of 20 jars of peanut butter and 10 jars of jelly. If 2017 is the base year, what is the value of the price index in 2017?", ["0", "90", "100", "111.25"], 2, "A price index is always 100 in its base year.", "e2"],
+["82 (Exam 2)", "An increase in perceived business opportunities will generally _____ the demand curve for loanable funds.", ["cause a leftward movement along", "cause a leftward shift of", "cause a rightward movement along", "cause a rightward shift of"], 3, "More profitable projects means more borrowing at every interest rate.", "e2"],
+["83 (Exam 2)", "Which statement would shift the production function upward?", ["an increase in the price of oil", "an improvement in technology", "a decrease in the supply of labor", "a decline in the birth rate"], 1, "Technology raises output from the same inputs.", "e2"],
+["84 (Exam 2)", "A binding minimum wage in a labor market is set _____ the equilibrium wage and causes a _____ of job-seekers.", ["below; surplus", "below; shortage", "above; surplus", "above; shortage"], 2, "Above equilibrium, more people want jobs than firms want to fill.", "e2"],
+["85 (Exam 2)", "Which of the following is true about investment and saving?", ["Investment does not depend on the real interest rate, whereas saving does.", "Investment creates new productive capacity, whereas saving does not involve any spending on new capital.", "Investment has the same meaning as saving.", "Investment always exceeds saving in an economy."], 1, "Saving is income not consumed. Investment is spending on new capital.", "e2"],
+["86 (Exam 2)", "A dressmaker's shop doubles in size, buys a second sewing machine, hires a second tailor, buys double the cloth, and then produces 90% more dresses than it did before. The dressmaker is experiencing:", ["constant returns to scale.", "technological advancement.", "increasing returns to scale.", "decreasing returns to scale."], 3, "All inputs up 100%, output up only 90%.", "e2"],
+["87 (Exam 2)", "Someone who must decide whether to receive $100 now or $100 one year from now will probably choose _____, since there is a(n) _____ in waiting to use the money.", ["one year from now; benefit", "now; opportunity cost", "one year from now; opportunity cost", "now; benefit"], 1, "Money now could earn interest, so waiting costs you.", "e2"],
+["88 (Exam 2)", "The capital stock in an economy stops growing when:", ["savings increases in the economy.", "investment equals depreciation.", "depreciation reaches zero.", "capital accumulation begins."], 1, "New capital just replaces what wears out.", "e2"],
+["89 (Exam 2)", "Basket: 50 hamburgers, 10 textbooks, 8 T-shirts, 100 bottles of water. 2016 prices: hamburger $3.60, textbook $95, T-shirt $13, water $1.65. What was the value of the basket in 2016?", ["$5,737", "$100", "$1,400", "$1,337"], 2, "50 × 3.60 + 10 × 95 + 8 × 13 + 100 × 1.65 = 180 + 950 + 104 + 165 = $1,399 ≈ $1,400. ($1,337 is the 2015 value.)", "e2"],
+["90 (Exam 2)", "There is a ____ relationship between the quantity of ____ and the real interest rate.", ["negative; investment spending", "negative; saving", "positive; investment spending", "positive; consumption"], 0, "Higher rates mean less investment (demand slopes down). Saving has a positive relationship.", "e2"],
+["94 (Exam 2)", "Deflation is a:", ["rise in the economic growth rate.", "fall in the quality of a product.", "decrease in the overall level of prices.", "rise in the overall level of prices."], 2, "The opposite of inflation.", "e2"],
+["95 (Exam 2)", "Even if inflation exists, your purchasing power from one period to the next will stay intact if:", ["you do not receive a pay rise.", "your pay rise exactly matches the rate of inflation.", "the rate of inflation is less than 1%.", "you buy the same goods and services that you bought last year."], 1, "Your real wage stays the same.", "e2"],
+["96 (Exam 2)", "Given an annual interest rate of 2%, the present value of a future payment of $1,500 to be paid in one year is:", ["$1,250.55.", "$1,470.59.", "$1,530.", "$1,500."], 1, "$1,500 ÷ 1.02 = $1,470.59. $1,530 multiplies instead of divides.", "e2"],
+["98 (Exam 2)", "If the standard of living rises in a country, we know that:", ["population in that country has increased.", "the cost of living has risen in the country.", "real GDP per person has increased.", "the aggregate production function must have shifted upward."], 2, "Standard of living is measured by real GDP per person. It could rise from more capital, not only an upward shift.", "e2"],
+["100 (Exam 2)", "Anong's credit union charges a fee for transferring funds from her money market account to her checking account. The rate of inflation has been 12% lately, so Anong has transferred funds from her money market account to her checking account more than usual. This cost is an example of the _____ costs of high inflation.", ["unit-of-account", "menu", "shoe-leather", "redistributive"], 2, "Extra transactions to avoid holding cash.", "e2"],
+["101 (Exam 2)", "The working age population includes people who are:", ["age 16 or older.", "age 16 or older who are not in the military or institutionalized.", "not in the military or institutionalized.", "not retired."], 1, "Both conditions: 16+ AND not in the military, prison, or similar institutions.", "e2"],
+["102 (Exam 2)", "Up-front cost: $300,000. Next year's revenue: $15,000. Real interest rate: 8%. Depreciation rate: 10%. What is the present value of the stream of payments from this project?", ["$315,000", "$383,333", "$18,000", "$83,333"], 3, "A stream that shrinks with depreciation is worth payment ÷ (r + d) = $15,000 ÷ (0.08 + 0.10) = $83,333. That is far below the $300,000 cost, so it is a bad investment.", "e2"],
+["103 (Exam 2)", "Investment refers to:", ["spending on financial assets such as stocks.", "spending on physical capital.", "saving money in banks.", "depreciation of capital stocks."], 1, "In economics, buying stocks is saving, not investment.", "e2"],
+["104 (Exam 2)", "A small island: initially 100 people have jobs, 25 are looking, 45 are neither working nor looking. Then 15 of the 45 begin looking, so 40 are looking and 100 working. The unemployment rate:", ["falls to 20%.", "rises to 28.6%.", "rises to 50%.", "Nothing happens to the unemployment rate because these people weren't working before and they aren't working now."], 1, "Before: 25 ÷ 125 = 20%. After: 40 ÷ 140 = 28.6%. Joining the search puts them in the labor force as unemployed.", "e2"],
+["105 (Exam 2)", "Which of these are sources of funds for investment spending? I. domestic savings II. foreign savings III. consumption", ["I only", "II only", "I and II only", "I, II, and III"], 2, "Consumption is spending, so it is not a source of funds.", "e2"],
+["106 (Exam 2)", "Unit-of-account costs:", ["arise from the extra effort people must expend to reduce their holdings of money when inflation is high.", "are costs of changing listed prices of goods and services in response to inflation.", "arise from the way inflation makes money less reliable as unit of measurement.", "are the cost savings associated with holding less money during times of inflation."], 2, "A is shoe-leather, B is menu costs.", "e2"],
+["107 (Exam 2)", "An amount of money that, if deposited now at the prevailing interest rate, would yield a particular future value is the:", ["present value.", "inflation rate.", "discount premium.", "market index."], 0, "The definition of present value.", "e2"],
+["109 (Exam 2)", "(Table: Unemployment and Employment Data, millions) Population 170; employed 95; unemployed and looking 5; discouraged 3; retired 30. The labor force is _____ million.", ["170", "140", "100", "98"], 2, "95 + 5 = 100. Discouraged and retired are out.", "e2"],
+["110 (Exam 2)", "Which of the following correctly shows the steps needed to calculate the inflation rate?", ["Find the total value of the basket of goods and services, assess quality changes from one period to the next, and measure the inflation rate.", "Tally up the cost of the basket of goods and services, subtract the value of goods and services that are no longer counted in the basket, and then calculate the inflation rate.", "Collect prices from the stores where people shop, assess the substitution that people make from low inflation to high inflation products, and calculate the difference in the prices that people pay.", "Find out what people typically buy, collect the prices from the stores where people shop, tally up the cost of the basket of goods and services, and calculate the inflation rate."], 3, "Basket, prices, total cost, percent change.", "e2"],
+["111 (Exam 2)", "Real GDP is calculated by:", ["subtracting national spending from national income.", "adding total income to total expenditure.", "counting the number of items produced in an economy.", "adding all the spending in the economy."], 3, "GDP is the sum of all spending on final goods (C + I + G + NX); real GDP values it at constant prices. This is the closest option; check your notes.", "e2"],
+["112 (Exam 2)", "The present value of a future payment _____ if the _____.", ["decreases; interest rate increases", "increases; future payment decreases", "decreases; interest rate decreases", "increases; stock market falls"], 0, "A higher r means you divide by more, so PV falls.", "e2"],
+["114 (Exam 2)", "One should invest in an opportunity if the:", ["nominal interest rate is equal to the inflation rate.", "present value of the benefits exceeds the present value of the costs.", "present value of the costs exceeds the present value of the benefits.", "inflation rate exceeds the nominal interest rate."], 1, "Cost-benefit principle, with everything in today's dollars.", "e2"],
+["115 (Exam 2)", "In 1971, when the consumer price index was 40.48, men earned a median income of $6,903 per year. If the consumer price index in 2012 was 229.6, how much was $6,903 in 2012 dollars?", ["$39,153.4", "$6,903", "$1,217", "$37,504.6"], 0, "$6,903 × (229.6 ÷ 40.48) = $6,903 × 5.672 = $39,153. New CPI on top.", "e2"],
+["116 (Exam 2)", "A decreasing returns to scale production function is one where increasing all inputs by a certain proportion leads to output rising by:", ["a larger proportion.", "the same proportion.", "exactly double the proportion.", "a smaller proportion."], 3, "Double the inputs, less than double the output.", "e2"],
+["118 (Exam 2)", "Equilibrium in the loanable funds market determines the:", ["point where there is excess demand for loanable funds.", "amount of inventories in an economy.", "up-front cost of capital.", "equilibrium real interest rate."], 3, "Where saving (supply) meets borrowing (demand).", "e2"],
+["119 (Exam 2)", "The consumer price index is an index that tracks the:", ["average price that consumers pay over time for a representative basket of goods and services.", "price that businesses pay over time for the inputs used in the production process.", "highest prices consumers pay over time for imported goods and services.", "price of all goods and services produced domestically."], 0, "B is the PPI and D is the GDP deflator.", "e2"],
+["120 (Exam 2)", "The equilibrium unemployment rate cannot be equal to zero because:", ["of the existence of cyclical unemployment.", "it is the sum of the frictional and structural unemployment rates.", "demand and supply can never reach equilibrium in labor markets.", "of the minimum wage law."], 1, "Even in a healthy economy, people are always searching (frictional) and some wages sit above equilibrium (structural).", "e2"],
+["121 (Exam 2)", "The Great Moderation refers to the:", ["decreased volatility of the U.S. economy.", "longstanding effect of the Great Recession.", "increase in globalization.", "stable level of inflation in the United States."], 0, "Roughly the mid-1980s to 2007, when U.S. output and inflation swung much less than before.", "e2"],
+["122 (Exam 2)", "During periods of high inflation, stores that publish catalogs find it necessary to revise prices and publish new catalogs _____ frequently than they did before. This is an example of _____ costs.", ["more; menu", "less; menu", "more; unit-of-account", "less; unit-of-account"], 0, "Reprinting prices more often.", "e2"],
+["123 (Exam 2)", "Both _____ and _____ may cause structural unemployment.", ["a binding minimum wage; union wages", "a nonbinding minimum wage; union wages", "economic downturns; efficiency wages", "beneficial unemployment insurance benefits; efficiency wages"], 0, "Both hold wages above equilibrium. A nonbinding minimum wage is below equilibrium, so it does nothing, and downturns cause cyclical unemployment.", "e2"],
+["124 (Exam 2)", "When the demand for labor is falling, and employers have committed to high wages, _____ unemployment will result.", ["frictional", "cyclical", "permanent", "structural"], 1, "A drop in labor demand (a downturn) while wages do not fall creates cyclical unemployment. My best reading, so check your notes.", "e2"],
+["125 (Exam 2)", "If the price index in year 1 is 146 and 163 in year 2, the rate of inflation between year 1 and year 2 is:", ["8.2%.", "10.43%.", "11.64%.", "17.0%."], 2, "(163 − 146) ÷ 146 = 17 ÷ 146 = 11.64%. Divide by the OLD index; 10.43% divides by the new one.", "e2"]
 ];
 
 const GAPS = [
-  { h: 'The three principles (and the Rational Rule)', t: [
+  { h: 'Exam 2: formulas for your 3x5 notecard', t: [
+    '**Unemployment rate** = unemployed ÷ labor force x 100. **Labor force** = employed + unemployed (searching). Discouraged and marginally attached workers, retirees, and students are NOT in it.',
+    '**Labor force participation rate** = labor force ÷ working-age population (16+, not military or institutionalized) x 100.',
+    '**Inflation rate** = (new index − old index) ÷ OLD index x 100.',
+    '**Price index** = cost of basket this year ÷ cost in base year x 100 (always 100 in the base year).',
+    '**Today\'s dollars** = old amount x (CPI now ÷ CPI then).',
+    '**Real GDP** = nominal GDP ÷ (deflator ÷ 100). **Deflator** = nominal ÷ real x 100.',
+    '**Real interest rate** = nominal − inflation (use ACTUAL inflation for the actual return).',
+    '**Future value** = PV x (1 + r)^t. **Present value** = FV ÷ (1 + r)^t.',
+    '**Stream that depreciates**: PV = yearly revenue ÷ (r + d). **User cost** = (r + d) x price. Invest if revenue ≥ user cost.',
+    '**Growth rate** = (new − old) ÷ old x 100. **Rule of 70**: years to double ≈ 70 ÷ growth rate.',
+    '**Returns to scale**: double all inputs → output more than doubles (increasing), exactly doubles (constant), less than doubles (decreasing).',
+    '**Minimum wage above equilibrium**: employment = quantity DEMANDED; unemployment = Qs − Qd.'] },
+  { h: 'Exam 2: real vs expected interest and inflation', t: [
+    '**Unexpected inflation** (actual above expected) hurts **lenders** and helps **borrowers**: the actual real rate is lower than planned.',
+    'If actual inflation is **below** expected, the reverse: **lenders gain, borrowers lose**.',
+    'For a lender, the best deal is the highest nominal rate minus inflation: 7% with 2% inflation (5% real) beats 19% with 15% (4%).'] },
+  { h: 'Exam 2: small facts the practice exam tests', t: [
+    '**The Great Moderation**: the decreased volatility of the U.S. economy (about the mid-1980s to 2007).',
+    '**Working-age population**: age 16 or older, not in the military or institutionalized.',
+    '**Equilibrium (natural) unemployment** = frictional + structural, so it is never zero. Cyclical unemployment comes from recessions.',
+    '**Upward-biased CPI** raises government spending, because Social Security and other payments are tied to it.',
+    '**PPI** measures a basket producers buy and tends to move BEFORE the CPI.',
+    '**Flexible wages**: when labor demand falls, employment falls but the unemployment rate likely does not rise (people who leave chose not to work at the lower wage).',
+    '**Henry Ford\'s $5 day**: an efficiency wage. More applicants, more dedicated workers, unemployment (lines outside the plant), and lower turnover costs.'] },
+  { h: 'Exam 1: the three principles (and the Rational Rule)', t: [
     '**Opportunity cost principle:** the true cost of something is the next best thing you give up. The shortcut question is "What else?"',
     '**Cost-benefit principle:** do something only if its benefits are at least its costs. Count financial and nonfinancial items. How a choice is framed should not matter.',
     '**Marginal principle:** make quantity decisions one unit at a time, using cost-benefit on the extra unit. Keep going until **marginal benefit = marginal cost**.',
     '**Interdependence principle:** your best choice depends on your other current decisions, what others are doing, and what you expect in the future. Not on past decisions (sunk).',
     '**Rational Rule for buyers:** buy one more unit if its marginal benefit is at least the price. **For sellers:** sell one more unit if the price is at least the marginal (opportunity) cost.',
     '**Economic surplus:** buyer = willingness to pay − price. Seller = price − cost. A voluntary trade happens when both are positive.'] },
-  { h: 'Costs and production', t: [
+  { h: 'Exam 1: costs and production', t: [
     '**Fixed costs** do not change with output (machines, freezers, rent) and exist even at zero output. **Variable costs** rise with output (milk, sugar, electricity). **Marginal cost** is the extra cost of one more unit, and fixed costs do not affect it.',
     '**Diminishing marginal product:** each extra unit of an input adds less output than the one before. That makes marginal cost rise, which is why supply slopes up.',
     '**Price takers:** sellers in perfect competition sell an identical product and cannot move the market price.'] },
-  { h: 'Macro vocabulary', t: [
+  { h: 'Exam 1: macro vocabulary', t: [
     '**Rule of 70:** years to double ≈ 70 ÷ growth rate (percent).',
     '**Imports** are goods made abroad and bought here. A **transfer payment** moves income from one person to another with nothing produced in exchange. **Stock** in a company is a share of ownership (a bond is the IOU).',
     '**Inventories:** they count as investment. A decrease in inventories is a fall in investment.',
     '**Market value** is the current dollar value, which is what lets GDP add up different goods.',
     '**Median vs mean:** the median is the middle household and barely moves when one very rich person arrives. The mean jumps.'] },
-  { h: 'Poverty facts', t: [
+  { h: 'Exam 1: poverty facts', t: [
     'The U.S. **poverty line** is about three times a low-cost food plan, depends on **family size and composition**, and is **adjusted each year for inflation**. The **poverty rate** is the percent of people below it.',
     '**Absolute** poverty means you cannot meet basic needs. **Relative** poverty means you are poor compared with others. The UN and World Bank use absolute lines.',
     '**Intergenerational mobility:** high mobility means children of poor parents do not stay poor.',
@@ -1678,13 +1942,18 @@ window.COURSE = {
   scenarios: SCENARIOS,
 
   // Countdown in the header. weekday: 0 = Sunday ... 5 = Friday. Or use date: '2026-10-16'.
-  countdown: { weekday: 5, label: 'Friday' },
+  countdown: { date: '2026-11-06', label: 'Exam 2' },
+
+  // Quick-pick unit groups in the unit picker.
+  groups: [
+    { label: 'Exam 2 focus · Units 7–10', units: [7, 8, 9, 10] },
+    { label: 'Exam 1 · Units 1–6', units: [1, 2, 3, 4, 5, 6] }
+  ],
 
   // "What to do today" on Home. day uses the same 0-6 weekday numbers.
   plan: [
-    [3, 'Wednesday', 'Learn Units 1 to 3. Flashcards, then Practice modes for each.'],
-    [4, 'Thursday', 'Learn Units 4 and 5. Shock Lab, then a mixed quiz of all five units.'],
-    [5, 'Friday', 'Practice Exam first, then drill weak spots and Recall lists.']
+    [4, 'Thursday (night before Exam 2)', 'Learn Unit 10 (Investment), the newest unit. Then Practice Exam 2 in Learn mode, 25 at a time. Write your 3x5 notecard from the formula list in the Practice Exam tab.'],
+    [5, 'Friday (Exam 2)', 'Morning: redo your missed Practice Exam 2 questions, then a quick mixed Quiz of Units 7 to 10. Bring your notecard, a calculator (not your phone), and scratch paper.']
   ],
 
   // Study tips shown under the Hooks tab.
@@ -1697,10 +1966,14 @@ window.COURSE = {
   ],
 
   exam: {
+    sets: [
+      { id: 'e2', label: 'Practice Exam 2', intro: 'Exam 2 is Friday: about 40 questions, mostly multiple choice plus some fill in the blank, cumulative but focused on chapters 9, 10, 11, 12, and 14. This is ' + RAW_EXAM.filter(function (q) { return q[5] === 'e2'; }).length + ' of the 125 practice questions. The other ' + (125 - RAW_EXAM.filter(function (q) { return q[5] === 'e2'; }).length) + ' need a graph or table that did not come through as text. The answer key is my own work, not your professor\'s; where I was unsure, the explanation says so. If your notes disagree, trust the notes.' },
+      { id: 'main', label: 'Practice Exam 1', intro: 'The cumulative part of Exam 2. Your Practice Exam 1, ' + RAW_EXAM.filter(function (q) { return !q[5]; }).length + ' of its 155 questions (the rest needed graphs). The answer key is my own work.' }
+    ],
     intro: 'Your Practice Exam 1, ' + RAW_EXAM.length + ' of the 155 questions. The other ' + (155 - RAW_EXAM.length) + ' need a graph or table that did not come through as text, so they are left out. The answer key is my own work, not your professor\'s, so if one of my answers disagrees with your class notes, trust the notes and tell me.',
     questions: RAW_EXAM,
-    gapsTitle: 'Topics on this exam that were not in your slides',
-    gapsNote: 'The practice exam tests these, so they may be on Friday\'s too. Read this before you start.',
+    gapsTitle: 'Notecard formulas and topics not in your slides',
+    gapsNote: 'Your professor allows one 3x5 notecard that you make yourself. The first section lists the formulas worth putting on it; copy them by hand (writing them is part of the studying). The rest are topics the practice exams test that your slides do not cover.',
     gaps: GAPS
   }
 };

@@ -1,5 +1,6 @@
 // Study Gym version. Every update adds one entry to the TOP of this list; the version number is its length.
 window.GYM_CHANGES = [
+  ['2026-11-05', 'Macro: Exam 2 prep. Unit 10 Investment, 102 questions from Practice Exam 2, notecard formula list, countdown to Friday'],
   ['2026-10-28', 'Version number and changelog; Practice Lab questions no longer repeat within 12 hours'],
   ['2026-10-28', 'Business 2025: Endless mode that generates new practice situations'],
   ['2026-10-28', 'Business 2025: Practice Lab with situations, agency math, and Explain It'],
