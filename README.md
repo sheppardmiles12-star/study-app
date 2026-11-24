@@ -57,3 +57,9 @@ See `classes/macro/extras.js` for a full example.
 
 `app/version.js` holds the changelog. Each update adds one entry to the top of `GYM_CHANGES`; the version
 number (shown on the class picker and in each class's header) is the number of entries.
+
+## Offline
+
+The gym works without internet. `sw.js` saves every file (all classes) on the device the first time the
+site loads online, and refreshes that copy whenever a new version is published. On a phone, use
+"Add to Home Screen" to get it as an app (`manifest.webmanifest`, icons in the repo root).
