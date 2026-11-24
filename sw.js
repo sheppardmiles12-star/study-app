@@ -54,7 +54,8 @@ self.addEventListener('fetch', function (e) {
     var done = false;
     function finish(r) { if (!done && r) { done = true; resolve(r); } }
     var timer = setTimeout(function () { saved().then(finish); }, 4000);
-    fetch(req).then(function (r) {
+    // no-cache: always ask the server whether a file changed (GitHub Pages lets browsers reuse files for 10 minutes otherwise).
+    fetch(req, { cache: 'no-cache' }).then(function (r) {
       clearTimeout(timer);
       if (r.ok) { var copy = r.clone(); caches.open(CACHE).then(function (cache) { cache.put(req, copy); }); }
       finish(r);
